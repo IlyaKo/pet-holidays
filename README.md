@@ -2,8 +2,10 @@
 
 Учебный проект для курса OTUS ASP.net 2024-08
 
-### Команда участников:
+## Команда участников:
 
-## Daniel Castro
+### Daniel Castro
 
-## Ilya Kochetkov
+### Ilya Kochetkov
+
+### Pavel Skryabin
