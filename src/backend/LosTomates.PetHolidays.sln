@@ -1,0 +1,49 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.11.35312.102
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LosTomates.PetHolidays.WebApi", "LosTomates.PetHolidays.WebApi\LosTomates.PetHolidays.WebApi.csproj", "{34947862-EAB7-4DA4-881D-9877875EEC6D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LosTomates.PetHolidays.DataAccess", "LosTomates.PetHolidays.DataAccess\LosTomates.PetHolidays.DataAccess.csproj", "{BA24A232-9E2F-452A-982C-2EF5302B9CAA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LosTomates.PetHolidays.Application", "LosTomates.PetHolidays.Application\LosTomates.PetHolidays.Application.csproj", "{FE1DB8DA-97F0-4338-B861-A71BA6A58A8D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LosTomates.PetHolidays.Core", "LosTomates.PetHolidays.Core\LosTomates.PetHolidays.Core.csproj", "{D93FEC93-07A5-4786-B455-6E22D41DD6FD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LosTomates.PetHolidays.Tests", "LosTomates.PetHolidays.Tests\LosTomates.PetHolidays.Tests.csproj", "{A1AFDAD9-6F5B-4A33-A88A-A3640E9A5AC8}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{34947862-EAB7-4DA4-881D-9877875EEC6D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{34947862-EAB7-4DA4-881D-9877875EEC6D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{34947862-EAB7-4DA4-881D-9877875EEC6D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{34947862-EAB7-4DA4-881D-9877875EEC6D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BA24A232-9E2F-452A-982C-2EF5302B9CAA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BA24A232-9E2F-452A-982C-2EF5302B9CAA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BA24A232-9E2F-452A-982C-2EF5302B9CAA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BA24A232-9E2F-452A-982C-2EF5302B9CAA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FE1DB8DA-97F0-4338-B861-A71BA6A58A8D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FE1DB8DA-97F0-4338-B861-A71BA6A58A8D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FE1DB8DA-97F0-4338-B861-A71BA6A58A8D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FE1DB8DA-97F0-4338-B861-A71BA6A58A8D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D93FEC93-07A5-4786-B455-6E22D41DD6FD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D93FEC93-07A5-4786-B455-6E22D41DD6FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D93FEC93-07A5-4786-B455-6E22D41DD6FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D93FEC93-07A5-4786-B455-6E22D41DD6FD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A1AFDAD9-6F5B-4A33-A88A-A3640E9A5AC8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A1AFDAD9-6F5B-4A33-A88A-A3640E9A5AC8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A1AFDAD9-6F5B-4A33-A88A-A3640E9A5AC8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A1AFDAD9-6F5B-4A33-A88A-A3640E9A5AC8}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {54B422D8-9E14-4C75-8A58-E7C6238ECAA9}
+	EndGlobalSection
+EndGlobal
