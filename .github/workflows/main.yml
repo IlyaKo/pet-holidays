@@ -1,0 +1,44 @@
+name: CI
+on:
+   # События, которые запускают jobs
+    push:
+      branches: [ "main" ]
+    pull_request:
+      branches: [ "main" ]
+
+# jobs запускаются параллельно, если не указана последовательность
+jobs:
+    build_job:
+      # Операционная система в виртуальной машине, в которой запускаются процессы
+      runs-on: ubuntu-latest
+      
+      env:
+        DOTNET_VERSION: '8.0.x'
+       
+      steps:
+        # Actions от github: проверяет репозиторий, гит и т.д.
+        - name: Get code
+        - uses: actions/checkout@v3
+
+        - name: Setup .NET
+          uses: actions/setup-dotnet@v3
+          with:
+            dotnet-version: ${{ env.DOTNET_VERSION }}
+
+        - name: Install dependencies
+          run: dotnet restore WebApi
+
+        - name: Build
+          run: dotnet build WebApi --configuration Release --no-restore
+
+        - name: Test
+          run: dotnet test WebApi --configuration Release --no-build
+
+        - name: Run The end
+          run: echo The end!
+
+        # Пример многолинейного скрипта shell
+        # - name: Run a multi-line script
+        # run: |
+        #      echo Add other actions to build,
+        #      echo test, and deploy your project.
