@@ -1,0 +1,6 @@
+@LosTomates.PetHolidays.WebApi_HostAddress = http://localhost:5292
+
+GET {{LosTomates.PetHolidays.WebApi_HostAddress}}/api/admin/ping
+Accept: application/json
+
+###

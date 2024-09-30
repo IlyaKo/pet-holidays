@@ -1,0 +1,14 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\LosTomates.PetHolidays.Core\LosTomates.PetHolidays.Core.csproj" />
+    <ProjectReference Include="..\LosTomates.PetHolidays.DataAccess\LosTomates.PetHolidays.DataAccess.csproj" />
+  </ItemGroup>
+
+</Project>
