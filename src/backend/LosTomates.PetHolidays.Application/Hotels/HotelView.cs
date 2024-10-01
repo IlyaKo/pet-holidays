@@ -8,9 +8,15 @@ public sealed class HotelView
 
     public string Name { get; set; } = string.Empty;
 
+    public string? Description { get; set; }
+
+    public bool IsActive { get; set; }
+
     public HotelView(Hotel source)
     {
         Id = source.Id;
         Name = source.Name;
+        Description = source.Description;
+        IsActive = source.IsActive;
     }
 }
