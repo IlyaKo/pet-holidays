@@ -6,25 +6,17 @@ on:
     pull_request:
       branches: [ "main" ]
     workflow_dispatch:
-      inputs:
-        environment:
-          type: environment
-          default: DEV
-          required: true
 
 # jobs запускаются параллельно, если не указана последовательность
 jobs:
     build_job:
       # Операционная система в виртуальной машине, в которой запускаются процессы
       runs-on: ubuntu-latest
-      
-      env:
-        DOTNET_VERSION: '8.0.x'
        
       steps:
         # Actions от github: проверяет репозиторий, гит и т.д.
         - name: Get code
-        - uses: actions/checkout@v3
+        - uses: actions/checkout@v4
 
         - name: Setup .NET
           uses: actions/setup-dotnet@v3
@@ -42,9 +34,3 @@ jobs:
 
         - name: Run The end
           run: echo The end!
-
-        # Пример многолинейного скрипта shell
-        # - name: Run a multi-line script
-        # run: |
-        #      echo Add other actions to build,
-        #      echo test, and deploy your project.
