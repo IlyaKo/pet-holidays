@@ -1,6 +1,5 @@
 name: CI
 on:
-   # События, которые запускают jobs
     push:
       branches: [ "main" ]
     pull_request:
@@ -9,28 +8,26 @@ on:
 
 # jobs запускаются параллельно, если не указана последовательность
 jobs:
-    build_job:
-      # Операционная система в виртуальной машине, в которой запускаются процессы
+   build_job:
       runs-on: ubuntu-latest
-       
+      
       steps:
-        # Actions от github: проверяет репозиторий, гит и т.д.
-        - name: Get code
-        - uses: actions/checkout@v4
-
-        - name: Setup .NET
-          uses: actions/setup-dotnet@v3
-          with:
-            dotnet-version: ${{ env.DOTNET_VERSION }}
-
-        - name: Install dependencies
-          run: dotnet restore WebApi
-
-        - name: Build
-          run: dotnet build WebApi --configuration Release --no-restore
-
-        - name: Test
-          run: dotnet test WebApi --configuration Release --no-build
-
-        - name: Run The end
-          run: echo The end!
+         - name: Get code
+         - uses: actions/checkout@v4
+         
+         - name: Setup .NET
+           uses: actions/setup-dotnet@v4
+           with:
+              dotnet-version: ${{ env.DOTNET_VERSION }}
+         
+         - name: Install dependencies
+           run: dotnet restore WebApi
+         
+         - name: Build
+           run: dotnet build WebApi --configuration Release --no-restore
+         
+         - name: Test
+           run: dotnet test WebApi --configuration Release --no-build
+         
+         - name: Run The end
+           run: echo The end!
