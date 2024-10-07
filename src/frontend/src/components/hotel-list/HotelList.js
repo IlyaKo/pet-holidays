@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
+import "./HotelList.css";
 
 function HotelList() {
   const [hotels, setHotels] = useState([]);
@@ -21,6 +22,7 @@ function HotelList() {
   return (
     <div>
       <h2>Hotels</h2>
+      <hr />
       <ul>
         {hotels.map((hotel) => (
           <li key={hotel.id}>
