@@ -1,9 +1,9 @@
 name: CI
 on:
     push:
-      branches: [ "main" ]
+      branches: [ "main", "develop" ]
     pull_request:
-      branches: [ "main" ]
+      branches: [ "main", "develop" ]
     workflow_dispatch:
 
 # jobs запускаются параллельно, если не указана последовательность
@@ -21,13 +21,13 @@ jobs:
               dotnet-version: ${{ env.DOTNET_VERSION }}
          
          - name: Install dependencies
-           run: dotnet restore WebApi
+           run: dotnet restore pet-holidays
          
          - name: Build
-           run: dotnet build WebApi --configuration Release --no-restore
+           run: dotnet build pet-holidays --configuration Release --no-restore
          
          - name: Test
-           run: dotnet test WebApi --configuration Release --no-build
+           run: dotnet test pet-holidays --configuration Release --no-build
          
          - name: Run The end
            run: echo The end!
