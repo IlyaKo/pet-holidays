@@ -6,7 +6,6 @@ on:
       branches: [ "main", "develop" ]
     workflow_dispatch:
 
-# jobs запускаются параллельно, если не указана последовательность
 jobs:
    build_job:
       runs-on: ubuntu-latest
@@ -22,12 +21,15 @@ jobs:
          
          - name: Install dependencies
            run: dotnet restore
+           working-directory: src/backend/LosTomates.PetHolidays
          
          - name: Build
            run: dotnet build --configuration Release --no-restore
-         
+           working-directory: src/backend/LosTomates.PetHolidays
+           
          - name: Test
            run: dotnet test --configuration Release --no-build
-         
+           working-directory: src/backend/LosTomates.PetHolidays
+           
          - name: Run The end
            run: echo The end!
