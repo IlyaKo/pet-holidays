@@ -24,10 +24,10 @@ jobs:
            run: dotnet restore
          
          - name: Build
-           run: dotnet build pet-holidays --configuration Release --no-restore
+           run: dotnet build --configuration Release --no-restore
          
          - name: Test
-           run: dotnet test pet-holidays --configuration Release --no-build
+           run: dotnet test --configuration Release --no-build
          
          - name: Run The end
            run: echo The end!
