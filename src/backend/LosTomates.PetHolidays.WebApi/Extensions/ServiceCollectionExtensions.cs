@@ -28,7 +28,7 @@ internal static class ServiceCollectionExtensions
 
     internal static IServiceCollection AddDatabaseContext(this IServiceCollection services, IConfiguration configuration)
     {
-        var connectionString = configuration.GetConnectionString("CoreDb");
+        var connectionString = configuration.GetConnectionString("CoreDbDocker");
         if (string.IsNullOrWhiteSpace(connectionString))
             throw new ApplicationException("An environment variable named ConnectionStrings__CoreDb is not set");
 
