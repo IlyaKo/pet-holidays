@@ -1,5 +1,6 @@
 import HotelList from "../hotel-list/HotelList";
 import "./App.css";
+import "bulma/css/bulma.min.css";
 
 function App() {
   return (
