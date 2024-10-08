@@ -25,13 +25,13 @@ public class Program
         services.AddAuthorization();
         services.AddApplicationServices();
         services.AddDatabaseContext(configuration);
+        services.AddCors();
         services.AddSwagger();
     }
 
     // Configure the HTTP request pipeline.
     private static void ConfigurePipeline(WebApplication app)
     {
-
         if (app.Environment.IsDevelopment())
         {
             app.UseSwagger();
@@ -39,7 +39,9 @@ public class Program
         }
 
         app.UseAuthorization();
-
+        app.UseCors(options => options.AllowAnyOrigin()
+                                      .AllowAnyHeader()
+                                      .AllowAnyMethod());
         app.MapApplicationEndpoints();
     }
 
