@@ -1,3 +1,4 @@
+using LosTomates.PetHolidays.DataAccess.DataSeed;
 using LosTomates.PetHolidays.WebApi.Extensions;
 
 namespace LosTomates.PetHolidays.WebApi;
@@ -12,6 +13,7 @@ public class Program
 
         var app = builder.Build();
 
+        SeedData(app.Services);
         ConfigurePipeline(app);
 
         app.Run();
@@ -22,6 +24,7 @@ public class Program
     {
         services.AddAuthorization();
         services.AddApplicationServices();
+        services.AddDatabaseContext(configuration);
         services.AddSwagger();
     }
 
@@ -38,5 +41,15 @@ public class Program
         app.UseAuthorization();
 
         app.MapApplicationEndpoints();
+    }
+
+    // Migrate and add testing data to the database if necessary.
+    private static void SeedData(IServiceProvider services)
+    {
+        using var scope = services.CreateScope();
+        var seedService = scope.ServiceProvider.GetRequiredService<SeedService>();
+
+        seedService.ApplyMigrations();
+        seedService.SeedData();
     }
 }

@@ -1,34 +1,17 @@
 version: '3.9'
 
 services:
-  petholidays-webapi:
-    container_name: petholidays-webapi
-    build:
-      context: .
-      dockerfile: Dockerfile
-    ports:
-      - "8080:80"
-    environment:
-      - ASPNETCORE_ENVIRONMENT=Development
-    depends_on:
-      - postgres
-
-  postgres:
-    image: postgres:latest
+  db:
     container_name: postgres
+    image: postgres
+    restart: always
     environment:
-      POSTGRES_USER: root
-      POSTGRES_PASSWORD: root
-      POSTGRES_DB: petholidays_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: PetHolidaysCore 
     ports:
-      - "5432:5432"
+      - '5433:5432'
     volumes:
-      - postgres_data:/var/lib/postgresql/data
-    networks:
-      - pet-holidays-network
-networks:
-  pet-holidays-network:
-    driver: bridge
-
+      - db-data:/var/lib/postgresql/data
 volumes:
-  postgres_data:
+  db-data:
