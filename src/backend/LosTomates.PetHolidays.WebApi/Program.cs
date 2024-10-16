@@ -7,11 +7,11 @@ public class Program
 {
     public static void Main(string[] args)
     {
-        var builder = WebApplication.CreateBuilder(args);
+        WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
         AddServices(builder.Services, builder.Configuration);
 
-        var app = builder.Build();
+        WebApplication app = builder.Build();
 
         SeedData(app.Services);
         ConfigurePipeline(app);
@@ -25,6 +25,7 @@ public class Program
         services.AddAuthorization();
         services.AddApplicationServices();
         services.AddDatabaseContext(configuration);
+        services.AddFluentValidation();
         services.AddCors();
         services.AddSwagger();
     }
@@ -48,8 +49,8 @@ public class Program
     // Migrate and add testing data to the database if necessary.
     private static void SeedData(IServiceProvider services)
     {
-        using var scope = services.CreateScope();
-        var seedService = scope.ServiceProvider.GetRequiredService<SeedService>();
+        using IServiceScope scope = services.CreateScope();
+        SeedService seedService = scope.ServiceProvider.GetRequiredService<SeedService>();
 
         seedService.ApplyMigrations();
         seedService.SeedData();
