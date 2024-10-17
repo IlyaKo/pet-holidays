@@ -1,0 +1,62 @@
+https://dbdiagram.io/d
+
+Table Users {
+  ID int [pk, increment] // Primary key, auto-incremented
+  Name varchar(100)
+  UserType varchar(50) // Admin, HotelOwner, PetOwner
+  Email varchar(100)
+  Password varchar(100)
+  Phone varchar(20)
+  RegistrationDate datetime
+}
+
+Table Hotels {
+  ID int [pk, increment] // Primary key, auto-incremented
+  Name varchar(100)
+  Location varchar(100)
+  Description text
+  OwnerID int [ref: > Users.ID] // Foreign key, references Users
+  Rating decimal(2,1)
+}
+
+Table Reviews {
+  ID int [pk, increment] // Primary key, auto-incremented
+  HotelID int [ref: > Hotels.ID] // Foreign key, references Hotels
+  UserID int [ref: > Users.ID] // Foreign key, references Users
+  ReviewText text
+  Rating decimal(2,1)
+  ReviewDate datetime
+}
+
+Table Bookings {
+  ID int [pk, increment] // Primary key, auto-incremented
+  UserID int [ref: > Users.ID] // Foreign key, references Users (Pet Owners)
+  HotelID int [ref: > Hotels.ID] // Foreign key, references Hotels
+  CheckInDate datetime
+  CheckOutDate datetime
+  BookingStatus varchar(50) // Created, Confirmed, Cancelled
+}
+
+Table Chats {
+  ID int [pk, increment] // Primary key, auto-incremented
+  HotelID int [ref: > Hotels.ID] // Foreign key, references Hotels
+  UserID int [ref: > Users.ID] // Foreign key, references Users (Pet Owners)
+  MessageText text
+  MessageDate datetime
+}
+
+Table Files {
+  ID int [pk, increment] // Primary key, auto-incremented
+  UserID int [ref: > Users.ID] // Foreign key, references Users
+  FileName varchar(255)
+  FilePath varchar(255)
+  UploadDate datetime
+}
+
+Table Notifications {
+  ID int [pk, increment] // Primary key, auto-incremented
+  UserID int [ref: > Users.ID] // Foreign key, references Users
+  NotificationText text
+  NotificationDate datetime
+  ReadStatus boolean // True = Read, False = Unread
+}
