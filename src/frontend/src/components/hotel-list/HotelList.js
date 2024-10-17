@@ -17,23 +17,21 @@ function HotelList() {
       });
   }, []);
 
-  if (error) return <div>Error: {error.message}</div>;
-
   return (
     <div>
-      <h2>Hotels</h2>
+      <h2 className="title m-4">Hotels</h2>
       <hr />
-      <ul>
+      {error && <div> Error: {error.message} </div>}
+      <div className="container is-fluid">
         {hotels.map((hotel) => (
-          <li key={hotel.id}>
-            <b>{hotel.name}</b>
-            <br />
-            <span> {hotel.description} </span>
-            <br />
-            <br />
-          </li>
+          <div className="card" key={hotel.id}>
+            <header className="card-header">
+              <p class="card-header-title ml-2 ">{hotel.name}</p>
+            </header>
+            <div className="card-content">{hotel.description}</div>
+          </div>
         ))}
-      </ul>
+      </div>
     </div>
   );
 }
