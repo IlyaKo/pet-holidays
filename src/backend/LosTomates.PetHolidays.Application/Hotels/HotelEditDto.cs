@@ -8,3 +8,4 @@ public sealed record HotelEditDto
 
     public bool IsActive { get; init; }
 }
+

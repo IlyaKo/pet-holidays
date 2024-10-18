@@ -1,5 +1,4 @@
-﻿using FluentValidation;
-using LosTomates.PetHolidays.Application.Hotels;
+﻿using LosTomates.PetHolidays.Application.Hotels;
 
 namespace LosTomates.PetHolidays.WebApi.Endpoints;
 
@@ -7,9 +6,9 @@ public static class HotelEndpoints
 {
     public static void Map(WebApplication app)
     {
-        RouteGroupBuilder mapGroup = app.MapGroup("api/hotels")
-                                        .WithTags("Hotel management")
-                                        .WithOpenApi();
+        var mapGroup = app.MapGroup("api/hotels")
+                          .WithTags("Hotel management")
+                          .WithOpenApi();
 
         mapGroup.MapGet(string.Empty, async (IHotelService service) => await service.GetAll())
                 .WithSummary("Get list of hotels")
@@ -18,11 +17,7 @@ public static class HotelEndpoints
 
         mapGroup.MapGet("{hotelId:int}", async (IHotelService service, int hotelId) =>
         {
-            bool isValid = hotelId >= 0; 
-            if(!isValid)
-                throw new ValidationBadRequest($"Недопустимый идентификатор {hotelId}");
-
-            HotelView? entityView = await service.GetById(hotelId);
+            var entityView = await service.GetById(hotelId);
             if (entityView is null)
                 return Results.NotFound("Can't find a record with the id " + hotelId);
             else
@@ -33,37 +28,20 @@ public static class HotelEndpoints
         .Produces<int>(StatusCodes.Status200OK)
         .Produces(StatusCodes.Status404NotFound);
 
-        mapGroup.MapPost(string.Empty, async (IHotelService service, IValidator<HotelEditDto> validateService, HotelEditDto dto) =>
-        {
-            //IValidator<HotelEditDto> validateService = app.Services.GetService<IValidator<HotelEditDto>>();
-            FluentValidation.Results.ValidationResult validationResult = validateService.Validate(dto);
-            if(!validationResult.IsValid)
-                throw new ValidationBadRequest(validationResult);
-            return await service.Create(dto);
-        })
-        .WithSummary("Create a new hotel")
-        .WithDescription("Return an id of a created hotel")
-        .Produces<HotelView>(StatusCodes.Status200OK);
+        mapGroup.MapPost(string.Empty, async (IHotelService service, HotelEditDto dto) => await service.Create(dto))
+                .WithSummary("Create a new hotel")
+                .WithDescription("Return an id of a created hotel")
+                .Produces<HotelView>(StatusCodes.Status200OK);
 
-        mapGroup.MapPut("{hotelId:int}", async (IHotelService service, IValidator<HotelEditDto> validateService, int hotelId, HotelEditDto dto) => 
-        {
-            FluentValidation.Results.ValidationResult validationResult = validateService.Validate(dto);
-            if(!validationResult.IsValid)
-                throw new ValidationBadRequest(validationResult);
-            await service.Update(hotelId, dto);
-        })
+        mapGroup.MapPut("{hotelId:int}", async (IHotelService service, int hotelId, HotelEditDto dto)
+            => await service.Update(hotelId, dto))
         .WithSummary("Update a hotel record")
         .Produces(StatusCodes.Status200OK)
         .Produces(StatusCodes.Status404NotFound);
 
-        mapGroup.MapDelete("{hotelId:int}", async (IHotelService service, int hotelId) => 
-        {
-            bool isValid = hotelId >= 0; 
-            if(!isValid)
-                throw new ValidationBadRequest($"Недопустимый идентификатор {hotelId}");
-            await service.Delete(hotelId);
-        })
-        .WithSummary("Delete a hotel record")
-        .Produces(StatusCodes.Status200OK);
+        mapGroup.MapDelete("{hotelId:int}", async (IHotelService service, int hotelId) => await service.Delete(hotelId))
+                .WithSummary("Delete a hotel record")
+                .Produces(StatusCodes.Status200OK);
     }
 }
+
