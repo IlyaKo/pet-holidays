@@ -30,7 +30,9 @@ public class Program
         services.AddSwagger();
 
         services.AddProblemDetails();
+
         services.AddExceptionHandler<NotFoundExceptionHandler>();
+        services.AddExceptionHandler<BusinessLogicExceptionHandler>();
 
     }
 
