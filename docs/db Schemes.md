@@ -1,8 +1,8 @@
  # Database Schema
 
  [See the scheme here: ](https://dbdiagram.io/e/67193a6397a66db9a309aaf1/67193ac397a66db9a309b565).
+![db Schemes](https://github.com/user-attachments/assets/711e4d67-d2a5-44c4-8058-b5c7f5147b08)
 
- ![Database Schema](db Schemes.svg)
 
  ```sql
 
