@@ -1,5 +1,8 @@
-https://dbdiagram.io/d
+ # Database Schema
 
+ [dbdiagram.io](https://dbdiagram.io/e/67193a6397a66db9a309aaf1/67193ac397a66db9a309b565).
+
+ ```sql
 
 Table Users {
   ID int [pk, increment] // Primary key, auto-incremented
@@ -109,3 +112,4 @@ Table Notifications {
   NotificationDate datetime
   ReadStatus boolean // True = Read, False = Unread
 }
+ ```
