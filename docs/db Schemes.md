@@ -1,6 +1,8 @@
  # Database Schema
 
- [dbdiagram.io](https://dbdiagram.io/e/67193a6397a66db9a309aaf1/67193ac397a66db9a309b565).
+ [See the scheme here: ](https://dbdiagram.io/e/67193a6397a66db9a309aaf1/67193ac397a66db9a309b565).
+
+ ![Database Schema](db Schemes.svg)
 
  ```sql
 
