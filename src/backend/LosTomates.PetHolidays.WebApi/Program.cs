@@ -1,5 +1,6 @@
 using LosTomates.PetHolidays.DataAccess.DataSeed;
 using LosTomates.PetHolidays.WebApi.Extensions;
+using LosTomates.PetHolidays.WebApi.Middleware;
 
 namespace LosTomates.PetHolidays.WebApi;
 
@@ -27,11 +28,19 @@ public class Program
         services.AddDatabaseContext(configuration);
         services.AddCors();
         services.AddSwagger();
+
+        services.AddProblemDetails();
+
+        services.AddExceptionHandler<NotFoundExceptionHandler>();
+        services.AddExceptionHandler<BusinessLogicExceptionHandler>();
+
     }
 
     // Configure the HTTP request pipeline.
     private static void ConfigurePipeline(WebApplication app)
     {
+        app.UseExceptionHandler();
+
         if (app.Environment.IsDevelopment())
         {
             app.UseSwagger();
