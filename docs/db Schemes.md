@@ -1,26 +1,38 @@
  # Database Schema
 
- [See the scheme here: ](https://dbdiagram.io/e/67193a6397a66db9a309aaf1/67193ac397a66db9a309b565).
-![db Schemes](https://github.com/user-attachments/assets/711e4d67-d2a5-44c4-8058-b5c7f5147b08)
+[See the scheme here: ](https://dbdiagram.io/e/67193a6397a66db9a309aaf1/67193ac397a66db9a309b565)
+![db Schemes](https://github.com/user-attachments/assets/fdd9edad-88fa-497b-9215-ffd9b1cd2581)
 
 
  ```sql
 
+
 Table Users {
   ID int [pk, increment] // Primary key, auto-incremented
-  Name varchar(100)
-  UserType int [ref: > Roles.RoleID]  // Admin, HotelOwner, PetOwner
+  Name varchar(100) // Admin, HotelOwner, PetOwner
   Email varchar(100)
   Password varchar(100)
   Phone varchar(20)
   RegistrationDate datetime
 }
 
+Table UserRoles{
+  RoleId int [ref: > Roles.ID]
+  UserId int [ref: > Users.ID]
+}
+
 Table Roles {
-  RoleID int [pk, increment] // Primary key, auto-incremented
+  ID int [pk, increment] // Primary key, auto-incremented
   RoleName varchar(50) [unique] // rol name
   Description varchar(255) 
 }
+
+Table Permissions{
+  ID in [pk, increment]
+  RoleId int [ref: > Roles.ID]
+  Description varchar(255)  
+}![Untitled (1)](https://github.com/user-attachments/assets/68d4f4fd-3fd4-436e-82b4-09dcaa6116bc)
+
 
 Table Hotels {
   ID int [pk, increment] // Primary key, auto-incremented
