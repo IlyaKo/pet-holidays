@@ -1,6 +1,6 @@
 ﻿using System.Runtime.Serialization;
 
-namespace LosTomates.PetHolidays.WebApi;
+namespace LosTomates.PetHolidays.Application;
 
 public class ValidationBadRequest : Exception
 {

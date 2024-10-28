@@ -1,4 +1,4 @@
-﻿namespace LosTomates.PetHolidays.WebApi;
+﻿namespace LosTomates.PetHolidays.Application;
 using FluentValidation;
 using FluentValidation.Results;
 using LosTomates.PetHolidays.Application.Hotels;
@@ -11,6 +11,7 @@ public class HotelEditDtoValidator : AbstractValidator<HotelEditDto>
         string message = "Ошибка в поле {PropertyName}: значение {PropertyValue}";
 
         RuleFor(customer => customer.Name).NotNull()
+                                          .NotEmpty()
                                           .MaximumLength(DatabaseConstrains.NameMaxLength)
                                           .WithMessage(message);
         RuleFor(customer => customer.Description).MaximumLength(DatabaseConstrains.DescriptionMaxLength)

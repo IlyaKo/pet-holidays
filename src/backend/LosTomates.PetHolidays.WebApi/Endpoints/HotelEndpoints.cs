@@ -1,5 +1,4 @@
-﻿using FluentValidation;
-using LosTomates.PetHolidays.Application.Hotels;
+﻿using LosTomates.PetHolidays.Application.Hotels;
 
 namespace LosTomates.PetHolidays.WebApi.Endpoints;
 
@@ -18,10 +17,6 @@ public static class HotelEndpoints
 
         mapGroup.MapGet("{hotelId:int}", async (IHotelService service, int hotelId) =>
         {
-            bool isValid = hotelId >= 0; 
-            if(!isValid)
-                throw new ValidationBadRequest($"Недопустимый идентификатор {hotelId}");
-
             HotelView? entityView = await service.GetById(hotelId);
             if (entityView is null)
                 return Results.NotFound("Can't find a record with the id " + hotelId);
@@ -33,23 +28,16 @@ public static class HotelEndpoints
         .Produces<int>(StatusCodes.Status200OK)
         .Produces(StatusCodes.Status404NotFound);
 
-        mapGroup.MapPost(string.Empty, async (IHotelService service, IValidator<HotelEditDto> validateService, HotelEditDto dto) =>
+        mapGroup.MapPost(string.Empty, async (IHotelService service, HotelEditDto dto) =>
         {
-            //IValidator<HotelEditDto> validateService = app.Services.GetService<IValidator<HotelEditDto>>();
-            FluentValidation.Results.ValidationResult validationResult = validateService.Validate(dto);
-            if(!validationResult.IsValid)
-                throw new ValidationBadRequest(validationResult);
             return await service.Create(dto);
         })
         .WithSummary("Create a new hotel")
         .WithDescription("Return an id of a created hotel")
         .Produces<HotelView>(StatusCodes.Status200OK);
 
-        mapGroup.MapPut("{hotelId:int}", async (IHotelService service, IValidator<HotelEditDto> validateService, int hotelId, HotelEditDto dto) => 
+        mapGroup.MapPut("{hotelId:int}", async (IHotelService service, int hotelId, HotelEditDto dto) => 
         {
-            FluentValidation.Results.ValidationResult validationResult = validateService.Validate(dto);
-            if(!validationResult.IsValid)
-                throw new ValidationBadRequest(validationResult);
             await service.Update(hotelId, dto);
         })
         .WithSummary("Update a hotel record")
@@ -58,9 +46,6 @@ public static class HotelEndpoints
 
         mapGroup.MapDelete("{hotelId:int}", async (IHotelService service, int hotelId) => 
         {
-            bool isValid = hotelId >= 0; 
-            if(!isValid)
-                throw new ValidationBadRequest($"Недопустимый идентификатор {hotelId}");
             await service.Delete(hotelId);
         })
         .WithSummary("Delete a hotel record")

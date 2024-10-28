@@ -3,6 +3,8 @@ using LosTomates.PetHolidays.DataAccess;
 using LosTomates.PetHolidays.DataAccess.DataSeed;
 using Microsoft.EntityFrameworkCore;
 using FluentValidation;
+using System.Reflection;
+using LosTomates.PetHolidays.Application;
 
 namespace LosTomates.PetHolidays.WebApi.Extensions;
 
@@ -40,8 +42,7 @@ internal static class ServiceCollectionExtensions
 
     internal static IServiceCollection AddFluentValidation(this IServiceCollection services)
     {
-        //services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
-        services.AddSingleton<IValidator<HotelEditDto>,  HotelEditDtoValidator>();
+        services.AddValidatorsFromAssembly(typeof(HotelEditDtoValidator).Assembly);
         return services;
     }
 }
