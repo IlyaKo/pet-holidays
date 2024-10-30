@@ -1,6 +1,8 @@
 ﻿using LosTomates.PetHolidays.Core.Domain.Hotels;
 using LosTomates.PetHolidays.Core.Exceptions;
 using LosTomates.PetHolidays.DataAccess;
+using Mapster;
+using MapsterMapper;
 using Microsoft.EntityFrameworkCore;
 
 namespace LosTomates.PetHolidays.Application.Hotels;
@@ -8,23 +10,24 @@ namespace LosTomates.PetHolidays.Application.Hotels;
 public sealed class HotelService : IHotelService
 {
     private readonly ApplicationDbContext dbContext;
+    private readonly IMapper _mapper;
 
-    public HotelService(ApplicationDbContext dbContext)
+    public HotelService(ApplicationDbContext dbContext, IMapper mapper)
     {
         this.dbContext = dbContext;
+        _mapper = mapper;
     }
 
     public async Task<IReadOnlyList<HotelView>> GetAll()
-        => await dbContext.Hotels
-                          .Where(x => x.IsActive)
-                          .Select(x => new HotelView(x))
-                          .ToListAsync();
+        => _mapper.Map<List<HotelView>>(await dbContext.Hotels.Where(x => x.IsActive).ToListAsync());
 
     public async Task<HotelView?> GetById(int entityId)
-        => await dbContext.Hotels
-                          .Where(x => x.Id == entityId)
-                          .Select(x => new HotelView(x))
-                          .FirstOrDefaultAsync();
+    {
+        var entity = await FindEntityById(entityId)
+                 ?? throw new NotFoundException("hotel", entityId.ToString());
+
+        return _mapper.Map<HotelView>(entity);
+    }
 
     public async Task<int> Create(HotelEditDto dto)
     {

@@ -1,3 +1,4 @@
+using LosTomates.PetHolidays.Application.Mapping;
 using LosTomates.PetHolidays.DataAccess.DataSeed;
 using LosTomates.PetHolidays.WebApi.Extensions;
 using LosTomates.PetHolidays.WebApi.Middleware;
@@ -25,6 +26,7 @@ public class Program
     {
         services.AddAuthorization();
         services.AddApplicationServices();
+        services.AddMappings();
         services.AddDatabaseContext(configuration);
         services.AddCors();
         services.AddSwagger();
