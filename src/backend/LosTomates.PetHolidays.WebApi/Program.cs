@@ -1,4 +1,4 @@
-using LosTomates.PetHolidays.Application.Mapping;
+using LosTomates.PetHolidays.Application.Extensions;
 using LosTomates.PetHolidays.DataAccess.DataSeed;
 using LosTomates.PetHolidays.WebApi.Extensions;
 using LosTomates.PetHolidays.WebApi.Middleware;

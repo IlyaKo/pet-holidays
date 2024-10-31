@@ -1,6 +1,4 @@
-﻿using LosTomates.PetHolidays.Core.Domain.Hotels;
-
-namespace LosTomates.PetHolidays.Application.Hotels;
+﻿namespace LosTomates.PetHolidays.Application.Hotels;
 
 public sealed class HotelView
 {

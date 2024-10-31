@@ -2,7 +2,6 @@
 using LosTomates.PetHolidays.Core.Exceptions;
 using LosTomates.PetHolidays.DataAccess;
 using Mapster;
-using MapsterMapper;
 using Microsoft.EntityFrameworkCore;
 
 namespace LosTomates.PetHolidays.Application.Hotels;
@@ -10,35 +9,32 @@ namespace LosTomates.PetHolidays.Application.Hotels;
 public sealed class HotelService : IHotelService
 {
     private readonly ApplicationDbContext dbContext;
-    private readonly IMapper _mapper;
 
-    public HotelService(ApplicationDbContext dbContext, IMapper mapper)
+    public HotelService(ApplicationDbContext dbContext)
     {
         this.dbContext = dbContext;
-        _mapper = mapper;
     }
 
     public async Task<IReadOnlyList<HotelView>> GetAll()
-        => _mapper.Map<List<HotelView>>(await dbContext.Hotels.Where(x => x.IsActive).ToListAsync());
+        => await dbContext.Hotels
+                  .Where(x => x.IsActive)
+                  .ProjectToType<HotelView>()
+                  .ToListAsync();
 
     public async Task<HotelView?> GetById(int entityId)
     {
         var entity = await FindEntityById(entityId)
-                 ?? throw new NotFoundException("hotel", entityId.ToString());
+                 ?? throw new NotFoundException(nameof(Hotel), entityId.ToString());
 
-        return _mapper.Map<HotelView>(entity);
+        return entity.Adapt<HotelView>();
     }
 
     public async Task<int> Create(HotelEditDto dto)
     {
-        var entity = new Hotel
-        {
-            Name = dto.Name,
-            Description = dto.Description,
-            IsActive = dto.IsActive
-        };
+        var entity = dto.Adapt<Hotel>();
 
         dbContext.Add(entity);
+
         await dbContext.SaveChangesAsync();
 
         return entity.Id;
@@ -47,11 +43,9 @@ public sealed class HotelService : IHotelService
     public async Task Update(int entityId, HotelEditDto dto)
     {
         var entity = await FindEntityById(entityId)
-                  ?? throw new NotFoundException("hotel", entityId.ToString());
+                  ?? throw new NotFoundException(nameof(Hotel), entityId.ToString());
 
-        entity.Name = dto.Name;
-        entity.Description = dto.Description;
-        entity.IsActive = dto.IsActive;
+        dto.Adapt(entity);
 
         await dbContext.SaveChangesAsync();
     }
