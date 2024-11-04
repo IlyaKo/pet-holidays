@@ -1,4 +1,11 @@
 services:
+  petholidays-frontend:
+    container_name: petholidays-frontend
+    build:
+      context: .
+      dockerfile: frontend/Dockerfile 
+    ports:
+      - "80:80"  
   petholidays-webapi:
     container_name: petholidays-webapi
     build:
