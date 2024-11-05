@@ -1,4 +1,5 @@
 ﻿using LosTomates.PetHolidays.Core.Domain.Hotels;
+using LosTomates.PetHolidays.Core.Domain.Users;
 
 namespace LosTomates.PetHolidays.DataAccess.DataSeed;
 
@@ -34,6 +35,28 @@ public static class FakeData
             IsActive = true,
             Description = "A luxurious getaway for your furry friends, offering spacious suites, gourmet meals, and plenty of playtime. Our dedicated staff ensures every guest feels right at home."
         },
+
+    ];
+
+    public static List<User> Users { get; } = [
+        new()
+        {
+            Id = 1,
+            Name = "Patata",
+            Email = "patata@pat.com",
+            Phone = "+79296224167",
+            Password = "Password", //use hex256
+            CreatedDate = DateTime.Now
+        },
+        new()
+        {
+            Id = 2,
+            Name = "Tomate",
+            Email = "Tomate@tom.com",
+            Phone = "+79395324168",
+            Password = "Password2", //use hex256
+            CreatedDate = DateTime.Now
+        }
 
     ];
 }
