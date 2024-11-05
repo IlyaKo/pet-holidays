@@ -39,7 +39,7 @@ public static class UserEndPoints
         .Produces(StatusCodes.Status200OK)
         .Produces(StatusCodes.Status404NotFound);
 
-        mapGroup.MapDelete("{hotelId:int}", async (IUserService service, int hotelId) => await service.Delete(hotelId))
+        mapGroup.MapDelete("{UserId:int}", async (IUserService service, int userId) => await service.Delete(userId))
                 .WithSummary("Delete a user record")
                 .Produces(StatusCodes.Status200OK);
     }

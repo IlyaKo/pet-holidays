@@ -8,6 +8,7 @@ internal static class WebApplicationBuilderExtensions
     {
         AdminEndpoints.Map(app);
         HotelEndpoints.Map(app);
+        UserEndPoints.Map(app);
 
         return app;
     }

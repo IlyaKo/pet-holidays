@@ -35,7 +35,7 @@ public sealed class UserService : IUserService
             Email = dto.Email,
             Phone = dto.Phone,
             Password = dto.Password,
-            CreatedDate = DateTime.Now,
+            CreatedDate = DateTime.UtcNow,
         };
 
         dbContext.Add(entity);

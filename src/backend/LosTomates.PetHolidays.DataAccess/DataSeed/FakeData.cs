@@ -46,7 +46,7 @@ public static class FakeData
             Email = "patata@pat.com",
             Phone = "+79296224167",
             Password = "Password", //use hex256
-            CreatedDate = DateTime.Now
+            CreatedDate = DateTime.UtcNow
         },
         new()
         {
@@ -55,7 +55,7 @@ public static class FakeData
             Email = "Tomate@tom.com",
             Phone = "+79395324168",
             Password = "Password2", //use hex256
-            CreatedDate = DateTime.Now
+            CreatedDate = DateTime.UtcNow
         }
 
     ];
