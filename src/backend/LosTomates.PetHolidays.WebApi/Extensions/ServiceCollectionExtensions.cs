@@ -30,7 +30,7 @@ internal static class ServiceCollectionExtensions
 
     internal static IServiceCollection AddDatabaseContext(this IServiceCollection services, IConfiguration configuration)
     {
-        string? connectionString = configuration.GetConnectionString("CoreDb");
+        var connectionString = configuration.GetConnectionString("CoreDb");
         if (string.IsNullOrWhiteSpace(connectionString))
             throw new ApplicationException("An environment variable named ConnectionStrings__CoreDb is not set");
 

@@ -8,15 +8,8 @@ public class HotelEditDtoValidator : AbstractValidator<HotelEditDto>
 {
     public HotelEditDtoValidator()
     {
-        string message = "Ошибка в поле {PropertyName}: значение {PropertyValue}";
-
-        RuleFor(customer => customer.Name).NotNull()
-                                          .NotEmpty()
-                                          .MaximumLength(DatabaseConstrains.NameMaxLength)
-                                          .WithMessage(message);
-        RuleFor(customer => customer.Description).MaximumLength(DatabaseConstrains.DescriptionMaxLength)
-                                                 .When(v => !string.IsNullOrEmpty(v.Description))
-                                                 .WithMessage(message);
+        RuleFor(customer => customer.Name).MaximumLength(DatabaseConstrains.NameMaxLength);  
+        RuleFor(customer => customer.Description).MaximumLength(DatabaseConstrains.DescriptionMaxLength); 
     }
 
     public override ValidationResult Validate(ValidationContext<HotelEditDto> context)
