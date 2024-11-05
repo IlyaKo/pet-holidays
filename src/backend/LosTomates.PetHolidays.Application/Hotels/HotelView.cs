@@ -1,6 +1,4 @@
-﻿using LosTomates.PetHolidays.Core.Domain.Hotels;
-
-namespace LosTomates.PetHolidays.Application.Hotels;
+﻿namespace LosTomates.PetHolidays.Application.Hotels;
 
 public sealed class HotelView
 {
@@ -11,12 +9,4 @@ public sealed class HotelView
     public string? Description { get; set; }
 
     public bool IsActive { get; set; }
-
-    public HotelView(Hotel source)
-    {
-        Id = source.Id;
-        Name = source.Name;
-        Description = source.Description;
-        IsActive = source.IsActive;
-    }
 }

@@ -1,6 +1,7 @@
 ﻿using LosTomates.PetHolidays.Core.Domain.Hotels;
 using LosTomates.PetHolidays.Core.Exceptions;
 using LosTomates.PetHolidays.DataAccess;
+using Mapster;
 using Microsoft.EntityFrameworkCore;
 
 namespace LosTomates.PetHolidays.Application.Hotels;
@@ -16,26 +17,24 @@ public sealed class HotelService : IHotelService
 
     public async Task<IReadOnlyList<HotelView>> GetAll()
         => await dbContext.Hotels
-                          .Where(x => x.IsActive)
-                          .Select(x => new HotelView(x))
-                          .ToListAsync();
+                  .Where(x => x.IsActive)
+                  .ProjectToType<HotelView>()
+                  .ToListAsync();
 
     public async Task<HotelView?> GetById(int entityId)
-        => await dbContext.Hotels
-                          .Where(x => x.Id == entityId)
-                          .Select(x => new HotelView(x))
-                          .FirstOrDefaultAsync();
+    {
+        var entity = await FindEntityById(entityId)
+                 ?? throw new NotFoundException(nameof(Hotel), entityId.ToString());
+
+        return entity.Adapt<HotelView>();
+    }
 
     public async Task<int> Create(HotelEditDto dto)
     {
-        var entity = new Hotel
-        {
-            Name = dto.Name,
-            Description = dto.Description,
-            IsActive = dto.IsActive
-        };
+        var entity = dto.Adapt<Hotel>();
 
         dbContext.Add(entity);
+
         await dbContext.SaveChangesAsync();
 
         return entity.Id;
@@ -44,11 +43,9 @@ public sealed class HotelService : IHotelService
     public async Task Update(int entityId, HotelEditDto dto)
     {
         var entity = await FindEntityById(entityId)
-                  ?? throw new NotFoundException("hotel", entityId.ToString());
+                  ?? throw new NotFoundException(nameof(Hotel), entityId.ToString());
 
-        entity.Name = dto.Name;
-        entity.Description = dto.Description;
-        entity.IsActive = dto.IsActive;
+        dto.Adapt(entity);
 
         await dbContext.SaveChangesAsync();
     }
