@@ -8,8 +8,9 @@ public class HotelEditDtoValidator : AbstractValidator<HotelEditDto>
 {
     public HotelEditDtoValidator()
     {
-        RuleFor(customer => customer.Name).MaximumLength(DatabaseConstrains.NameMaxLength);  
-        RuleFor(customer => customer.Description).MaximumLength(DatabaseConstrains.DescriptionMaxLength); 
+        RuleFor(customer => customer.Name).Length(2, DatabaseConstrains.NameMaxLength);
+        RuleFor(customer => customer.Description).MaximumLength(DatabaseConstrains.DescriptionMaxLength)
+                                                 .When(v => !string.IsNullOrEmpty(v.Description));
     }
 
     public override ValidationResult Validate(ValidationContext<HotelEditDto> context)
