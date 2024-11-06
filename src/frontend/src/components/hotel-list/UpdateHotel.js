@@ -39,6 +39,7 @@ function UpdateHotel({ hotel, onUpdate }) {
             onChange={(e) => setName(e.target.value)}
             required
             placeholder="Enter hotel name"
+            autoComplete="off"
           />
         </div>
       </div>
@@ -52,6 +53,7 @@ function UpdateHotel({ hotel, onUpdate }) {
             onChange={(e) => setDescription(e.target.value)}
             required
             placeholder="Enter hotel description"
+            autoComplete="off"
           />
         </div>
       </div>
