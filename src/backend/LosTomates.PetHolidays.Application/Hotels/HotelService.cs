@@ -9,22 +9,22 @@ namespace LosTomates.PetHolidays.Application.Hotels;
 
 public sealed class HotelService : IHotelService
 {
-    private readonly ApplicationDbContext _dbContext;
+    private readonly ApplicationDbContext dbContext;
 
-    private readonly IValidator<HotelEditDto> _validateService;
+    private readonly IValidator<HotelEditDto> validateService;
 
     public HotelService(ApplicationDbContext dbContext, IValidator<HotelEditDto> validateService)
     {
-        _dbContext = dbContext;
-        _validateService = validateService;
+        this.dbContext = dbContext;
+        this.validateService = validateService;
     }
 
     public async Task<IReadOnlyList<HotelView>> GetAll()
     {
-        return await _dbContext.Hotels
-                               .Where(x => x.IsActive)
-                               .Select(x => new HotelView(x))
-                               .ToListAsync();
+        return await dbContext.Hotels
+                              .Where(x => x.IsActive)
+                              .ProjectToType<HotelView>()
+                              .ToListAsync();
     }
 
     public async Task<HotelView?> GetById(int entityId)
@@ -33,39 +33,35 @@ public sealed class HotelService : IHotelService
         if(!isValid)
             throw new ValidationBadRequest($"Недопустимый идентификатор {entityId}");
 
-        return await _dbContext.Hotels
-                               .Where(x => x.Id == entityId)
-                               .Select(x => new HotelView(x))
-                               .FirstOrDefaultAsync();
+        var entity = await FindEntityById(entityId)
+                  ?? throw new NotFoundException(nameof(Hotel), entityId.ToString());
+
+        return entity.Adapt<HotelView>();
     }
 
     public async Task<int> Create(HotelEditDto dto)
     {
-        _validateService.ValidateAndThrow(dto);
+        validateService.ValidateAndThrow(dto);
 
-        Hotel entity = new Hotel
-        {
-            Name = dto.Name,
-            Description = dto.Description,
-            IsActive = dto.IsActive
-        };
+        var entity = dto.Adapt<Hotel>();
 
-        _dbContext.Add(entity);
-        await _dbContext.SaveChangesAsync();
+        dbContext.Add(entity);
+
+        await dbContext.SaveChangesAsync();
 
         return entity.Id;
     }
 
     public async Task Update(int entityId, HotelEditDto dto)
     {
-        _validateService.ValidateAndThrow(dto);
+        validateService.ValidateAndThrow(dto);
 
-        Hotel entity = await FindEntityById(entityId) ?? throw new NotFoundException("hotel", entityId.ToString());
-
+        var entity = await FindEntityById(entityId)
+                  ?? throw new NotFoundException(nameof(Hotel), entityId.ToString());
 
         dto.Adapt(entity);
 
-        await _dbContext.SaveChangesAsync();
+        await dbContext.SaveChangesAsync();
     }
 
     public async Task Delete(int entityId)
@@ -74,13 +70,13 @@ public sealed class HotelService : IHotelService
         if(!isValid)
             throw new ValidationBadRequest($"Недопустимый идентификатор {entityId}");
 
-        Hotel? entity = await FindEntityById(entityId);
+        var entity = await FindEntityById(entityId);
 
         if (entity is null)
             return;
 
-        _dbContext.Remove(entity);
-        await _dbContext.SaveChangesAsync();
+        dbContext.Remove(entity);
+        await dbContext.SaveChangesAsync();
     }
 
     private async Task<Hotel?> FindEntityById(int entityId)
@@ -89,6 +85,6 @@ public sealed class HotelService : IHotelService
         if(!isValid)
             throw new ValidationBadRequest($"Недопустимый идентификатор {entityId}");
 
-        return await _dbContext.Hotels.FirstOrDefaultAsync(x => x.Id == entityId);
+        return await dbContext.Hotels.FirstOrDefaultAsync(x => x.Id == entityId);
     }
 }
