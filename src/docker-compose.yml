@@ -1,4 +1,5 @@
 services:
+
   petholidays-frontend:
     container_name: petholidays-frontend
     build:
@@ -6,6 +7,7 @@ services:
       dockerfile: frontend/Dockerfile 
     ports:
       - "80:80"  
+
   petholidays-webapi:
     container_name: petholidays-webapi
     build:
@@ -20,6 +22,7 @@ services:
       - postgres
     networks:
       - pet-holidays-network 
+
   postgres:
     image: postgres:latest
     container_name: postgres
@@ -33,6 +36,7 @@ services:
       - postgres_data:/var/lib/postgresql/data
     networks:
       - pet-holidays-network
+
 networks:
   pet-holidays-network:
     driver: bridge
