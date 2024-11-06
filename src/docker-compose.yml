@@ -1,9 +1,18 @@
 services:
+
+  petholidays-frontend:
+    container_name: petholidays-frontend
+    build:
+      context: .
+      dockerfile: frontend/Dockerfile 
+    ports:
+      - "80:80"  
+
   petholidays-webapi:
     container_name: petholidays-webapi
     build:
       context: .
-      dockerfile: LosTomates.PetHolidays.WebApi/Dockerfile 
+      dockerfile: backend/LosTomates.PetHolidays.WebApi/Dockerfile 
     ports:
       - "5001:8080"
     environment:
@@ -13,6 +22,7 @@ services:
       - postgres
     networks:
       - pet-holidays-network 
+
   postgres:
     image: postgres:latest
     container_name: postgres
@@ -26,6 +36,7 @@ services:
       - postgres_data:/var/lib/postgresql/data
     networks:
       - pet-holidays-network
+
 networks:
   pet-holidays-network:
     driver: bridge

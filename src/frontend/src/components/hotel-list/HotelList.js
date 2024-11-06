@@ -9,7 +9,7 @@ function HotelList() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:5292/api/hotels/")
+      .get("http://localhost:5001/api/hotels/")
       .then((response) => {
         setHotels(response.data);
       })
