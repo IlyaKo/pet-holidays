@@ -1,4 +1,5 @@
-import { useState, useEffect } from "react";
+import { React, useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import axios from "axios";
 import "./HotelList.css";
 
@@ -8,7 +9,7 @@ function HotelList() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:5292/api/hotels/")
+      .get("http://localhost:5001/api/hotels/")
       .then((response) => {
         setHotels(response.data);
       })
@@ -17,24 +18,22 @@ function HotelList() {
       });
   }, []);
 
-  if (error) return <div>Error: {error.message}</div>;
-
   return (
-    <div>
-      <h2>Hotels</h2>
-      <hr />
-      <ul>
+    <>
+      {error && <div> Error: {error.message} </div>}
+      <div className="container is-fluid">
         {hotels.map((hotel) => (
-          <li key={hotel.id}>
-            <b>{hotel.name}</b>
-            <br />
-            <span> {hotel.description} </span>
-            <br />
-            <br />
-          </li>
+          <div className="card" key={hotel.id}>
+            <Link to={`/hotels/${hotel.id}`}>
+              <header className="card-header">
+                <p class="card-header-title ml-2 ">{hotel.name}</p>
+              </header>
+              <div className="card-content">{hotel.description}</div>
+            </Link>
+          </div>
         ))}
-      </ul>
-    </div>
+      </div>
+    </>
   );
 }
 

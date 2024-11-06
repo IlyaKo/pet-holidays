@@ -2,6 +2,7 @@
 using LosTomates.PetHolidays.Core.Domain.Hotels;
 using LosTomates.PetHolidays.Core.Exceptions;
 using LosTomates.PetHolidays.DataAccess;
+using Mapster;
 using Microsoft.EntityFrameworkCore;
 
 namespace LosTomates.PetHolidays.Application.Hotels;
@@ -61,9 +62,8 @@ public sealed class HotelService : IHotelService
 
         Hotel entity = await FindEntityById(entityId) ?? throw new NotFoundException("hotel", entityId.ToString());
 
-        entity.Name = dto.Name;
-        entity.Description = dto.Description;
-        entity.IsActive = dto.IsActive;
+
+        dto.Adapt(entity);
 
         await _dbContext.SaveChangesAsync();
     }
