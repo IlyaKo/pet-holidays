@@ -7,11 +7,11 @@ public class Program
 {
     public static void Main(string[] args)
     {
-        WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
+        var builder = WebApplication.CreateBuilder(args);
 
         AddServices(builder.Services, builder.Configuration);
 
-        WebApplication app = builder.Build();
+        var app = builder.Build();
 
         SeedData(app.Services);
         ConfigurePipeline(app);

@@ -6,9 +6,9 @@ public static class HotelEndpoints
 {
     public static void Map(WebApplication app)
     {
-        RouteGroupBuilder mapGroup = app.MapGroup("api/hotels")
-                                        .WithTags("Hotel management")
-                                        .WithOpenApi();
+        var mapGroup = app.MapGroup("api/hotels")
+                          .WithTags("Hotel management")
+                          .WithOpenApi();
 
         mapGroup.MapGet(string.Empty, async (IHotelService service) => await service.GetAll())
                 .WithSummary("Get list of hotels")
