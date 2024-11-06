@@ -1,44 +1,18 @@
-.button-container {
+.buttons {
     display: flex; 
     gap: 10px; /* Отступ между кнопками */
     margin-left: 20px;
+    padding-bottom: 20px;
   }
   
-  .button.is-update {
-    background-color: #4CAF50; 
-    color: white; 
-  }
-  
-  .button.is-update:hover {
-    background-color: #45a049; 
-  }
-
-  .box {
-    margin: 20px 0; 
-  }
-  
-  .title.is-4 {
-    margin-bottom: 20px; /* Отступ снизу для заголовка */
-  }
-
 /* Для кнопки Add Hotel */
-.button.is-add {
+.button.is-primary {
   width: 200px;
   display: block;
   margin-left: 0; 
   margin-top: 20px; 
   margin-bottom: 20px; 
-  background-color: #007bff;  
-  color: black;              
+         
   font-weight: bold;         
 }
 
-
-/* Для формы добавления отеля */
-form.box {
-  margin-top: 20px;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  transition: all 0.3s ease;
-}

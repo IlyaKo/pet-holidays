@@ -73,72 +73,47 @@ function HotelList() {
     <>
 
       {error && <div>Error: {error.message}</div>}
-
-
-      <div className="container is-fluid">
-
+      <div class="container is-fluid">
         {/* Кнопка для отображения формы добавления отеля */}
-        <button
-          onClick={() => setIsFormVisible(!isFormVisible)}
-          className="button is-add is-fullwidth mt-5"
-        >
-          {isFormVisible ? "Cancel" : "Add Hotel"}
-        </button>
+        <button onClick={() => setIsFormVisible(!isFormVisible)} class="button is-primary is-fullwidth"> {isFormVisible ? "Cancel" : "Add Hotel"} </button>
 
         {/* Форма для добавления нового отеля */}
         {isFormVisible && (
-          <form onSubmit={handleAddHotel} className="box mt-4">
-            <h2 className="title is-4">Add New Hotel</h2>
-            <div className="field">
-              <label className="label" htmlFor="name">Hotel Name</label>
-              <div className="control">
-                <input
-                  className="input"
-                  type="text"
-                  id="name"
-                  value={newHotelName}
-                  onChange={(e) => setNewHotelName(e.target.value)}
-                  required
-                  placeholder="Enter hotel name"
-                  autoComplete="off"
-                />
+          <form onSubmit={handleAddHotel} class="box">
+            <h2 class="title is-4">Add New Hotel</h2>
+
+            <div class="field">
+              <label class="label"> Hotel Name </label>
+              <div class="control">
+                <input class="input"  value={newHotelName} onChange={(e) => setNewHotelName(e.target.value)} required placeholder="Enter hotel name"/>
               </div>
             </div>
-            <div className="field">
-              <label className="label" htmlFor="description">Hotel Description</label>
-              <div className="control">
-                <textarea
-                  className="textarea"
-                  id="description"
-                  value={newHotelDescription}
-                  onChange={(e) => setNewHotelDescription(e.target.value)}
-                  required
-                  placeholder="Enter hotel description"
-                  autoComplete="off"
-                />
+
+            <div class="field">
+              <label class="label"> Hotel Description </label>
+              <div class="control">
+                <textarea class="textarea" value={newHotelDescription} onChange={(e) => setNewHotelDescription(e.target.value)} required placeholder="Enter hotel description" autoComplete="off"/>
               </div>
             </div>
-            <div className="field">
-              <div className="control">
-                <button type="submit" className="button is-add">Add Hotel</button>
+
+            <div class="field">
+              <div class="control">
+                <button class="button is-success">Add Hotel</button>
               </div>
             </div>
           </form>
         )}
 
-
         {hotels.map((hotel) => (
-          <div className="card" key={hotel.id}>
-            <header className="card-header">
-              <p className="card-header-title ml-2">{hotel.name}</p>
+          <div class="card" key={hotel.id}>
+            <header class="card-header">
+              <p class="card-header-title ml-2">{hotel.name}</p>
             </header>
-            <div className="card-content">{hotel.description}</div>
-            <div className="button-container">
-              {/* Открытие/закрытие формы редактирования */}
-              <button onClick={() => toggleEditForm(hotel.id)} className="button is-update"> Update</button>
-              <button onClick={() => deleteHotel(hotel.id)} className="button is-danger">Remove</button>
+            <div class="card-content">{hotel.description}</div>
+            <div class="buttons">
+              <button onClick={() => toggleEditForm(hotel.id)} class="button is-warning"> Update</button>
+              <button onClick={() => deleteHotel(hotel.id)} class="button is-danger">Remove</button>
             </div>
-
             {editingHotelId === hotel.id && (
               <UpdateHotel hotel={hotel} onUpdate={handleUpdateHotel} />
             )}
