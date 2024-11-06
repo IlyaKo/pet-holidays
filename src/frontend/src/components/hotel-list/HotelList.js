@@ -35,7 +35,9 @@ function HotelList() {
 
   const handleUpdateHotel = (updatedHotel) => {
     setHotels(
-      hotels.map((hotel) => (hotel.id === updatedHotel.id ? updatedHotel : hotel))
+      hotels.map((hotel) =>
+        hotel.id === updatedHotel.id ? updatedHotel : hotel
+      )
     );
     setEditingHotelId(null); // Закрытие формы редактирования после обновления
   };
@@ -52,10 +54,9 @@ function HotelList() {
       .post("http://localhost:5001/api/hotels/", {
         name: newHotelName,
         description: newHotelDescription,
-        isActive: true, 
+        isActive: true,
       })
       .then((response) => {
-
         setHotels([...hotels, response.data]);
 
         // Очищаем поля формы
@@ -71,55 +72,83 @@ function HotelList() {
 
   return (
     <>
-
       {error && <div>Error: {error.message}</div>}
-      <div class="container is-fluid">
+      <div className="container is-fluid">
         {/* Кнопка для отображения формы добавления отеля */}
-        <button onClick={() => setIsFormVisible(!isFormVisible)} class="button is-primary is-fullwidth"> {isFormVisible ? "Cancel" : "Add Hotel"} </button>
+        <button
+          onClick={() => setIsFormVisible(!isFormVisible)}
+          className="button is-primary is-fullwidth"
+        >
+          {" "}
+          {isFormVisible ? "Cancel" : "Add Hotel"}{" "}
+        </button>
 
         {/* Форма для добавления нового отеля */}
         {isFormVisible && (
-          <form onSubmit={handleAddHotel} class="box">
-            <h2 class="title is-4">Add New Hotel</h2>
+          <form onSubmit={handleAddHotel} className="box">
+            <h2 className="title is-4">Add New Hotel</h2>
 
-            <div class="field">
-              <label class="label"> Hotel Name </label>
-              <div class="control">
-                <input class="input"  value={newHotelName} onChange={(e) => setNewHotelName(e.target.value)} required placeholder="Enter hotel name"/>
+            <div className="field">
+              <label className="label"> Hotel Name </label>
+              <div className="control">
+                <input
+                  className="input"
+                  value={newHotelName}
+                  onChange={(e) => setNewHotelName(e.target.value)}
+                  required
+                  placeholder="Enter hotel name"
+                />
               </div>
             </div>
 
-            <div class="field">
-              <label class="label"> Hotel Description </label>
-              <div class="control">
-                <textarea class="textarea" value={newHotelDescription} onChange={(e) => setNewHotelDescription(e.target.value)} required placeholder="Enter hotel description" autoComplete="off"/>
+            <div className="field">
+              <label className="label"> Hotel Description </label>
+              <div className="control">
+                <textarea
+                  className="textarea"
+                  value={newHotelDescription}
+                  onChange={(e) => setNewHotelDescription(e.target.value)}
+                  required
+                  placeholder="Enter hotel description"
+                  autoComplete="off"
+                />
               </div>
             </div>
 
-            <div class="field">
-              <div class="control">
-                <button class="button is-success">Add Hotel</button>
+            <div className="field">
+              <div className="control">
+                <button className="button is-success">Add Hotel</button>
               </div>
             </div>
           </form>
         )}
 
         {hotels.map((hotel) => (
-          <div class="card" key={hotel.id}>
-            <header class="card-header">
-              <p class="card-header-title ml-2">{hotel.name}</p>
+          <div className="card" key={hotel.id}>
+            <header className="card-header">
+              <p className="card-header-title ml-2">{hotel.name}</p>
             </header>
-            <div class="card-content">{hotel.description}</div>
-            <div class="buttons">
-              <button onClick={() => toggleEditForm(hotel.id)} class="button is-warning"> Update</button>
-              <button onClick={() => deleteHotel(hotel.id)} class="button is-danger">Remove</button>
+            <div className="card-content">{hotel.description}</div>
+            <div className="buttons">
+              <button
+                onClick={() => toggleEditForm(hotel.id)}
+                className="button is-warning"
+              >
+                {" "}
+                Update
+              </button>
+              <button
+                onClick={() => deleteHotel(hotel.id)}
+                className="button is-danger"
+              >
+                Remove
+              </button>
             </div>
             {editingHotelId === hotel.id && (
               <UpdateHotel hotel={hotel} onUpdate={handleUpdateHotel} />
             )}
           </div>
         ))}
-
       </div>
     </>
   );
