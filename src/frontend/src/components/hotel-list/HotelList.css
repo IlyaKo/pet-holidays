@@ -1,0 +1,22 @@
+.button-container {
+    display: flex; 
+    gap: 10px; /* Отступ между кнопками */
+    margin-left: 20px;
+  }
+  
+  .button.is-update {
+    background-color: #4CAF50; 
+    color: white; 
+  }
+  
+  .button.is-update:hover {
+    background-color: #45a049; 
+  }
+
+  .box {
+    margin: 20px 0; 
+  }
+  
+  .title.is-4 {
+    margin-bottom: 20px; /* Отступ снизу для заголовка */
+  }
