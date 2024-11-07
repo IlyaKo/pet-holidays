@@ -62,10 +62,6 @@ public sealed class HotelService : IHotelService
 
     public async Task Delete(int entityId)
     {
-        bool isValid = entityId >= 0; 
-        if(!isValid)
-            throw new ValidationException($"Недопустимый идентификатор {entityId}");
-
         var entity = await FindEntityById(entityId);
 
         if (entity is null)
