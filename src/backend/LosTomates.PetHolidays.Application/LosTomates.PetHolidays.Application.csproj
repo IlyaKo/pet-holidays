@@ -15,4 +15,8 @@
     <ProjectReference Include="..\LosTomates.PetHolidays.DataAccess\LosTomates.PetHolidays.DataAccess.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="FluentValidation" Version="11.10.0" />
+  </ItemGroup>
+
 </Project>

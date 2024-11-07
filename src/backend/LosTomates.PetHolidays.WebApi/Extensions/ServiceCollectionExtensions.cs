@@ -2,6 +2,9 @@
 using LosTomates.PetHolidays.DataAccess;
 using LosTomates.PetHolidays.DataAccess.DataSeed;
 using Microsoft.EntityFrameworkCore;
+using FluentValidation;
+using System.Reflection;
+using LosTomates.PetHolidays.Application;
 
 namespace LosTomates.PetHolidays.WebApi.Extensions;
 
@@ -22,7 +25,6 @@ internal static class ServiceCollectionExtensions
     internal static IServiceCollection AddApplicationServices(this IServiceCollection services)
     {
         services.AddScoped<IHotelService, HotelService>();
-
         return services;
     }
 
@@ -35,6 +37,12 @@ internal static class ServiceCollectionExtensions
         services.AddDbContext<ApplicationDbContext>(options => options.UseNpgsql(connectionString));
         services.AddTransient<SeedService>();
 
+        return services;
+    }
+
+    internal static IServiceCollection AddFluentValidation(this IServiceCollection services)
+    {
+        services.AddValidatorsFromAssembly(typeof(HotelEditDtoValidator).Assembly);
         return services;
     }
 }

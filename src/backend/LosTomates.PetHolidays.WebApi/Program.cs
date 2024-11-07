@@ -28,6 +28,7 @@ public class Program
         services.AddApplicationServices();
         services.AddMappings();
         services.AddDatabaseContext(configuration);
+        services.AddFluentValidation();
         services.AddCors();
         services.AddSwagger();
 

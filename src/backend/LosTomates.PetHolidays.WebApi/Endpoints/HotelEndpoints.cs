@@ -28,20 +28,27 @@ public static class HotelEndpoints
         .Produces<int>(StatusCodes.Status200OK)
         .Produces(StatusCodes.Status404NotFound);
 
-        mapGroup.MapPost(string.Empty, async (IHotelService service, HotelEditDto dto) => await service.Create(dto))
-                .WithSummary("Create a new hotel")
-                .WithDescription("Return an id of a created hotel")
-                .Produces<HotelView>(StatusCodes.Status200OK);
+        mapGroup.MapPost(string.Empty, async (IHotelService service, HotelEditDto dto) =>
+        {
+            return await service.Create(dto);
+        })
+        .WithSummary("Create a new hotel")
+        .WithDescription("Return an id of a created hotel")
+        .Produces<HotelView>(StatusCodes.Status200OK);
 
-        mapGroup.MapPut("{hotelId:int}", async (IHotelService service, int hotelId, HotelEditDto dto)
-            => await service.Update(hotelId, dto))
+        mapGroup.MapPut("{hotelId:int}", async (IHotelService service, int hotelId, HotelEditDto dto) => 
+        {
+            await service.Update(hotelId, dto);
+        })
         .WithSummary("Update a hotel record")
         .Produces(StatusCodes.Status200OK)
         .Produces(StatusCodes.Status404NotFound);
 
-        mapGroup.MapDelete("{hotelId:int}", async (IHotelService service, int hotelId) => await service.Delete(hotelId))
-                .WithSummary("Delete a hotel record")
-                .Produces(StatusCodes.Status200OK);
+        mapGroup.MapDelete("{hotelId:int}", async (IHotelService service, int hotelId) => 
+        {
+            await service.Delete(hotelId);
+        })
+        .WithSummary("Delete a hotel record")
+        .Produces(StatusCodes.Status200OK);
     }
 }
-
