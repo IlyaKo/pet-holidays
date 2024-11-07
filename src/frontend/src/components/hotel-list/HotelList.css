@@ -1,0 +1,18 @@
+.buttons {
+    display: flex; 
+    gap: 10px; /* Отступ между кнопками */
+    margin-left: 20px;
+    padding-bottom: 20px;
+  }
+  
+/* Для кнопки Add Hotel */
+.button.is-primary {
+  width: 200px;
+  display: block;
+  margin-left: 0; 
+  margin-top: 20px; 
+  margin-bottom: 20px; 
+         
+  font-weight: bold;         
+}
+
