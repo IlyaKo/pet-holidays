@@ -17,7 +17,7 @@ public static class HotelEndpoints
 
         mapGroup.MapGet("{hotelId:int}", async (IHotelService service, int hotelId) =>
         {
-            HotelView? entityView = await service.GetById(hotelId);
+            var entityView = await service.GetById(hotelId);
             if (entityView is null)
                 return Results.NotFound("Can't find a record with the id " + hotelId);
             else

@@ -60,8 +60,8 @@ public class Program
     // Migrate and add testing data to the database if necessary.
     private static void SeedData(IServiceProvider services)
     {
-        using IServiceScope scope = services.CreateScope();
-        SeedService seedService = scope.ServiceProvider.GetRequiredService<SeedService>();
+        using var scope = services.CreateScope();
+        var seedService = scope.ServiceProvider.GetRequiredService<SeedService>();
 
         seedService.ApplyMigrations();
         seedService.SeedData();

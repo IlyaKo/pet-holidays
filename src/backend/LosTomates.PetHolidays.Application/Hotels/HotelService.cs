@@ -29,10 +29,6 @@ public sealed class HotelService : IHotelService
 
     public async Task<HotelView?> GetById(int entityId)
     {
-        bool isValid = entityId >= 0; 
-        if(!isValid)
-            throw new ValidationBadRequest($"Недопустимый идентификатор {entityId}");
-
         var entity = await FindEntityById(entityId)
                   ?? throw new NotFoundException(nameof(Hotel), entityId.ToString());
 
@@ -68,7 +64,7 @@ public sealed class HotelService : IHotelService
     {
         bool isValid = entityId >= 0; 
         if(!isValid)
-            throw new ValidationBadRequest($"Недопустимый идентификатор {entityId}");
+            throw new ValidationException($"Недопустимый идентификатор {entityId}");
 
         var entity = await FindEntityById(entityId);
 
@@ -81,10 +77,6 @@ public sealed class HotelService : IHotelService
 
     private async Task<Hotel?> FindEntityById(int entityId)
     {     
-        bool isValid = entityId >= 0; 
-        if(!isValid)
-            throw new ValidationBadRequest($"Недопустимый идентификатор {entityId}");
-
         return await dbContext.Hotels.FirstOrDefaultAsync(x => x.Id == entityId);
     }
 }

@@ -11,14 +11,4 @@ public class HotelEditDtoValidator : AbstractValidator<HotelEditDto>
         RuleFor(customer => customer.Name).Length(2, DatabaseConstrains.NameMaxLength);
         RuleFor(customer => customer.Description).MaximumLength(DatabaseConstrains.DescriptionMaxLength);
     }
-
-    public override ValidationResult Validate(ValidationContext<HotelEditDto> context)
-    {
-        ValidationResult result = base.Validate(context);
-        
-        foreach(ValidationFailure? error in result.Errors)
-            Console.WriteLine(error.ErrorMessage);
-
-        return result;
-    }
 }
