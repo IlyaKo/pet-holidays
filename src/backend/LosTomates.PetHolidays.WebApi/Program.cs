@@ -1,7 +1,10 @@
 using LosTomates.PetHolidays.Application.Extensions;
+using LosTomates.PetHolidays.DataAccess;
 using LosTomates.PetHolidays.DataAccess.DataSeed;
 using LosTomates.PetHolidays.WebApi.Extensions;
 using LosTomates.PetHolidays.WebApi.Middleware;
+using LosTomates.PetHolidays.Core.Domain.Users;
+using Microsoft.AspNetCore.Identity;
 
 namespace LosTomates.PetHolidays.WebApi;
 
@@ -37,6 +40,9 @@ public class Program
         services.AddExceptionHandler<NotFoundExceptionHandler>();
         services.AddExceptionHandler<BusinessLogicExceptionHandler>();
 
+        services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+        .AddEntityFrameworkStores<ApplicationDbContext>();
+
     }
 
     // Configure the HTTP request pipeline.
@@ -50,7 +56,14 @@ public class Program
             app.UseSwaggerUI();
         }
 
+        app.UseHttpsRedirection();
+        app.UseStaticFiles();
+
+        app.UseRouting();
+
+        app.UseAuthentication();
         app.UseAuthorization();
+
         app.UseCors(options => options.AllowAnyOrigin()
                                       .AllowAnyHeader()
                                       .AllowAnyMethod());
