@@ -15,8 +15,9 @@ public sealed class UserService: IUserService
 
     private readonly IValidator<UserEditDto> validateService;
 
-    private readonly UserManager<IdentityUser> _userManager;
-    public UserService(ApplicationDbContext dbContext, IValidator<UserEditDto> validateService, UserManager<IdentityUser> userManager)
+    private readonly UserManager<User> _userManager;
+    public UserService(ApplicationDbContext dbContext, IValidator<UserEditDto> validateService,
+                       UserManager<User> userManager)
     {
         this.dbContext = dbContext;
         this.validateService = validateService;
@@ -32,16 +33,22 @@ public sealed class UserService: IUserService
 
     public async Task<string> Create(UserEditDto dto)
     {
+        var validation = validateService.Validate(dto);
+        var errors = "";
 
-        var user = new User { UserName = dto.UserName, Email = dto.Email, PhoneNumber = dto.PhoneNumber };
-        var result = await _userManager.CreateAsync(user, dto.Password);
-        if (result.Succeeded)
+        if ( validation.IsValid)
         {
-            return user.Id;
+            var user = new User { UserName = dto.UserName, Email = dto.Email, PhoneNumber = dto.PhoneNumber };
+            var result = await _userManager.CreateAsync(user, dto.Password);
+            if (result.Succeeded)
+            {
+                return user.Id;
+            }
+            errors = string.Join(", ", result.Errors.Select(error => error.Description).ToList());
         }
-        var errors = result.Errors.Select(error => error.Description).ToList();
+        errors = string.Concat(errors, string.Join(", ", validation.Errors));
 
-        return string.Join(", ", errors);
+        return errors;
     }
 
     public async Task Update(string entityId, UserEditDto dto)

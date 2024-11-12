@@ -42,6 +42,7 @@ public static class UserEndpoints
         mapGroup.MapPut("{userId}", async (IUserService service, string userId, UserEditDto dto) =>
         {
             await service.Update(userId, dto);
+
         })
         .WithSummary("Update a user record")
         .Produces(StatusCodes.Status200OK)

@@ -40,7 +40,7 @@ public class Program
         services.AddExceptionHandler<NotFoundExceptionHandler>();
         services.AddExceptionHandler<BusinessLogicExceptionHandler>();
 
-        services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+        services.AddIdentity<User, IdentityRole>()
         .AddEntityFrameworkStores<ApplicationDbContext>();
 
     }
@@ -56,12 +56,6 @@ public class Program
             app.UseSwaggerUI();
         }
 
-        app.UseHttpsRedirection();
-        app.UseStaticFiles();
-
-        app.UseRouting();
-
-        app.UseAuthentication();
         app.UseAuthorization();
 
         app.UseCors(options => options.AllowAnyOrigin()

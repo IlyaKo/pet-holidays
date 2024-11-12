@@ -5,10 +5,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace LosTomates.PetHolidays.DataAccess;
 
-public sealed class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : IdentityDbContext(options)
+public sealed class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : IdentityDbContext<User>(options)
 {
     public DbSet<Hotel> Hotels { get; set; }
-    public DbSet<User> Users { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -22,6 +21,5 @@ public sealed class ApplicationDbContext(DbContextOptions<ApplicationDbContext> 
             entity.Property(x => x.Description)
                   .HasMaxLength(DatabaseConstrains.DescriptionMaxLength);
         });
-        modelBuilder.Entity<User>();
     }
 }
