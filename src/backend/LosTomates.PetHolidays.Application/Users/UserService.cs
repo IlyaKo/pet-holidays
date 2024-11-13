@@ -33,22 +33,17 @@ public sealed class UserService: IUserService
 
     public async Task<string> Create(UserEditDto dto)
     {
-        var validation = validateService.Validate(dto);
-        var errors = "";
+        validateService.ValidateAndThrow(dto);
+        var user = dto.Adapt<User>();
+        var result = await _userManager.CreateAsync(user, dto.Password);
 
-        if ( validation.IsValid)
+        if (result.Succeeded)
         {
-            var user = new User { UserName = dto.UserName, Email = dto.Email, PhoneNumber = dto.PhoneNumber };
-            var result = await _userManager.CreateAsync(user, dto.Password);
-            if (result.Succeeded)
-            {
-                return user.Id;
-            }
-            errors = string.Join(", ", result.Errors.Select(error => error.Description).ToList());
+            return user.Id;
         }
-        errors = string.Concat(errors, string.Join(", ", validation.Errors));
 
-        return errors;
+        var errors = result.Errors.Select(e => e.Description).ToList();
+        throw new ValidationException(string.Join(", ", errors));
     }
 
     public async Task Update(string entityId, UserEditDto dto)

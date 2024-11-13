@@ -1,4 +1,5 @@
 ﻿using LosTomates.PetHolidays.Application.Users;
+using LosTomates.PetHolidays.Core.Domain.Users;
 
 namespace LosTomates.PetHolidays.WebApi.Endpoints;
 
@@ -25,14 +26,7 @@ public static class UserEndpoints
         mapGroup.MapPost(string.Empty, async (IUserService service, UserEditDto dto) =>
         {
             var result = await service.Create(dto);
-            if (Guid.TryParse(result, out _))
-            {
-                return Results.Ok(result); 
-            }
-            else
-            {
-                return Results.BadRequest(new { Errors = result });
-            }
+            return Results.Ok(new { Id = result });
         })
         .WithSummary("Create a new user")
         .WithDescription("Return an id of a created user")
