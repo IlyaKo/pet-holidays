@@ -36,6 +36,7 @@ public class Program
 
         services.AddExceptionHandler<NotFoundExceptionHandler>();
         services.AddExceptionHandler<BusinessLogicExceptionHandler>();
+        services.AddExceptionHandler<ValidationExceptionHandler>();
 
     }
 
