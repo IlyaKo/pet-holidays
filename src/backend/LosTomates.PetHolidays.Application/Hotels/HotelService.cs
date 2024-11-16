@@ -7,27 +7,23 @@ using Microsoft.EntityFrameworkCore;
 
 namespace LosTomates.PetHolidays.Application.Hotels;
 
-public sealed class HotelService : IHotelService
+public sealed class HotelService(
+    ApplicationDbContext dbContext,
+    IValidator<HotelEditDto> validateService) : IHotelService
 {
-    private readonly ApplicationDbContext dbContext;
+    private readonly ApplicationDbContext _dbContext = dbContext;
 
-    private readonly IValidator<HotelEditDto> validateService;
-
-    public HotelService(ApplicationDbContext dbContext, IValidator<HotelEditDto> validateService)
-    {
-        this.dbContext = dbContext;
-        this.validateService = validateService;
-    }
+    private readonly IValidator<HotelEditDto> _validateService = validateService;
 
     public async Task<IReadOnlyList<HotelView>> GetAll()
     {
-        return await dbContext.Hotels
+        return await _dbContext.Hotels
                               .Where(x => x.IsActive)
                               .ProjectToType<HotelView>()
                               .ToListAsync();
     }
 
-    public async Task<HotelView?> GetById(int entityId)
+    public async Task<HotelView> GetById(int entityId)
     {
         var entity = await FindEntityById(entityId)
                   ?? throw new NotFoundException(nameof(Hotel), entityId.ToString());
@@ -37,27 +33,27 @@ public sealed class HotelService : IHotelService
 
     public async Task<int> Create(HotelEditDto dto)
     {
-        validateService.ValidateAndThrow(dto);
+        _validateService.ValidateAndThrow(dto);
 
         var entity = dto.Adapt<Hotel>();
 
-        dbContext.Add(entity);
+        _dbContext.Add(entity);
 
-        await dbContext.SaveChangesAsync();
+        await _dbContext.SaveChangesAsync();
 
         return entity.Id;
     }
 
     public async Task Update(int entityId, HotelEditDto dto)
     {
-        validateService.ValidateAndThrow(dto);
+        _validateService.ValidateAndThrow(dto);
 
         var entity = await FindEntityById(entityId)
                   ?? throw new NotFoundException(nameof(Hotel), entityId.ToString());
 
         dto.Adapt(entity);
 
-        await dbContext.SaveChangesAsync();
+        await _dbContext.SaveChangesAsync();
     }
 
     public async Task Delete(int entityId)
@@ -67,12 +63,12 @@ public sealed class HotelService : IHotelService
         if (entity is null)
             return;
 
-        dbContext.Remove(entity);
-        await dbContext.SaveChangesAsync();
+        _dbContext.Remove(entity);
+        await _dbContext.SaveChangesAsync();
     }
 
     private async Task<Hotel?> FindEntityById(int entityId)
-    {     
-        return await dbContext.Hotels.FirstOrDefaultAsync(x => x.Id == entityId);
+    {
+        return await _dbContext.Hotels.FirstOrDefaultAsync(x => x.Id == entityId);
     }
 }

@@ -5,7 +5,7 @@ public interface IHotelService
 {
     Task<IReadOnlyList<HotelView>> GetAll();
 
-    Task<HotelView?> GetById(int hotelId);
+    Task<HotelView> GetById(int hotelId);
 
     Task<int> Create(HotelEditDto dto);
 

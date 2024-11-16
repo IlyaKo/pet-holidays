@@ -1,4 +1,6 @@
-﻿namespace LosTomates.PetHolidays.Core.Domain.Hotels;
+﻿using LosTomates.PetHolidays.Core.Domain.Rooms;
+
+namespace LosTomates.PetHolidays.Core.Domain.Hotels;
 
 public sealed class Hotel
 {
@@ -9,4 +11,8 @@ public sealed class Hotel
     public string? Description { get; set; }
 
     public bool IsActive { get; set; }
+
+    public List<RoomType>? RoomTypes { get; set; }
+
+    public List<Room>? Rooms { get; set; }
 }
