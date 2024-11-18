@@ -2,6 +2,7 @@
 using LosTomates.PetHolidays.Application.Hotels;
 using LosTomates.PetHolidays.Application.Rooms;
 using LosTomates.PetHolidays.Application.RoomTypes;
+using LosTomates.PetHolidays.Application.Users;
 using LosTomates.PetHolidays.DataAccess;
 using LosTomates.PetHolidays.DataAccess.DataSeed;
 using Microsoft.EntityFrameworkCore;
@@ -25,6 +26,7 @@ internal static class ServiceCollectionExtensions
     internal static IServiceCollection AddApplicationServices(this IServiceCollection services)
     {
         services.AddScoped<IHotelService, HotelService>();
+        services.AddScoped<IUserService, UserService>();
         services.AddScoped<IRoomService, RoomService>();
         services.AddScoped<IRoomTypeService, RoomTypeService>();
 

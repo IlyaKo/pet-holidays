@@ -17,6 +17,7 @@ public sealed class SeedService
     public void SeedData()
     {
         AddHotels();
+        AddUsers();
         AddRoomTypes();
         AddRooms();
 
@@ -28,6 +29,16 @@ public sealed class SeedService
         foreach (var entity in FakeData.Hotels)
         {
             if (dbContext.Hotels.Any(x => x.Id == entity.Id))
+                continue;
+
+            dbContext.Add(entity);
+        }
+    }
+    private void AddUsers()
+    {
+        foreach (var entity in FakeData.Users)
+        {
+            if (dbContext.Users.Any(x => x.Id == entity.Id))
                 continue;
 
             dbContext.Add(entity);

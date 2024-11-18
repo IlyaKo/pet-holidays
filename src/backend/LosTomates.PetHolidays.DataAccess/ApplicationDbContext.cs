@@ -1,10 +1,12 @@
 ﻿using LosTomates.PetHolidays.Core.Domain.Hotels;
 using LosTomates.PetHolidays.Core.Domain.Rooms;
+using LosTomates.PetHolidays.Core.Domain.Users;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace LosTomates.PetHolidays.DataAccess;
 
-public sealed class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : DbContext(options)
+public sealed class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : IdentityDbContext<User>(options)
 {
     public DbSet<Hotel> Hotels => Set<Hotel>();
 
@@ -25,12 +27,12 @@ public sealed class ApplicationDbContext(DbContextOptions<ApplicationDbContext> 
                   .HasMaxLength(DatabaseConstrains.DescriptionMaxLength);
 
             entity.HasMany(x => x.RoomTypes)
-                .WithOne(x => x.Hotel)
-                .HasForeignKey(x => x.HotelId);
+                  .WithOne(x => x.Hotel)
+                  .HasForeignKey(x => x.HotelId);
 
             entity.HasMany(x => x.Rooms)
-                .WithOne(x => x.Hotel)
-                .HasForeignKey(x => x.HotelId);
+                  .WithOne(x => x.Hotel)
+                  .HasForeignKey(x => x.HotelId);
         });
 
         modelBuilder.Entity<RoomType>(entity =>
@@ -54,8 +56,8 @@ public sealed class ApplicationDbContext(DbContextOptions<ApplicationDbContext> 
                   .HasMaxLength(DatabaseConstrains.DescriptionMaxLength);
 
             entity.HasOne(x => x.RoomType)
-                .WithMany(x => x.Rooms)
-                .HasForeignKey(x => x.RoomTypeId);
+                  .WithMany(x => x.Rooms)
+                  .HasForeignKey(x => x.RoomTypeId);
         });
     }
 }
