@@ -39,6 +39,7 @@ public class Program
 
         services.AddExceptionHandler<NotFoundExceptionHandler>();
         services.AddExceptionHandler<BusinessLogicExceptionHandler>();
+        services.AddExceptionHandler<ValidationExceptionHandler>();
 
         services.AddIdentity<User, IdentityRole>()
         .AddEntityFrameworkStores<ApplicationDbContext>();
