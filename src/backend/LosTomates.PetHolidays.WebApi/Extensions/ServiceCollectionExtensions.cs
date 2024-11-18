@@ -1,10 +1,11 @@
 ﻿using LosTomates.PetHolidays.Application.Hotels;
+using LosTomates.PetHolidays.Application.Users;
 using LosTomates.PetHolidays.DataAccess;
 using LosTomates.PetHolidays.DataAccess.DataSeed;
 using Microsoft.EntityFrameworkCore;
 using FluentValidation;
 using System.Reflection;
-using LosTomates.PetHolidays.Application;
+using LosTomates.PetHolidays.Application.Validations;
 
 namespace LosTomates.PetHolidays.WebApi.Extensions;
 
@@ -25,6 +26,7 @@ internal static class ServiceCollectionExtensions
     internal static IServiceCollection AddApplicationServices(this IServiceCollection services)
     {
         services.AddScoped<IHotelService, HotelService>();
+        services.AddScoped<IUserService, UserService>();
         return services;
     }
 
