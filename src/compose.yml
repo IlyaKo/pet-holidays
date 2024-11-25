@@ -11,8 +11,8 @@ services:
   petholidays-webapi:
     container_name: petholidays-webapi
     build:
-      context: .
-      dockerfile: backend/LosTomates.PetHolidays.WebApi/Dockerfile 
+      context: ./backend
+      dockerfile: LosTomates.PetHolidays.WebApi/Dockerfile 
     ports:
       - "5001:8080"
     environment:

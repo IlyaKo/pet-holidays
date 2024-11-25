@@ -11,13 +11,13 @@ EXPOSE 8080
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY ["backend/LosTomates.PetHolidays.WebApi/LosTomates.PetHolidays.WebApi.csproj", "backend/LosTomates.PetHolidays.WebApi/"]
-COPY ["backend/LosTomates.PetHolidays.Application/LosTomates.PetHolidays.Application.csproj", "backend/LosTomates.PetHolidays.Application/"]
-COPY ["backend/LosTomates.PetHolidays.Core/LosTomates.PetHolidays.Core.csproj", "backend/LosTomates.PetHolidays.Core/"]
-COPY ["backend/LosTomates.PetHolidays.DataAccess/LosTomates.PetHolidays.DataAccess.csproj", "backend/LosTomates.PetHolidays.DataAccess/"]
-RUN dotnet restore "./backend/LosTomates.PetHolidays.WebApi/LosTomates.PetHolidays.WebApi.csproj"
+COPY ["LosTomates.PetHolidays.WebApi/LosTomates.PetHolidays.WebApi.csproj", "LosTomates.PetHolidays.WebApi/"]
+COPY ["LosTomates.PetHolidays.Application/LosTomates.PetHolidays.Application.csproj", "LosTomates.PetHolidays.Application/"]
+COPY ["LosTomates.PetHolidays.Core/LosTomates.PetHolidays.Core.csproj", "LosTomates.PetHolidays.Core/"]
+COPY ["LosTomates.PetHolidays.DataAccess/LosTomates.PetHolidays.DataAccess.csproj", "LosTomates.PetHolidays.DataAccess/"]
+RUN dotnet restore "./LosTomates.PetHolidays.WebApi/LosTomates.PetHolidays.WebApi.csproj"
 COPY . .
-WORKDIR "/src/backend/LosTomates.PetHolidays.WebApi"
+WORKDIR "/src/LosTomates.PetHolidays.WebApi"
 RUN dotnet build "./LosTomates.PetHolidays.WebApi.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
 # This stage is used to publish the service project to be copied to the final stage
