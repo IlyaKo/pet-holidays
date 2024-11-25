@@ -9,6 +9,7 @@ internal static class WebApplicationBuilderExtensions
         AdminEndpoints.Map(app);
         HotelEndpoints.Map(app);
         UserEndpoints.Map(app);
+        PetTypeEndpoints.Map(app);
 
         return app;
     }
