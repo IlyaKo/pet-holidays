@@ -18,8 +18,20 @@ public sealed class SeedService
     {
         AddHotels();
         AddUsers();
+        AddPetPypes();
 
         dbContext.SaveChanges();
+    }
+
+    private void AddPetPypes()
+    {
+        foreach (var entity in FakeData.PetTypes)
+        {
+            if (dbContext.PetTypes.Any(x => x.Id == entity.Id))
+                continue;
+
+            dbContext.Add(entity);
+        }
     }
 
     private void AddHotels()

@@ -1,4 +1,5 @@
-﻿using LosTomates.PetHolidays.Core.Domain.Hotels;
+﻿using LosTomates.PetHolidays.Core.Domain;
+using LosTomates.PetHolidays.Core.Domain.Hotels;
 using LosTomates.PetHolidays.Core.Domain.Users;
 
 namespace LosTomates.PetHolidays.DataAccess.DataSeed;
@@ -55,4 +56,44 @@ public static class FakeData
             PhoneNumber = "+79296224168"
         }
     ];
+
+    public static List<PetType> PetTypes { get; } =
+ [
+        new()
+        {
+            Id = 1,
+            Name = "Dog",
+            IsActive= true,
+        },
+        new()
+        {
+            Id = 2,
+            Name = "Cat",
+             IsActive= true,
+        },
+        new()
+        {
+            Id = 3,
+            Name = "Hamster",
+            IsActive= true,
+        },
+        new()
+        {
+            Id = 4,
+            Name = "Rabbit",
+            IsActive= true,
+        },
+        new()
+        {
+            Id = 5,
+            Name = "Parrot",
+            IsActive= true,
+        },
+        new()
+        {
+            Id = 6,
+            Name = "Turtle",
+            IsActive= true,
+        }
+ ];
 }
