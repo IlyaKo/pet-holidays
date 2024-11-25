@@ -1,15 +1,9 @@
-﻿namespace LosTomates.PetHolidays.Application.PetTypes;
+﻿using LosTomates.PetHolidays.Core.Abstractions;
+using LosTomates.PetHolidays.Core.Domain;
 
-public interface IPetTypeService
+namespace LosTomates.PetHolidays.Application.PetTypes;
+
+public interface IPetTypeService : ICrudService<PetType, PetTypeView, PetTypeEditDto>
 {
-    Task<IReadOnlyList<PetTypeView>> GetAll();
-
-    Task<PetTypeView?> GetById(int hotelId);
-
-    Task<int> Create(PetTypeEditDto dto);
-
-    Task Update(int entityId, PetTypeEditDto dto);
-
-    Task Delete(int entityId);
 }
 
