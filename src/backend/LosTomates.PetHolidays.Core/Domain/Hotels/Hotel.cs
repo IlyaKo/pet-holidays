@@ -12,7 +12,5 @@ public sealed class Hotel
 
     public bool IsActive { get; set; }
 
-    public List<RoomType>? RoomTypes { get; set; }
-
     public List<Room>? Rooms { get; set; }
 }

@@ -26,10 +26,6 @@ public sealed class ApplicationDbContext(DbContextOptions<ApplicationDbContext> 
             entity.Property(x => x.Description)
                   .HasMaxLength(DatabaseConstrains.DescriptionMaxLength);
 
-            entity.HasMany(x => x.RoomTypes)
-                  .WithOne(x => x.Hotel)
-                  .HasForeignKey(x => x.HotelId);
-
             entity.HasMany(x => x.Rooms)
                   .WithOne(x => x.Hotel)
                   .HasForeignKey(x => x.HotelId);
@@ -57,7 +53,8 @@ public sealed class ApplicationDbContext(DbContextOptions<ApplicationDbContext> 
 
             entity.HasOne(x => x.RoomType)
                   .WithMany(x => x.Rooms)
-                  .HasForeignKey(x => x.RoomTypeId);
+                  .HasForeignKey(x => x.RoomTypeId)
+                  .OnDelete(DeleteBehavior.Restrict);
         });
     }
 }

@@ -17,28 +17,24 @@ public sealed class RoomTypeService(
     private readonly IValidator<RoomTypeEditDto> _validator = validator;
     private readonly IHotelService _hotelService = hotelService;
 
-    public async Task<IReadOnlyList<RoomTypeView>> GetAll(int hotelId)
+    public async Task<IReadOnlyList<RoomTypeView>> GetAll()
         => await _dbContext.RoomTypes
-                           .Where(x => x.HotelId == hotelId)
                            .ProjectToType<RoomTypeView>()
                            .ToListAsync();
 
-    public async Task<RoomTypeView> GetById(int hotelId, int entityId)
+    public async Task<RoomTypeView> GetById(int entityId)
     {
-        var entity = await FindEntityById(hotelId, entityId)
-                  ?? throw new NotFoundException(nameof(RoomType), $"id: {entityId} and hotel id: {hotelId}");
+        var entity = await FindEntityById(entityId)
+                  ?? throw new NotFoundException(nameof(RoomType), entityId.ToString());
 
         return entity.Adapt<RoomTypeView>();
     }
 
-    public async Task<int> Create(int hotelId, RoomTypeEditDto dto)
+    public async Task<int> Create(RoomTypeEditDto dto)
     {
-        // check the hotel exists
-        await _hotelService.GetById(hotelId);
         _validator.ValidateAndThrow(dto);
 
         var entity = dto.Adapt<RoomType>();
-        entity.HotelId = hotelId;
 
         _dbContext.Add(entity);
 
@@ -47,21 +43,21 @@ public sealed class RoomTypeService(
         return entity.Id;
     }
 
-    public async Task Update(int hotelId, int entityId, RoomTypeEditDto dto)
+    public async Task Update(int entityId, RoomTypeEditDto dto)
     {
         _validator.ValidateAndThrow(dto);
 
-        var entity = await FindEntityById(hotelId, entityId)
-                  ?? throw new NotFoundException(nameof(RoomType), $"id: {entityId} and hotel id: {hotelId}");
+        var entity = await FindEntityById(entityId)
+                  ?? throw new NotFoundException(nameof(RoomType), entityId.ToString());
 
         dto.Adapt(entity);
 
         await _dbContext.SaveChangesAsync();
     }
 
-    public async Task Delete(int hotelId, int entityId)
+    public async Task Delete(int entityId)
     {
-        var entity = await FindEntityById(hotelId, entityId);
+        var entity = await FindEntityById(entityId);
 
         if (entity is null)
             return;
@@ -70,8 +66,7 @@ public sealed class RoomTypeService(
         await _dbContext.SaveChangesAsync();
     }
 
-    private async Task<RoomType?> FindEntityById(int hotelId, int entityId)
+    private async Task<RoomType?> FindEntityById(int entityId)
         => await _dbContext.RoomTypes
-                           .FirstOrDefaultAsync(x => x.HotelId == hotelId
-                                                  && x.Id == entityId);
+                           .FirstOrDefaultAsync(x => x.Id == entityId);
 }

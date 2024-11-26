@@ -40,7 +40,7 @@ public sealed class RoomService(
 
         // check related entities exist
         await _hotelService.GetById(hotelId);
-        await _roomTypeService.GetById(hotelId, dto.RoomTypeId);
+        await _roomTypeService.GetById(dto.RoomTypeId);
 
         var entity = dto.Adapt<Room>();
         entity.HotelId = hotelId;
@@ -57,7 +57,7 @@ public sealed class RoomService(
         _validator.ValidateAndThrow(dto);
 
         // check related entities exist
-        await _roomTypeService.GetById(hotelId, dto.RoomTypeId);
+        await _roomTypeService.GetById(dto.RoomTypeId);
 
         var entity = await FindEntityById(hotelId, entityId)
                   ?? throw new NotFoundException(nameof(Room), $"id: {entityId} and hotel id: {hotelId}");

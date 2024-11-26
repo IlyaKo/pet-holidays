@@ -44,58 +44,14 @@ public static class FakeData
         new()
         {
             Id = 1,
-            HotelId = 1,
             Name = "Standart",
             Description = "A cozy haven with all the essentials, including a comfy bed, fresh water, and toys to keep your pet entertained. Perfect for pets who enjoy a no-frills, relaxing stay."
         },
         new()
         {
             Id = 2,
-            HotelId = 2,
-            Name = "Standart",
-            Description = "Comfortable spaces with basic amenities"
-        },
-        new()
-        {
-            Id = 3,
-            HotelId = 3,
-            Name = "Standart",
-            Description = "Comfortable spaces with basic amenities"
-        },
-        new()
-        {
-            Id = 4,
-            HotelId = 4,
-            Name = "Standart",
-            Description = "Comfortable spaces with basic amenities"
-        },
-        new()
-        {
-            Id = 5,
-            HotelId = 1,
             Name = "Deluxe",
             Description = "A larger room with upgraded bedding and toys."
-        },
-        new()
-        {
-            Id = 6,
-            HotelId = 2,
-            Name = "Deluxe",
-            Description = "A step up from the standard, featuring a plush bed, extra space to stretch out, and a selection of premium toys and treats. Ideal for pets who enjoy a bit more pampering during their stay."
-        },
-        new()
-        {
-            Id = 7,
-            HotelId = 3,
-            Name = "Deluxe",
-            Description = "A larger room with upgraded bedding and toys."
-        },
-        new()
-        {
-            Id = 8,
-            HotelId = 4,
-            Name = "Deluxe",
-            Description = "Luxurious accommodations with spacious living areas, premium bedding, and a private play area. Equipped with entertainment options and top-tier treats, this room is perfect for pets who deserve the finest in comfort and care."
         },
     ];
 
@@ -115,7 +71,7 @@ public static class FakeData
         {
             Id = 2,
             HotelId = 2,
-            RoomTypeId = 2,
+            RoomTypeId = 1,
             Name = "Basic Retreat",
             Description = "A functional and clean environment with a comfortable sleeping area to ensure your pet feels at home.",
             Location = "Second floor",
@@ -125,7 +81,7 @@ public static class FakeData
         {
             Id = 3,
             HotelId = 3,
-            RoomTypeId = 3,
+            RoomTypeId = 1,
             Name = "Classic Stay",
             Description = "Simple yet comfortable accommodations with all the essentials, including a good bed, and water.",
             Location = "Second floor",
@@ -135,7 +91,7 @@ public static class FakeData
         {
             Id = 4,
             HotelId = 4,
-            RoomTypeId = 4,
+            RoomTypeId = 1,
             Name = "Classic Stay",
             Description = "Simple yet comfortable accommodations with all the essentials, including a good bed, and water.",
             Location = "Second floor",
@@ -145,7 +101,7 @@ public static class FakeData
         {
             Id = 5,
             HotelId = 1,
-            RoomTypeId = 5,
+            RoomTypeId = 2,
             Name = "Luxury Lounge",
             Description = "An upgraded room featuring a larger, plush bed, premium bedding, and an array of toys and treats. Perfect for pets who enjoy a bit more luxury.",
             Location = "First floor",
@@ -155,7 +111,7 @@ public static class FakeData
         {
             Id = 6,
             HotelId = 2,
-            RoomTypeId = 6,
+            RoomTypeId = 2,
             Name = "Premium Retreat",
             Description = "A spacious room with high-end bedding, extra toys, and premium treats, offering an elevated experience for your pet.",
             Location = "First floor",
@@ -165,7 +121,7 @@ public static class FakeData
         {
             Id = 7,
             HotelId = 3,
-            RoomTypeId = 7,
+            RoomTypeId = 2,
             Name = "Luxury Lounge",
             Description = "An upgraded room featuring a larger, plush bed, premium bedding, and an array of toys and treats. Perfect for pets who enjoy a bit more luxury.",
             Location = "First floor",
@@ -175,7 +131,7 @@ public static class FakeData
         {
             Id = 8,
             HotelId = 4,
-            RoomTypeId = 8,
+            RoomTypeId = 2,
             Name = "Luxury Lounge",
             Description = "An upgraded room featuring a larger, plush bed, premium bedding, and an array of toys and treats. Perfect for pets who enjoy a bit more luxury.",
             Location = "First floor",
