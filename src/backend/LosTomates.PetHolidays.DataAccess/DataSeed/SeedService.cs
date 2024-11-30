@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using LosTomates.PetHolidays.Core.Domain.Hotels;
+using LosTomates.PetHolidays.Core.Domain.Rooms;
+using Microsoft.EntityFrameworkCore;
 
 namespace LosTomates.PetHolidays.DataAccess.DataSeed;
 
@@ -20,8 +22,6 @@ public sealed class SeedService
         AddUsers();
         AddRoomTypes();
         AddRooms();
-
-        dbContext.SaveChanges();
     }
 
     private void AddHotels()
@@ -33,6 +33,10 @@ public sealed class SeedService
 
             dbContext.Add(entity);
         }
+        dbContext.SaveChanges();
+
+        ResetSequence<Hotel>();
+
     }
     private void AddUsers()
     {
@@ -43,6 +47,7 @@ public sealed class SeedService
 
             dbContext.Add(entity);
         }
+        dbContext.SaveChanges();
     }
 
     private void AddRoomTypes()
@@ -54,6 +59,9 @@ public sealed class SeedService
 
             dbContext.Add(entity);
         }
+        dbContext.SaveChanges();
+
+        ResetSequence<RoomType>();
     }
 
     private void AddRooms()
@@ -65,5 +73,21 @@ public sealed class SeedService
 
             dbContext.Add(entity);
         }
+        dbContext.SaveChanges();
+
+        ResetSequence<Room>();
+    }
+
+    private void ResetSequence<TEntity>() where TEntity : class
+    {
+        var tableName = dbContext.Model.FindEntityType(typeof(TEntity))?.GetTableName();
+
+        var maxId = dbContext.Set<TEntity>()
+                             .AsNoTracking()
+                             .Max(e => EF.Property<int>(e, "Id"));
+
+        var sql = $@"SELECT setval(pg_get_serial_sequence('""{tableName}""', 'Id'), {maxId});";
+
+        dbContext.Database.ExecuteSqlRaw(sql);
     }
 }
