@@ -2,20 +2,18 @@
 using LosTomates.PetHolidays.Core.Domain.Users;
 using LosTomates.PetHolidays.Core.Exceptions;
 using LosTomates.PetHolidays.DataAccess;
-using LosTomates.PetHolidays.DataAccess.Migrations;
 using Mapster;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace LosTomates.PetHolidays.Application.Users;
 
-public sealed class UserService: IUserService 
+public sealed class UserService : IUserService
 {
     private readonly ApplicationDbContext dbContext;
-
     private readonly IValidator<UserEditDto> validateService;
-
     private readonly UserManager<User> _userManager;
+
     public UserService(ApplicationDbContext dbContext, IValidator<UserEditDto> validateService,
                        UserManager<User> userManager)
     {
@@ -23,7 +21,8 @@ public sealed class UserService: IUserService
         this.validateService = validateService;
         this._userManager = userManager;
     }
-    public async Task<UserView?> GetById(string entityId)
+
+    public async Task<UserView> GetById(string entityId)
     {
         var entity = await FindEntityById(entityId)
                   ?? throw new NotFoundException(nameof(User), entityId.ToString());

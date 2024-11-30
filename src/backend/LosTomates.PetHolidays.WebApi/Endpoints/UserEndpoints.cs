@@ -1,5 +1,4 @@
 ﻿using LosTomates.PetHolidays.Application.Users;
-using LosTomates.PetHolidays.Core.Domain.Users;
 
 namespace LosTomates.PetHolidays.WebApi.Endpoints;
 
@@ -14,10 +13,7 @@ public static class UserEndpoints
         mapGroup.MapGet("{userId}", async (IUserService service, string userId) =>
         {
             var entityView = await service.GetById(userId);
-            if (entityView is null)
-                return Results.NotFound("Can't find a record with the id " + userId);
-            else
-                return Results.Ok(entityView);
+            return Results.Ok(entityView);
         })
         .WithSummary("Get a user by its Id")
         .Produces<int>(StatusCodes.Status200OK)
@@ -41,6 +37,5 @@ public static class UserEndpoints
         .WithSummary("Update a user record")
         .Produces(StatusCodes.Status200OK)
         .Produces(StatusCodes.Status404NotFound);
-
     }
 }

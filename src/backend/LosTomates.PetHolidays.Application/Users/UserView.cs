@@ -1,7 +1,4 @@
-﻿
-using Microsoft.AspNetCore.Identity;
-
-namespace LosTomates.PetHolidays.Application.Users;
+﻿namespace LosTomates.PetHolidays.Application.Users;
 
 public sealed class UserView
 {

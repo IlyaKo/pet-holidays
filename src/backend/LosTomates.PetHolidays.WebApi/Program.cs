@@ -1,9 +1,9 @@
 using LosTomates.PetHolidays.Application.Extensions;
+using LosTomates.PetHolidays.Core.Domain.Users;
 using LosTomates.PetHolidays.DataAccess;
 using LosTomates.PetHolidays.DataAccess.DataSeed;
 using LosTomates.PetHolidays.WebApi.Extensions;
 using LosTomates.PetHolidays.WebApi.Middleware;
-using LosTomates.PetHolidays.Core.Domain.Users;
 using Microsoft.AspNetCore.Identity;
 
 namespace LosTomates.PetHolidays.WebApi;
@@ -42,7 +42,7 @@ public class Program
         services.AddExceptionHandler<ValidationExceptionHandler>();
 
         services.AddIdentity<User, IdentityRole>()
-        .AddEntityFrameworkStores<ApplicationDbContext>();
+                .AddEntityFrameworkStores<ApplicationDbContext>();
 
     }
 
