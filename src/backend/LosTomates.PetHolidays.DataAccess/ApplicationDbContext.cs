@@ -1,4 +1,5 @@
-﻿using LosTomates.PetHolidays.Core.Domain.Hotels;
+﻿using LosTomates.PetHolidays.Core.Domain;
+using LosTomates.PetHolidays.Core.Domain.Hotels;
 using LosTomates.PetHolidays.Core.Domain.Rooms;
 using LosTomates.PetHolidays.Core.Domain.Users;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
@@ -13,6 +14,8 @@ public sealed class ApplicationDbContext(DbContextOptions<ApplicationDbContext> 
     public DbSet<RoomType> RoomTypes => Set<RoomType>();
 
     public DbSet<Room> Rooms => Set<Room>();
+
+    public DbSet<PetType> PetTypes => Set<PetType>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -55,6 +58,18 @@ public sealed class ApplicationDbContext(DbContextOptions<ApplicationDbContext> 
                   .WithMany(x => x.Rooms)
                   .HasForeignKey(x => x.RoomTypeId)
                   .OnDelete(DeleteBehavior.Restrict);
+        });
+
+        modelBuilder.Entity<PetType>(entity =>
+        {
+            entity.Property(x => x.Name)
+                  .HasMaxLength(DatabaseConstrains.NameMaxLength);
+
+            entity.HasIndex(p => p.Name)
+                  .IsUnique();
+
+            entity.Property(p => p.Id)
+    .              ValueGeneratedOnAdd(); 
         });
     }
 }

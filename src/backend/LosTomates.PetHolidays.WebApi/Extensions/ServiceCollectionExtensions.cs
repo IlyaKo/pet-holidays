@@ -6,6 +6,10 @@ using LosTomates.PetHolidays.Application.Users;
 using LosTomates.PetHolidays.DataAccess;
 using LosTomates.PetHolidays.DataAccess.DataSeed;
 using Microsoft.EntityFrameworkCore;
+using FluentValidation;
+
+using LosTomates.PetHolidays.Application.Validations;
+using LosTomates.PetHolidays.Application.PetTypes;
 
 namespace LosTomates.PetHolidays.WebApi.Extensions;
 
@@ -27,6 +31,7 @@ internal static class ServiceCollectionExtensions
     {
         services.AddScoped<IHotelService, HotelService>();
         services.AddScoped<IUserService, UserService>();
+        services.AddScoped<IPetTypeService, PetTypeService>();
         services.AddScoped<IRoomService, RoomService>();
         services.AddScoped<IRoomTypeService, RoomTypeService>();
 
