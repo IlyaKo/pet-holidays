@@ -15,7 +15,7 @@ public sealed class ApplicationDbContext(DbContextOptions<ApplicationDbContext> 
 
     public DbSet<Room> Rooms => Set<Room>();
 
-    public DbSet<PetType> PetTypes { get; set; }
+    public DbSet<PetType> PetTypes => Set<PetType>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
