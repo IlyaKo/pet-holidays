@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+using LosTomates.PetHolidays.Application.Shared;
 using LosTomates.PetHolidays.Core.Domain;
 using LosTomates.PetHolidays.DataAccess;
 

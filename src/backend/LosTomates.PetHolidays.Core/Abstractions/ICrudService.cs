@@ -9,7 +9,7 @@ public interface ICrudService<TEntity, TView, TEditDto>
 {
     Task<IReadOnlyList<TView>> GetAll();
     Task<IReadOnlyList<TView>> GetAll(Expression<Func<TEntity, bool>>? where = null);
-    Task<TView?> GetById(int entityId);
+    Task<TView> GetById(int entityId);
     Task<TView> Create(TEditDto dto);
     Task<TView> Update(int entityId, TEditDto dto);
     Task Delete(int entityId);

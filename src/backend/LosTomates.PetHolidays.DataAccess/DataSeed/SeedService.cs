@@ -18,12 +18,12 @@ public sealed class SeedService
     {
         AddHotels();
         AddUsers();
-        AddPetPypes();
+        AddPetTypes();
 
         dbContext.SaveChanges();
     }
 
-    private void AddPetPypes()
+    private void AddPetTypes()
     {
         foreach (var entity in FakeData.PetTypes)
         {

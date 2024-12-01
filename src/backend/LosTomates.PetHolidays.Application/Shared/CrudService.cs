@@ -6,14 +6,14 @@ using Mapster;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 
-namespace LosTomates.PetHolidays.Application;
+namespace LosTomates.PetHolidays.Application.Shared;
 
 public class CrudService<TEntity, TView, TEditDto> : ICrudService<TEntity, TView, TEditDto>
         where TEntity : class
         where TView : class
         where TEditDto : class
 {
-    private readonly ApplicationDbContext _dbContext;
+    protected readonly ApplicationDbContext _dbContext;
     private readonly IValidator<TEditDto>? _validateService;
 
     public CrudService(ApplicationDbContext dbContext, IValidator<TEditDto>? validateService = null)
@@ -40,7 +40,7 @@ public class CrudService<TEntity, TView, TEditDto> : ICrudService<TEntity, TView
             .ToListAsync();
     }
 
-    public virtual async Task<TView?> GetById(int entityId)
+    public virtual async Task<TView> GetById(int entityId)
     {
         var entity = await FindEntityById(entityId)
             ?? throw new NotFoundException(typeof(TEntity).Name, entityId.ToString());
