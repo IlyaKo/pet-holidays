@@ -1,6 +1,7 @@
 ﻿using LosTomates.PetHolidays.Core.Domain;
 using LosTomates.PetHolidays.Core.Domain.Hotels;
 using LosTomates.PetHolidays.Core.Domain.Users;
+using LosTomates.PetHolidays.Core.Domain.Rooms;
 
 namespace LosTomates.PetHolidays.DataAccess.DataSeed;
 
@@ -38,6 +39,107 @@ public static class FakeData
         },
 
     ];
+
+    public static List<RoomType> RoomTypes { get; } =
+    [
+        new()
+        {
+            Id = 1,
+            Name = "Standart",
+            Description = "A cozy haven with all the essentials, including a comfy bed, fresh water, and toys to keep your pet entertained. Perfect for pets who enjoy a no-frills, relaxing stay."
+        },
+        new()
+        {
+            Id = 2,
+            Name = "Deluxe",
+            Description = "A larger room with upgraded bedding and toys."
+        },
+    ];
+
+    public static List<Room> Rooms { get; } =
+    [
+        new()
+        {
+            Id = 1,
+            HotelId = 1,
+            RoomTypeId = 1,
+            Name = "Classic Stay",
+            Description = "Simple yet comfortable accommodations with all the essentials, including a good bed, and water.",
+            Location = "Second floor",
+            Price = 10
+        },
+        new()
+        {
+            Id = 2,
+            HotelId = 2,
+            RoomTypeId = 1,
+            Name = "Basic Retreat",
+            Description = "A functional and clean environment with a comfortable sleeping area to ensure your pet feels at home.",
+            Location = "Second floor",
+            Price = 8
+        },
+        new()
+        {
+            Id = 3,
+            HotelId = 3,
+            RoomTypeId = 1,
+            Name = "Classic Stay",
+            Description = "Simple yet comfortable accommodations with all the essentials, including a good bed, and water.",
+            Location = "Second floor",
+            Price = 10
+        },
+        new()
+        {
+            Id = 4,
+            HotelId = 4,
+            RoomTypeId = 1,
+            Name = "Classic Stay",
+            Description = "Simple yet comfortable accommodations with all the essentials, including a good bed, and water.",
+            Location = "Second floor",
+            Price = 10
+        },
+        new()
+        {
+            Id = 5,
+            HotelId = 1,
+            RoomTypeId = 2,
+            Name = "Luxury Lounge",
+            Description = "An upgraded room featuring a larger, plush bed, premium bedding, and an array of toys and treats. Perfect for pets who enjoy a bit more luxury.",
+            Location = "First floor",
+            Price = 12
+        },
+        new()
+        {
+            Id = 6,
+            HotelId = 2,
+            RoomTypeId = 2,
+            Name = "Premium Retreat",
+            Description = "A spacious room with high-end bedding, extra toys, and premium treats, offering an elevated experience for your pet.",
+            Location = "First floor",
+            Price = 14
+        },
+        new()
+        {
+            Id = 7,
+            HotelId = 3,
+            RoomTypeId = 2,
+            Name = "Luxury Lounge",
+            Description = "An upgraded room featuring a larger, plush bed, premium bedding, and an array of toys and treats. Perfect for pets who enjoy a bit more luxury.",
+            Location = "First floor",
+            Price = 12
+        },
+        new()
+        {
+            Id = 8,
+            HotelId = 4,
+            RoomTypeId = 2,
+            Name = "Luxury Lounge",
+            Description = "An upgraded room featuring a larger, plush bed, premium bedding, and an array of toys and treats. Perfect for pets who enjoy a bit more luxury.",
+            Location = "First floor",
+            Price = 12
+        },
+    ];
+
 
     public static List<User> Users { get; } =
     [

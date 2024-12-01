@@ -1,9 +1,8 @@
-﻿
-namespace LosTomates.PetHolidays.Application.Users;
+﻿namespace LosTomates.PetHolidays.Application.Users;
 
 public interface IUserService
 {
-    Task<UserView?> GetById(string userId);
+    Task<UserView> GetById(string userId);
 
     Task<string> Create(UserEditDto dto);
 

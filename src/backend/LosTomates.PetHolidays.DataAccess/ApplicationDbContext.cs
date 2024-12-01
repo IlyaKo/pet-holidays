@@ -1,5 +1,6 @@
 ﻿using LosTomates.PetHolidays.Core.Domain;
 using LosTomates.PetHolidays.Core.Domain.Hotels;
+using LosTomates.PetHolidays.Core.Domain.Rooms;
 using LosTomates.PetHolidays.Core.Domain.Users;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -8,7 +9,11 @@ namespace LosTomates.PetHolidays.DataAccess;
 
 public sealed class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : IdentityDbContext<User>(options)
 {
-    public DbSet<Hotel> Hotels { get; set; }
+    public DbSet<Hotel> Hotels => Set<Hotel>();
+
+    public DbSet<RoomType> RoomTypes => Set<RoomType>();
+
+    public DbSet<Room> Rooms => Set<Room>();
 
     public DbSet<PetType> PetTypes { get; set; }
 
@@ -23,6 +28,36 @@ public sealed class ApplicationDbContext(DbContextOptions<ApplicationDbContext> 
 
             entity.Property(x => x.Description)
                   .HasMaxLength(DatabaseConstrains.DescriptionMaxLength);
+
+            entity.HasMany(x => x.Rooms)
+                  .WithOne(x => x.Hotel)
+                  .HasForeignKey(x => x.HotelId);
+        });
+
+        modelBuilder.Entity<RoomType>(entity =>
+        {
+            entity.Property(x => x.Name)
+                  .HasMaxLength(DatabaseConstrains.NameMaxLength);
+
+            entity.Property(x => x.Description)
+                  .HasMaxLength(DatabaseConstrains.DescriptionMaxLength);
+        });
+
+        modelBuilder.Entity<Room>(entity =>
+        {
+            entity.Property(x => x.Name)
+                  .HasMaxLength(DatabaseConstrains.NameMaxLength);
+
+            entity.Property(x => x.Location)
+                  .HasMaxLength(DatabaseConstrains.AddressMaxLength);
+
+            entity.Property(x => x.Description)
+                  .HasMaxLength(DatabaseConstrains.DescriptionMaxLength);
+
+            entity.HasOne(x => x.RoomType)
+                  .WithMany(x => x.Rooms)
+                  .HasForeignKey(x => x.RoomTypeId)
+                  .OnDelete(DeleteBehavior.Restrict);
         });
 
         modelBuilder.Entity<PetType>(entity =>

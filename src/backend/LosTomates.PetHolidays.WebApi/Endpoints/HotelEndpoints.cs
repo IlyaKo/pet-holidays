@@ -18,10 +18,7 @@ public static class HotelEndpoints
         mapGroup.MapGet("{hotelId:int}", async (IHotelService service, int hotelId) =>
         {
             var entityView = await service.GetById(hotelId);
-            if (entityView is null)
-                return Results.NotFound("Can't find a record with the id " + hotelId);
-            else
-                return Results.Ok(entityView);
+            return Results.Ok(entityView);
         })
         .WithSummary("Get a hotel by its Id")
         .WithDescription("Return a hotel including not active ones")
@@ -36,7 +33,7 @@ public static class HotelEndpoints
         .WithDescription("Return an id of a created hotel")
         .Produces<HotelView>(StatusCodes.Status200OK);
 
-        mapGroup.MapPut("{hotelId:int}", async (IHotelService service, int hotelId, HotelEditDto dto) => 
+        mapGroup.MapPut("{hotelId:int}", async (IHotelService service, int hotelId, HotelEditDto dto) =>
         {
             await service.Update(hotelId, dto);
         })
@@ -44,7 +41,7 @@ public static class HotelEndpoints
         .Produces(StatusCodes.Status200OK)
         .Produces(StatusCodes.Status404NotFound);
 
-        mapGroup.MapDelete("{hotelId:int}", async (IHotelService service, int hotelId) => 
+        mapGroup.MapDelete("{hotelId:int}", async (IHotelService service, int hotelId) =>
         {
             await service.Delete(hotelId);
         })
