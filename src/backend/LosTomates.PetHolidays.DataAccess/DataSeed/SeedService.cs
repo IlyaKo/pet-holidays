@@ -1,4 +1,5 @@
-﻿using LosTomates.PetHolidays.Core.Domain.Hotels;
+﻿using LosTomates.PetHolidays.Core.Domain;
+using LosTomates.PetHolidays.Core.Domain.Hotels;
 using LosTomates.PetHolidays.Core.Domain.Rooms;
 using Microsoft.EntityFrameworkCore;
 
@@ -23,8 +24,6 @@ public sealed class SeedService
         AddRoomTypes();
         AddRooms();
         AddPetTypes();
-
-        dbContext.SaveChanges();
     }
 
     private void AddPetTypes()
@@ -36,6 +35,10 @@ public sealed class SeedService
 
             dbContext.Add(entity);
         }
+
+        dbContext.SaveChanges();
+
+        ResetSequence<PetType>();
     }
 
     private void AddHotels()
