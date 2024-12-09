@@ -5,6 +5,9 @@ using LosTomates.PetHolidays.DataAccess.DataSeed;
 using LosTomates.PetHolidays.WebApi.Extensions;
 using LosTomates.PetHolidays.WebApi.Middleware;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 namespace LosTomates.PetHolidays.WebApi;
 
@@ -42,8 +45,29 @@ public class Program
         services.AddExceptionHandler<ValidationExceptionHandler>();
 
         services.AddIdentity<User, IdentityRole>()
-                .AddEntityFrameworkStores<ApplicationDbContext>();
+                .AddEntityFrameworkStores<ApplicationDbContext>()
+                .AddDefaultTokenProviders();
 
+        var key = Encoding.ASCII.GetBytes("H3ll0W0rld!Th1s1s4T3mp0raryS3cr3tK3yF0rT3sting0nly!");
+        services.AddAuthentication(options =>
+        {
+            options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+            options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+        })
+        .AddJwtBearer(options =>
+        {
+            options.RequireHttpsMetadata = false;
+            options.SaveToken = true;
+            options.TokenValidationParameters = new TokenValidationParameters
+            {
+                ValidateIssuerSigningKey = true,
+                IssuerSigningKey = new SymmetricSecurityKey(key),
+                ValidateIssuer = false,
+                ValidateAudience = false
+            };
+        });
+
+        services.AddScoped<SignInManager<User>>();
     }
 
     // Configure the HTTP request pipeline.

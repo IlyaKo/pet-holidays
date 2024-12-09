@@ -7,4 +7,6 @@ public interface IUserService
     Task<string> Create(UserEditDto dto);
 
     Task Update(string entityId, UserEditDto dto);
+    Task<(string UserId, string UserName)> GetUserFromToken(string token);
+    Task<string> Login(LoginDto dto);
 }

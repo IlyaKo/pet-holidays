@@ -26,8 +26,28 @@ public static class UserEndpoints
         })
         .WithSummary("Create a new user")
         .WithDescription("Return an id of a created user")
-        .Produces<UserView>(StatusCodes.Status200OK)
+        .Produces<string>(StatusCodes.Status200OK)
         .Produces(StatusCodes.Status400BadRequest);
+
+        mapGroup.MapPost("login", async (IUserService service, LoginDto dto) =>
+        {
+            var result = await service.Login(dto);
+            return Results.Ok(new { JWT = result });
+        })
+        .WithSummary("Login")
+        .WithDescription("Return an JWT with UserId, UserName")
+        .Produces<string>(StatusCodes.Status200OK)
+        .Produces(StatusCodes.Status401Unauthorized);
+
+        mapGroup.MapPost("GetUserFromToken", async (IUserService service, string dto) =>
+        {
+            var result = await service.GetUserFromToken(dto);
+            return Results.Ok(new { name = result.UserName, id = result.UserId});
+        })
+        .WithSummary("GetUserFromToken")
+        .WithDescription("Return an UserId, UserName from JWT")
+        .Produces<string>(StatusCodes.Status200OK)
+        .Produces(StatusCodes.Status401Unauthorized);
 
         mapGroup.MapPut("{userId}", async (IUserService service, string userId, UserEditDto dto) =>
         {
