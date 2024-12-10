@@ -48,7 +48,7 @@ public class Program
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
 
-        var key = Encoding.ASCII.GetBytes("H3ll0W0rld!Th1s1s4T3mp0raryS3cr3tK3yF0rT3sting0nly!");
+        var key = Encoding.ASCII.GetBytes(configuration["JwtSettings:SecretKey"]);
         services.AddAuthentication(options =>
         {
             options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;

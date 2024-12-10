@@ -5,6 +5,7 @@ using LosTomates.PetHolidays.DataAccess;
 using Mapster;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -21,13 +22,13 @@ public sealed class UserService : IUserService
     private readonly string _secretKey;
 
     public UserService(ApplicationDbContext dbContext, IValidator<UserEditDto> validateService,
-                       UserManager<User> userManager, SignInManager<User> signInManager)
+                       UserManager<User> userManager, SignInManager<User> signInManager, IConfiguration configuration)
     {
         this.dbContext = dbContext;
         this.validateService = validateService;
         this._userManager = userManager;
         this._signInManager = signInManager;
-        this._secretKey = "H3ll0W0rld!Th1s1s4T3mp0raryS3cr3tK3yF0rT3sting0nly!";
+        this._secretKey = configuration["JwtSettings:SecretKey"];
     }
 
     public async Task<UserView> GetById(string entityId)
