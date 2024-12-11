@@ -18,17 +18,18 @@ public sealed class UserService : IUserService
     private readonly ApplicationDbContext dbContext;
     private readonly IValidator<UserEditDto> validateService;
     private readonly UserManager<User> _userManager;
-    private readonly SignInManager<User> _signInManager;
     private readonly string _secretKey;
 
     public UserService(ApplicationDbContext dbContext, IValidator<UserEditDto> validateService,
-                       UserManager<User> userManager, SignInManager<User> signInManager, IConfiguration configuration)
+                       UserManager<User> userManager, IConfiguration configuration)
     {
         this.dbContext = dbContext;
         this.validateService = validateService;
         this._userManager = userManager;
-        this._signInManager = signInManager;
-        this._secretKey = configuration["JwtSettings:SecretKey"];
+        var configuredKey = configuration["JwtSettings:SecretKey"];
+        if (string.IsNullOrEmpty(configuredKey))
+            throw new ApplicationException("You need to set up the JWT secret key");
+        this._secretKey = configuredKey;
     }
 
     public async Task<UserView> GetById(string entityId)
@@ -67,14 +68,11 @@ public sealed class UserService : IUserService
 
     public async Task<string> Login(LoginDto dto)
     {
-        var user = await _userManager.FindByEmailAsync(dto.Email);
-        if (user == null)
-        {
-            throw new NotFoundException(nameof(User), dto.Email);
-        }
+        var user = await _userManager.FindByEmailAsync(dto.Email)
+            ?? throw new UnauthorizedAccessException("Invalid credentials");
 
-        var result = await _signInManager.CheckPasswordSignInAsync(user, dto.Password, false);
-        if (!result.Succeeded)
+        var result = await _userManager.CheckPasswordAsync(user, dto.Password);
+        if (!result)
         {
             throw new UnauthorizedAccessException("Invalid credentials");
         }
@@ -95,7 +93,7 @@ public sealed class UserService : IUserService
         return tokenHandler.WriteToken(token);
     }
 
-    public async Task<(string UserId, string UserName)>  GetUserFromToken(string token)
+    public (string UserId, string UserName) GetUserFromToken(string token)
     {
         var tokenHandler = new JwtSecurityTokenHandler();
         var key = Encoding.ASCII.GetBytes(_secretKey);

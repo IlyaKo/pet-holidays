@@ -39,16 +39,6 @@ public static class UserEndpoints
         .Produces<string>(StatusCodes.Status200OK)
         .Produces(StatusCodes.Status401Unauthorized);
 
-        mapGroup.MapPost("GetUserFromToken", async (IUserService service, string dto) =>
-        {
-            var result = await service.GetUserFromToken(dto);
-            return Results.Ok(new { name = result.UserName, id = result.UserId});
-        })
-        .WithSummary("GetUserFromToken")
-        .WithDescription("Return an UserId, UserName from JWT")
-        .Produces<string>(StatusCodes.Status200OK)
-        .Produces(StatusCodes.Status401Unauthorized);
-
         mapGroup.MapPut("{userId}", async (IUserService service, string userId, UserEditDto dto) =>
         {
             await service.Update(userId, dto);
