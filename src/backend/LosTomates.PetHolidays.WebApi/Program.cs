@@ -81,6 +81,7 @@ public class Program
             app.UseSwaggerUI();
         }
 
+        app.UseAuthentication();
         app.UseAuthorization();
 
         app.UseCors(options => options.AllowAnyOrigin()
