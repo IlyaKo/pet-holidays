@@ -10,6 +10,8 @@ using FluentValidation;
 
 using LosTomates.PetHolidays.Application.Validations;
 using LosTomates.PetHolidays.Application.PetTypes;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.OpenApi.Models;
 
 namespace LosTomates.PetHolidays.WebApi.Extensions;
 
@@ -21,7 +23,25 @@ internal static class ServiceCollectionExtensions
         services.AddEndpointsApiExplorer();
         services.AddSwaggerGen(options =>
         {
+            //for test tokens
+            //options.AddSecurityDefinition(JwtBearerDefaults.AuthenticationScheme, new()
+            //{
+            //    Type = SecuritySchemeType.Http,
+            //    Scheme = JwtBearerDefaults.AuthenticationScheme,
+            //    BearerFormat = "JWT",
+            //    Description = "JWT Authorization header using the Bearer scheme"
+            //});
 
+            //options.AddSecurityRequirement(new OpenApiSecurityRequirement
+            //{
+            //    {
+            //        new OpenApiSecurityScheme
+            //        {
+            //            Reference = new() { Type = ReferenceType.SecurityScheme, Id = JwtBearerDefaults.AuthenticationScheme }
+            //        },
+            //        Array.Empty<string>()
+            //    }
+            //});
         });
 
         return services;
