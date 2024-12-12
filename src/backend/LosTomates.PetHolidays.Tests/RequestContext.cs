@@ -7,31 +7,13 @@ public class RequestContext
     public static void SetTestId(string testId)
     {
         if(string.IsNullOrWhiteSpace(testId))
-            throw new ArgumentException();
+            throw new ArgumentException($"недопустимое значение параметра {nameof(testId)} {testId}");
 
         if(!string.IsNullOrWhiteSpace(TestId.Value))
-            throw new InvalidCastException();
+            throw new InvalidOperationException("Значение параметра уже присвоено");
 
         TestId.Value = testId;
     }
 
     public static string GetTestId() => TestId.Value;
-}
-
-public class Client
-{
-    private HttpClient httpClient;
-
-    public Client()
-    {
-        httpClient = new HttpClient();
-    }
-
-    public void SetOrUpdateTestId()
-    {
-        httpClient.DefaultRequestHeaders.Remove(TestContants.RequestId);
-        httpClient.DefaultRequestHeaders.Remove(TestContants.TestId);
-        httpClient.DefaultRequestHeaders.Add(TestContants.RequestId, Guid.NewGuid().ToString());
-        httpClient.DefaultRequestHeaders.Add(TestContants.TestId, RequestContext.GetTestId());
-    }
 }
