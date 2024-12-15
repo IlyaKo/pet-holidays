@@ -1,5 +1,5 @@
-﻿using LosTomates.PetHolidays.Core.Domain;
-using LosTomates.PetHolidays.Core.Domain.Hotels;
+﻿using LosTomates.PetHolidays.Core.Domain.Hotels;
+using LosTomates.PetHolidays.Core.Domain.Pets;
 using LosTomates.PetHolidays.Core.Domain.Rooms;
 using Microsoft.EntityFrameworkCore;
 

@@ -1,4 +1,4 @@
-﻿using LosTomates.PetHolidays.Core.Domain;
+﻿using LosTomates.PetHolidays.Core.Domain.Pets;
 using Mapster;
 
 namespace LosTomates.PetHolidays.Application.PetTypes;

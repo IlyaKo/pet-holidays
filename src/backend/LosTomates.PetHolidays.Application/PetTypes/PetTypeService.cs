@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 using LosTomates.PetHolidays.Application.Shared;
-using LosTomates.PetHolidays.Core.Domain;
+using LosTomates.PetHolidays.Core.Domain.Pets;
 using LosTomates.PetHolidays.DataAccess;
 
 namespace LosTomates.PetHolidays.Application.PetTypes;

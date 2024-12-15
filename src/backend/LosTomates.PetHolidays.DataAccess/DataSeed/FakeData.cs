@@ -1,7 +1,7 @@
-﻿using LosTomates.PetHolidays.Core.Domain;
-using LosTomates.PetHolidays.Core.Domain.Hotels;
+﻿using LosTomates.PetHolidays.Core.Domain.Hotels;
 using LosTomates.PetHolidays.Core.Domain.Users;
 using LosTomates.PetHolidays.Core.Domain.Rooms;
+using LosTomates.PetHolidays.Core.Domain.Pets;
 
 namespace LosTomates.PetHolidays.DataAccess.DataSeed;
 
