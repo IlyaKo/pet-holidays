@@ -15,8 +15,10 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="FluentAssertions" Version="7.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.App" Version="2.2.8" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="9.0.0" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.11.1" />
+    <PackageReference Include="Microsoft.NETCore.App" Version="2.2.8" />
     <PackageReference Include="MockQueryable.Moq" Version="7.0.3" />
     <PackageReference Include="Moq" Version="4.20.72" />
     <PackageReference Include="Moq.EntityFrameworkCore" Version="2.2.1" />
@@ -34,6 +36,7 @@
   <ItemGroup>
     <ProjectReference Include="..\LosTomates.PetHolidays.Application\LosTomates.PetHolidays.Application.csproj" />
     <ProjectReference Include="..\LosTomates.PetHolidays.DataAccess\LosTomates.PetHolidays.DataAccess.csproj" />
+    <ProjectReference Include="..\LosTomates.PetHolidays.WebApi\LosTomates.PetHolidays.WebApi.csproj" />
   </ItemGroup>
 
 </Project>

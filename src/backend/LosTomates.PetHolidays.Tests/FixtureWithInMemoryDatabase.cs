@@ -1,29 +1,29 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using LosTomates.PetHolidays.DataAccess;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Linq;
 
-namespace PromoCodeFactory.UnitTests.TestFixtures;
+namespace LosTomates.PetHolidays.Tests;
 
 public sealed class FixtureWithInMemoryDatabase : IDisposable
 {
     public IServiceProvider ServiceProvider { get; }
 
-    public FixtureWithInMemoryDatabase(IConfiguration configuration)
+    public FixtureWithInMemoryDatabase()
     {
-        // var configuration = new ConfigurationBuilder().Build();
-        // var startup = new Startup(configuration);
-        // var services = new ServiceCollection();
-        // startup.ConfigureServices(services);
+        var configurationBuilder = new ConfigurationBuilder();
+        var configuration = configurationBuilder.Build();
 
-        // var realDbContext = services.SingleOrDefault(d => d.ServiceType == typeof(DbContextOptions<DataContext>));
-        // if (realDbContext != null)
-        //     services.Remove(realDbContext);
+        var services = new ServiceCollection();
+        WebApi.Program.AddServices(services, configuration);
 
-        // services.AddDbContext<DataContext>(options => options.UseInMemoryDatabase(databaseName: "TestDatabase"));
+        var realDbContext = services.SingleOrDefault(d => d.ServiceType == typeof(DbContextOptions<ApplicationDbContext>));
+        if (realDbContext != null)
+            services.Remove(realDbContext);
 
-        // ServiceProvider = services.BuildServiceProvider();
+        services.AddDbContext<ApplicationDbContext>(options => options.UseInMemoryDatabase(databaseName: "TestDatabase"));
+
+        ServiceProvider = services.BuildServiceProvider();
     }
 
     public void Dispose()

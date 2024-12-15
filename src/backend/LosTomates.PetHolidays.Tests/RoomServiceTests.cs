@@ -6,12 +6,12 @@ using LosTomates.PetHolidays.Application.RoomTypes;
 using LosTomates.PetHolidays.Core.Domain.Hotels;
 using LosTomates.PetHolidays.Core.Domain.Rooms;
 using LosTomates.PetHolidays.DataAccess;
-using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using Moq;
 
 namespace LosTomates.PetHolidays.Tests;
 
-public class RoomServiceTests
+public class RoomServiceTests : IClassFixture<FixtureWithInMemoryDatabase>
 {
     private readonly ApplicationDbContext _dbContext;
 
@@ -23,11 +23,9 @@ public class RoomServiceTests
 
     private readonly IRoomService _roomService;
 
-    public RoomServiceTests()
+    public RoomServiceTests(FixtureWithInMemoryDatabase fixtureWithInMemoryDatabase)
     {
-        var options = new DbContextOptionsBuilder<ApplicationDbContext>().UseInMemoryDatabase(databaseName: "TestDatabase").Options;
-        _dbContext = new ApplicationDbContext(options);
-
+        _dbContext = fixtureWithInMemoryDatabase.ServiceProvider.GetRequiredService<ApplicationDbContext>();
         _validatorMock = new Mock<IValidator<RoomEditDto>>();
         _hotelServiceMock = new Mock<IHotelService>();
         _roomTypeServiceMock = new Mock<IRoomTypeService>();
