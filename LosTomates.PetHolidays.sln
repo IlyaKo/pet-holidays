@@ -13,7 +13,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LosTomates.PetHolidays.Core
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LosTomates.PetHolidays.Tests", "src\backend\LosTomates.PetHolidays.Tests\LosTomates.PetHolidays.Tests.csproj", "{A1AFDAD9-6F5B-4A33-A88A-A3640E9A5AC8}"
 EndProject
-Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "..\docker-compose.dcproj", "{98EB6D95-00F4-4277-B5FC-8446C4D643DF}"
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{98EB6D95-00F4-4277-B5FC-8446C4D643DF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
