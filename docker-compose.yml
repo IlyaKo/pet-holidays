@@ -3,7 +3,7 @@ services:
   petholidays-frontend:
     container_name: petholidays-frontend
     build:
-      context: ./frontend
+      context: ./src/frontend
       dockerfile: Dockerfile 
     ports:
       - "80:80"  
@@ -11,7 +11,7 @@ services:
   petholidays-webapi:
     container_name: petholidays-webapi
     build:
-      context: ./backend
+      context: ./src/backend
       dockerfile: LosTomates.PetHolidays.WebApi/Dockerfile 
     ports:
       - "5001:8080"
@@ -33,7 +33,7 @@ services:
     ports:
       - "5433:5432"
     volumes:
-      - postgres_data:/var/lib/postgresql/data
+      - pet-holidays-core-volume:/var/lib/postgresql/data
     networks:
       - pet-holidays-network
 
