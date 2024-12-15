@@ -7,7 +7,6 @@ using LosTomates.PetHolidays.Core.Domain.Hotels;
 using LosTomates.PetHolidays.Core.Domain.Rooms;
 using LosTomates.PetHolidays.DataAccess;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Moq;
 
 namespace LosTomates.PetHolidays.Tests;
@@ -40,46 +39,40 @@ public class RoomServiceTests
     }
 
     [Fact]
-    public async void GetAll_Should_Return_All_Rooms_Of_Hotel() 
+    public async Task GetAll_Should_Return_All_Rooms_Of_Hotel() 
     {
         // Arrange
-        int hotelId, roomId;
-        EntityEntry<Hotel> hotelEntity;
-        EntityEntry<Room> roomEntity;
-        SeedHotelAndRoom(out hotelId, out roomId, out hotelEntity, out roomEntity);
-        var roomsCountInHotel = _dbContext.Rooms.Where(r => r.HotelId == hotelId).Count();
+        var hotel = SeedHotel();
+        var room = SeedRoom(hotel.Id);
+        var roomsCountInHotel = _dbContext.Rooms.Where(r => r.HotelId == hotel.Id).Count();
 
         // Act
-        var result = await _roomService.GetAll(hotelId);
+        var result = await _roomService.GetAll(hotel.Id);
 
         // Assert
         result.Count.Should().Be(roomsCountInHotel);
     }
 
     [Fact]
-    public async void GetById_Should_Return_Room_With_Requested_Id()
+    public async Task GetById_Should_Return_Room_With_Requested_Id()
     {
         // Arrange
-        int hotelId, roomId;
-        EntityEntry<Hotel> hotelEntity;
-        EntityEntry<Room> roomEntity;
-        SeedHotelAndRoom(out hotelId, out roomId, out hotelEntity, out roomEntity);
+        var hotel = SeedHotel();
+        var room = SeedRoom(hotel.Id);
 
         // Act
-        var result = await _roomService.GetById(hotelId, roomId);
+        var result = await _roomService.GetById(hotel.Id, room.Id);
 
         // Assert
         result.Should().NotBeNull();
     }
 
     [Fact]
-    public async void Create_Should_Create_Room() 
+    public async Task Create_Should_Create_Room() 
     {
         // Arrange
-        int hotelId, roomId;
-        EntityEntry<Hotel> hotelEntity;
-        EntityEntry<Room> roomEntity;
-        SeedHotelAndRoom(out hotelId, out roomId, out hotelEntity, out roomEntity);
+        var hotel = SeedHotel();
+        var room = SeedRoom(hotel.Id);
 
         var roomEditDto = new RoomEditDto
         {
@@ -87,7 +80,7 @@ public class RoomServiceTests
         };
 
         // Act
-        var result = await _roomService.Create(hotelId, roomEditDto);
+        var result = await _roomService.Create(hotel.Id, roomEditDto);
 
         // Assert
         var newRoom = _dbContext.Rooms.FirstOrDefault(r => r.Id == result);
@@ -98,20 +91,18 @@ public class RoomServiceTests
     public async Task Update_Should_Update_Room()
     {
         // Arrange
-        int hotelId, roomId;
-        EntityEntry<Hotel> hotelEntity;
-        EntityEntry<Room> roomEntity;
-        SeedHotelAndRoom(out hotelId, out roomId, out hotelEntity, out roomEntity);
+        var hotel = SeedHotel();
+        var room = SeedRoom(hotel.Id);
 
         var newName = "Updated Room";
         var newRoomTypeId = 2;
         var roomEditDto = new RoomEditDto { Name = newName, RoomTypeId = newRoomTypeId };
 
         // Act
-        await _roomService.Update(hotelEntity.Entity.Id, roomEntity.Entity.Id, roomEditDto);
+        await _roomService.Update(hotel.Id, room.Id, roomEditDto);
 
         // Assert
-        var result = _dbContext.Rooms.FirstOrDefault(r => r.HotelId == hotelId && r.Id == roomId);
+        var result = _dbContext.Rooms.FirstOrDefault(r => r.HotelId == hotel.Id && r.Id == room.Id);
         result.Should().NotBeNull();
         result.RoomTypeId.Should().Be(newRoomTypeId, because: $"Ожидаем RoomTypeId = {newRoomTypeId}");
         result.Name.Should().Be(newName, because: $"Ожидаем Name = {newName}");
@@ -121,37 +112,38 @@ public class RoomServiceTests
     public async Task Delete_Removes_Room_When_Exists()
     {
         // Arrange
-        int hotelId, roomId;
-        EntityEntry<Hotel> hotelEntity;
-        EntityEntry<Room> roomEntity;
-        SeedHotelAndRoom(out hotelId, out roomId, out hotelEntity, out roomEntity);
+        var hotel = SeedHotel();
+        var room = SeedRoom(hotel.Id);
 
         // Act
-        await _roomService.Delete(hotelEntity.Entity.Id, roomEntity.Entity.Id);
+        await _roomService.Delete(hotel.Id, room.Id);
 
         // Assert
-        var result = _dbContext.Rooms.FirstOrDefault(r => r.HotelId == hotelId && r.Id == roomId);
+        var result = _dbContext.Rooms.FirstOrDefault(r => r.HotelId == hotel.Id && r.Id == room.Id);
         result.Should().BeNull();      
     }
 
-    private void SeedHotelAndRoom(out int hotelId, out int roomId, out EntityEntry<Hotel> hotelEntity, out EntityEntry<Room> roomEntity)
+    private Hotel SeedHotel()
     {
-        hotelId = 11;
-        roomId = 22;
-
-        hotelEntity = _dbContext.Hotels.Add(new Hotel
+        var hotelEntity = _dbContext.Hotels.Add(new Hotel
         {
-            Id = hotelId,
             Name = "Test hotel",
         });
-        roomEntity = _dbContext.Rooms.Add(new Room
+
+        _dbContext.SaveChanges();
+        return hotelEntity.Entity;
+    }
+
+    private Room SeedRoom(int hotelId)
+    {
+        var roomEntity = _dbContext.Rooms.Add(new Room
         {
-            Id = roomId,
             HotelId = hotelId,
             Name = "Test room",
             RoomTypeId = 1
         });
 
         _dbContext.SaveChanges();
+        return roomEntity.Entity;
     }
 }
