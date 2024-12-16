@@ -160,7 +160,7 @@ public static class FakeData
     ];
 
     public static List<PetType> PetTypes { get; } =
- [
+    [
         new()
         {
             Id = 1,
@@ -197,5 +197,36 @@ public static class FakeData
             Name = "Turtle",
             IsActive= true,
         }
- ];
+    ];
+    public static List<Pet> Pets { get; } =
+    [
+        new()
+        {
+            Id = 1,
+            Name = "Rex",
+            PetTypeId=1,
+            PetOwnerId="b10deb6c-63cb-4d73-8cbd-65203a5000db"
+        },
+        new()
+        {
+            Id = 2,
+            Name = "Simba",
+            PetTypeId=2,
+            PetOwnerId="b10deb6c-63cb-4d73-8cbd-65203a5000db"
+        },
+        new()
+        {
+            Id = 3,
+            Name = "Sharik",
+            PetTypeId=1,
+            PetOwnerId="1fb17ad5-f507-4683-8be7-4fe276d1f086"
+        },
+        new()
+        {
+            Id = 4,
+            Name = "Rio",
+            PetTypeId=5,
+            PetOwnerId="1fb17ad5-f507-4683-8be7-4fe276d1f086"
+        }
+    ];
 }

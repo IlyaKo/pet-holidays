@@ -24,6 +24,22 @@ public sealed class SeedService
         AddRoomTypes();
         AddRooms();
         AddPetTypes();
+        AddPets();
+    }
+
+    private void AddPets()
+    {
+        foreach (var entity in FakeData.Pets)
+        {
+            if (dbContext.Pets.Any(x => x.Id == entity.Id))
+                continue;
+
+            dbContext.Add(entity);
+        }
+
+        dbContext.SaveChanges();
+
+        ResetSequence<Pet>();
     }
 
     private void AddPetTypes()

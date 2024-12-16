@@ -12,6 +12,7 @@ internal static class WebApplicationBuilderExtensions
         RoomEndpoints.Map(app);
         RoomTypeEndpoints.Map(app);
         PetTypeEndpoints.Map(app);
+        PetEndpoints.Map(app);
 
         return app;
     }
