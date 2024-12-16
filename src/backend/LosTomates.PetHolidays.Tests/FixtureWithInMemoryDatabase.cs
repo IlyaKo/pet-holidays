@@ -15,6 +15,7 @@ public sealed class FixtureWithInMemoryDatabase : IDisposable
         var inMemorySettings = new Dictionary<string, string?> 
         {
             {"ConnectionStrings:CoreDb", "Empty connection string"},
+            {"JwtSettings:SecretKey", "Secret key"}
         };
         configurationBuilder.AddInMemoryCollection(inMemorySettings);
         var configuration = configurationBuilder.Build();
