@@ -21,10 +21,12 @@ public sealed class RoomService(
     private readonly IRoomTypeService _roomTypeService = roomTypeService;
 
     public async Task<IReadOnlyList<RoomView>> GetAll(int hotelId)
-        => await _dbContext.Rooms
-                           .Where(x => x.HotelId == hotelId)
-                           .ProjectToType<RoomView>()
-                           .ToListAsync();
+    {
+        var entities = await _dbContext.Rooms.Where(x => x.HotelId == hotelId)                               
+                                             .ToListAsync();
+
+        return entities.Adapt<IReadOnlyList<RoomView>>(); 
+    }
 
     public async Task<RoomView?> GetById(int hotelId, int entityId)
     {

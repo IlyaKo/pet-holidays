@@ -28,7 +28,7 @@ public class Program
     }
 
     // Add services to the container.
-    private static void AddServices(IServiceCollection services, IConfiguration configuration)
+    public static void AddServices(IServiceCollection services, IConfiguration configuration)
     {
         services.AddAuthorization();
         services.AddApplicationServices();
