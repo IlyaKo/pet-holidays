@@ -7,7 +7,7 @@ public class Pet : BaseEntity
 
     public int PetTypeId { get; set; }
 
-    public int PetOwnerId { get; set; }
+    public required string PetOwnerId { get; set; }
 
     public PetType? PetType { get; set; } 
 
