@@ -23,7 +23,8 @@ jobs:
            run: ls -alh
          
          - name: Install dependencies
-           run: dotnet restore ./pet-holidays.sln  
+           run: dotnet restore pet-holidays.sln
+           working-directory: src/backend/  
          
          - name: Build
            run: dotnet build ./pet-holidays.sln --configuration Release --no-restore  
