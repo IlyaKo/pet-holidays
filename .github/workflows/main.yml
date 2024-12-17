@@ -23,7 +23,7 @@ jobs:
            run: ls -alh
          
          - name: Install dependencies
-           run: dotnet restore pet-holidays.sln
+           run: dotnet restore LosTomates.PetHolidays.sln
            working-directory: src/backend/  
          
          - name: Build
