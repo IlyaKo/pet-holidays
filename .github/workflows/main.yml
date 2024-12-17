@@ -19,17 +19,20 @@ jobs:
            with:
               dotnet-version: ${{ env.DOTNET_VERSION }}
          
+         - name: List files in repository 
+           run: ls -alh
+         
          - name: Install dependencies
-           run: dotnet restore
-           working-directory: src/backend/
+           run: dotnet restore ./LosTomates.PetHolidays.sln
+           working-directory: .  
          
          - name: Build
-           run: dotnet build --configuration Release --no-restore
-           working-directory: src/backend/
+           run: dotnet build ./LosTomates.PetHolidays.sln --configuration Release --no-restore
+           working-directory: . 
            
          - name: Test
-           run: dotnet test --configuration Release --no-build
-           working-directory: src/backend/
+           run: dotnet test ./LosTomates.PetHolidays.sln --configuration Release --no-build
+           working-directory: . 
            
          - name: Run The end
            run: echo The end!
