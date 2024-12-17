@@ -21,15 +21,15 @@ jobs:
          
          - name: Install dependencies
            run: dotnet restore
-           working-directory: src/backend/
+           working-directory: .
          
          - name: Build
            run: dotnet build --configuration Release --no-restore
-           working-directory: src/backend/
+           working-directory: .
            
          - name: Test
            run: dotnet test --configuration Release --no-build
-           working-directory: src/backend/
+           working-directory: .
            
          - name: Run The end
            run: echo The end!
