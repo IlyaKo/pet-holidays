@@ -20,7 +20,7 @@ jobs:
               dotnet-version: ${{ env.DOTNET_VERSION }}
          
          - name: Install dependencies
-           run: dotnet restore
+           run: dotnet restore pet-holidays.sln
          
          - name: Build
            run: dotnet build --configuration Release --no-restore
