@@ -23,14 +23,16 @@ jobs:
            run: ls -alh
          
          - name: Install dependencies
-           run: dotnet restore LosTomates.PetHolidays.sln
-           working-directory: src/backend/  
+           run: dotnet restore ./LosTomates.PetHolidays.sln
+           working-directory: .  
          
          - name: Build
-           run: dotnet build ./pet-holidays.sln --configuration Release --no-restore  
+           run: dotnet build ./LosTomates.PetHolidays.sln --configuration Release --no-restore
+           working-directory: . 
            
          - name: Test
-           run: dotnet test ./pet-holidays.sln --configuration Release --no-build  
+           run: dotnet test ./LosTomates.PetHolidays.sln --configuration Release --no-build
+           working-directory: . 
            
          - name: Run The end
            run: echo The end!
