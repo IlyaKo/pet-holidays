@@ -20,13 +20,13 @@ jobs:
               dotnet-version: ${{ env.DOTNET_VERSION }}
          
          - name: Install dependencies
-           run: dotnet restore pet-holidays.sln
+           run: dotnet restore pet-holidays.sln  
          
          - name: Build
-           run: dotnet build --configuration Release --no-restore
+           run: dotnet build pet-holidays.sln --configuration Release --no-restore  
            
          - name: Test
-           run: dotnet test --configuration Release --no-build
+           run: dotnet test pet-holidays.sln --configuration Release --no-build  
            
          - name: Run The end
            run: echo The end!
