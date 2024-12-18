@@ -7,13 +7,10 @@ using LosTomates.PetHolidays.Application.RoomTypes;
 using LosTomates.PetHolidays.Application.Users;
 using LosTomates.PetHolidays.DataAccess;
 using LosTomates.PetHolidays.DataAccess.DataSeed;
-using Microsoft.EntityFrameworkCore;
-
-using LosTomates.PetHolidays.Application.Validations;
-using LosTomates.PetHolidays.Application.PetTypes;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.OpenApi.Models;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
 using System.Text;
 
 namespace LosTomates.PetHolidays.WebApi.Extensions;
