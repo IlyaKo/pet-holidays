@@ -1,18 +1,16 @@
 ﻿using FluentValidation;
 using LosTomates.PetHolidays.Application.Hotels;
+using LosTomates.PetHolidays.Application.Pets;
+using LosTomates.PetHolidays.Application.PetTypes;
 using LosTomates.PetHolidays.Application.Rooms;
 using LosTomates.PetHolidays.Application.RoomTypes;
 using LosTomates.PetHolidays.Application.Users;
 using LosTomates.PetHolidays.DataAccess;
 using LosTomates.PetHolidays.DataAccess.DataSeed;
-using Microsoft.EntityFrameworkCore;
-using FluentValidation;
-
-using LosTomates.PetHolidays.Application.Validations;
-using LosTomates.PetHolidays.Application.PetTypes;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.OpenApi.Models;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
 using System.Text;
 
 namespace LosTomates.PetHolidays.WebApi.Extensions;
@@ -54,6 +52,7 @@ internal static class ServiceCollectionExtensions
         services.AddScoped<IHotelService, HotelService>();
         services.AddScoped<IUserService, UserService>();
         services.AddScoped<IPetTypeService, PetTypeService>();
+        services.AddScoped<IPetService, PetService>();
         services.AddScoped<IRoomService, RoomService>();
         services.AddScoped<IRoomTypeService, RoomTypeService>();
 

@@ -1,15 +1,14 @@
 ﻿using LosTomates.PetHolidays.Core.Domain.Pets;
 using Mapster;
 
-namespace LosTomates.PetHolidays.Application.PetTypes;
-
+namespace LosTomates.PetHolidays.Application.Pets;
 public class MappingConfig : IRegister
 {
     public void Register(TypeAdapterConfig config)
     {
-        config.NewConfig<PetType, PetTypeView>();
+        config.NewConfig<Pet, PetView>();
 
-        config.NewConfig<PetTypeEditDto, PetType>();
+        config.NewConfig<PetEditDto, Pet>();
 
     }
 }

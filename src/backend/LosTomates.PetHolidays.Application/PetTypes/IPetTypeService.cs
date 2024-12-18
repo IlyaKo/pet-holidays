@@ -1,5 +1,5 @@
 ﻿using LosTomates.PetHolidays.Core.Abstractions;
-using LosTomates.PetHolidays.Core.Domain;
+using LosTomates.PetHolidays.Core.Domain.Pets;
 
 namespace LosTomates.PetHolidays.Application.PetTypes;
 
