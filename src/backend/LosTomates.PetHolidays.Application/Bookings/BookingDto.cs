@@ -1,10 +1,10 @@
 ﻿namespace LosTomates.PetHolidays.Application.Bookings;
 
-public class BookingsDto
+public class BookingDto
 {
     public int Id { get; set; }
 
-    public int UserId { get; set; }
+    public string UserId { get; set; }
 
     public int RoomId { get; set; }
 

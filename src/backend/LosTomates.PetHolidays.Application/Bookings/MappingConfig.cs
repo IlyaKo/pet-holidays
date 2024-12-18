@@ -9,6 +9,6 @@ public class MappingConfig : IRegister
     {
         config.NewConfig<Booking, BookingView>();
 
-        config.NewConfig<BookingsDto, Booking>();
+        config.NewConfig<BookingDto, Booking>();
     }
 }

@@ -6,9 +6,9 @@ public interface IBookingsService
 
     Task<BookingView> GetById(int hotelId);
 
-    Task<int> Create(BookingsDto dto);
+    Task<int> Create(BookingDto dto);
 
-    Task Update(int entityId, BookingsDto dto);
+    Task Update(int entityId, BookingDto dto);
 
     Task Delete(int entityId);
 }

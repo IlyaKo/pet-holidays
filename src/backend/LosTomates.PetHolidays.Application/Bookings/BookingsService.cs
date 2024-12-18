@@ -8,11 +8,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace LosTomates.PetHolidays.Application.Bookings;
 
-public sealed class BookingsService(ApplicationDbContext dbContext, IValidator<BookingsDto> validateService) : IBookingsService
+public sealed class BookingsService(ApplicationDbContext dbContext, IValidator<BookingDto> validateService) : IBookingsService
 {
     private readonly ApplicationDbContext _dbContext = dbContext;
 
-    private readonly IValidator<BookingsDto> _validateService = validateService;
+    private readonly IValidator<BookingDto> _validateService = validateService;
 
     public async Task<IReadOnlyList<BookingView>> GetAll()
     {
@@ -32,7 +32,7 @@ public sealed class BookingsService(ApplicationDbContext dbContext, IValidator<B
         return entity.Adapt<BookingView>();
     }
 
-    public async Task<int> Create(BookingsDto dto)
+    public async Task<int> Create(BookingDto dto)
     {
         _validateService.ValidateAndThrow(dto);
 
@@ -45,7 +45,7 @@ public sealed class BookingsService(ApplicationDbContext dbContext, IValidator<B
         return entity.Id;
     }
 
-    public async Task Update(int entityId, BookingsDto dto)
+    public async Task Update(int entityId, BookingDto dto)
     {
         _validateService.ValidateAndThrow(dto);
 

@@ -1,6 +1,8 @@
-﻿using LosTomates.PetHolidays.Core.Domain.Hotels;
+﻿using LosTomates.PetHolidays.Core.Domain.Bookings;
+using LosTomates.PetHolidays.Core.Domain.Hotels;
 using LosTomates.PetHolidays.Core.Domain.Pets;
 using LosTomates.PetHolidays.Core.Domain.Rooms;
+using LosTomates.PetHolidays.DataAccess.Migrations;
 using Microsoft.EntityFrameworkCore;
 
 namespace LosTomates.PetHolidays.DataAccess.DataSeed;
@@ -23,6 +25,7 @@ public sealed class SeedService
         AddUsers();
         AddRoomTypes();
         AddRooms();
+        AddBookings();
         AddPetTypes();
         AddPets();
     }
@@ -109,6 +112,20 @@ public sealed class SeedService
         dbContext.SaveChanges();
 
         ResetSequence<Room>();
+    }
+
+    private void AddBookings()
+    {
+        foreach (var entity in FakeData.Bookings)
+        {
+            if (dbContext.Bookings.Any(x => x.Id == entity.Id))
+                continue;
+
+            dbContext.Add(entity);
+        }
+        dbContext.SaveChanges();
+
+        ResetSequence<Booking>();
     }
 
     private void ResetSequence<TEntity>() where TEntity : class

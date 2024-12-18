@@ -3,9 +3,9 @@ using LosTomates.PetHolidays.DataAccess;
 
 namespace LosTomates.PetHolidays.Application.Bookings;
 
-public class BookingsDtoValidator : AbstractValidator<BookingsDto>
+public class BookingDtoValidator : AbstractValidator<BookingDto>
 {
-    public BookingsDtoValidator()
+    public BookingDtoValidator()
     {
         // RuleFor(x => x.Name).Length(2, DatabaseConstrains.NameMaxLength);
         // RuleFor(x => x.Description).MaximumLength(DatabaseConstrains.DescriptionMaxLength);

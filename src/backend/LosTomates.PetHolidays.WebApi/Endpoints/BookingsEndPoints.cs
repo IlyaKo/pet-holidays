@@ -23,7 +23,7 @@ public class BookingsEndPoints
         .Produces<int>(StatusCodes.Status200OK)
         .Produces(StatusCodes.Status404NotFound);
 
-        mapGroup.MapPost(string.Empty, async (IBookingsService service, BookingsDto dto) =>
+        mapGroup.MapPost(string.Empty, async (IBookingsService service, BookingDto dto) =>
         {
             return await service.Create(dto);
         })
@@ -31,7 +31,7 @@ public class BookingsEndPoints
         .WithDescription("Return an id of a created booking")
         .Produces<BookingView>(StatusCodes.Status200OK);
 
-        mapGroup.MapPut("{bookingId:int}", async (IBookingsService service, int bookingId, BookingsDto dto) =>
+        mapGroup.MapPut("{bookingId:int}", async (IBookingsService service, int bookingId, BookingDto dto) =>
         {
             await service.Update(bookingId, dto);
         })
