@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+using LosTomates.PetHolidays.Application.Bookings;
 using LosTomates.PetHolidays.Application.Hotels;
 using LosTomates.PetHolidays.Application.Pets;
 using LosTomates.PetHolidays.Application.PetTypes;
@@ -55,7 +56,7 @@ internal static class ServiceCollectionExtensions
         services.AddScoped<IPetService, PetService>();
         services.AddScoped<IRoomService, RoomService>();
         services.AddScoped<IRoomTypeService, RoomTypeService>();
-
+        services.AddScoped<IBookingsService, BookingsService>();
         return services;
     }
 
