@@ -74,8 +74,7 @@ public sealed class ApplicationDbContext(DbContextOptions<ApplicationDbContext> 
         modelBuilder.Entity<Pet>(entity =>
         {
             entity.Property(x => x.Name)
-                  .HasMaxLength(DatabaseConstrains.NameMaxLength)
-                  .HasDefaultValue("Not set");
+                  .HasMaxLength(DatabaseConstrains.NameMaxLength);
 
             entity.HasOne(x => x.PetType)
                   .WithMany()

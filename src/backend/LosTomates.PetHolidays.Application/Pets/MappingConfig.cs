@@ -6,8 +6,7 @@ public class MappingConfig : IRegister
 {
     public void Register(TypeAdapterConfig config)
     {
-        config.NewConfig<Pet, PetView>()
-             .Map(dest => dest.PetType, src => src.PetType != null ? src.PetType.Name : "Unknown");
+        config.NewConfig<Pet, PetView>();
 
         config.NewConfig<PetEditDto, Pet>();
 
