@@ -6,5 +6,5 @@ public class PetView
 {
     public int Id { get; set; }
     public string? Name { get; set; }
-    public PetTypeView? PetType { get; set; }
+    public required PetTypeView PetType { get; set; }
 }
