@@ -10,6 +10,8 @@ import HotelsPage from "../pages/hotels-page/HotelsPage";
 import HotelPage from "../pages/hotel-page/HotelPage";
 import AboutPage from "../pages/about-page/AboutPage";
 import NotFoundPage from "../pages/not-found-page/NotFoundPage";
+import LoginPage from "../pages/login-page/LoginPage";
+import RegisterPage from "../pages/register-page/RegisterPage";
 
 const router = createBrowserRouter([
   {
@@ -33,16 +35,22 @@ const router = createBrowserRouter([
         path: "/about",
         element: <AboutPage />,
       },
+      {
+        path: "/login",
+        element: <LoginPage />,
+      },
+      {
+        path: "/sign-up",
+        element: <RegisterPage />,
+      },
     ],
   },
 ]);
 
-function App() {
+export default function App() {
   return (
     <div className="App">
       <RouterProvider router={router} />
     </div>
   );
 }
-
-export default App;

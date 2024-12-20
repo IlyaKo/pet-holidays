@@ -2,6 +2,7 @@ import { React, useState, useEffect } from "react";
 import axios from "axios";
 import "./HotelList.css";
 import UpdateHotel from "./UpdateHotel";
+import { API_URL } from "../../config";
 
 function HotelList() {
   const [hotels, setHotels] = useState([]);
@@ -13,7 +14,7 @@ function HotelList() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:5001/api/hotels/")
+      .get(API_URL + "hotels")
       .then((response) => {
         setHotels(response.data);
       })
@@ -24,7 +25,7 @@ function HotelList() {
 
   const deleteHotel = (id) => {
     axios
-      .delete(`http://localhost:5001/api/hotels/${id}`)
+      .delete(`${API_URL}hotels/${id}`)
       .then(() => {
         setHotels(hotels.filter((hotel) => hotel.id !== id));
       })
@@ -51,7 +52,7 @@ function HotelList() {
     e.preventDefault();
     // Отправляем данные нового отеля на сервер
     axios
-      .post("http://localhost:5001/api/hotels/", {
+      .post(API_URL + "hotels", {
         name: newHotelName,
         description: newHotelDescription,
         isActive: true,
