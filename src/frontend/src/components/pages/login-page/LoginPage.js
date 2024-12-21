@@ -1,21 +1,24 @@
 import { React, useState } from "react";
 import axios from "axios";
 import { API_URL } from "../../../config";
+import { useForm } from "react-hook-form";
 
 export default function LoginPage() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
   const [errorMessage, setErrorMessage] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const onSubmit = async (data) => {
     setErrorMessage("");
     setSuccessMessage("");
     try {
       const response = await axios.post(API_URL + "users/login", {
-        Email: email,
-        Password: password,
+        Email: data.email,
+        Password: data.password,
       });
       const token = response.data.jwt;
       console.log("Token: ", token);
@@ -29,17 +32,19 @@ export default function LoginPage() {
 
   return (
     <div className="m-4">
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit(onSubmit)}>
         <div className="field">
           <label className="label is-normal">Email: </label>
           <div className="body">
             <input
               className="input"
               type="text"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              {...register("email", { required: true })}
               placeholder="Email"
             />
+            {errors.email && (
+              <p className="help is-danger">Field is required</p>
+            )}
           </div>
         </div>
 
@@ -49,10 +54,12 @@ export default function LoginPage() {
             <input
               className="input"
               type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              {...register("password", { required: true })}
               placeholder="Password"
             />
+            {errors.password && (
+              <p className="help is-danger">Field is required</p>
+            )}
           </div>
         </div>
 

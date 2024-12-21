@@ -1,43 +1,32 @@
 import { React, useState } from "react";
 import axios from "axios";
 import { API_URL } from "../../../config";
+import { useForm } from "react-hook-form";
 
 export default function RegisterPage() {
-  const [username, setUsername] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [passwordConfirmation, setPasswordConfirmation] = useState("");
-  const [phoneNumber, setPhoneNumber] = useState("");
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
   const [errorMessage, setErrorMessage] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const onSubmit = async (data) => {
     setErrorMessage("");
     setSuccessMessage("");
 
-    if (
-      !username ||
-      !email ||
-      !password ||
-      !passwordConfirmation ||
-      !phoneNumber
-    ) {
-      setErrorMessage("All fields are required");
-      return;
-    }
-
-    if (password !== passwordConfirmation) {
+    if (data.password !== data.passwordConfirmation) {
       setErrorMessage("Password and password confirmation do not match");
       return;
     }
 
     try {
       const response = await axios.post(API_URL + "users", {
-        UserName: username,
-        Email: email,
-        PhoneNumber: phoneNumber,
-        Password: password,
+        UserName: data.username,
+        Email: data.email,
+        PhoneNumber: data.phoneNumber,
+        Password: data.password,
       });
       const token = response.data.jwt;
       console.log("Token: ", token);
@@ -51,17 +40,19 @@ export default function RegisterPage() {
 
   return (
     <div className="m-4">
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit(onSubmit)}>
         <div className="field">
           <label className="label is-normal">Username: </label>
           <div className="body">
             <input
               className="input"
               type="text"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
+              {...register("username", { required: true })}
               placeholder="Username"
             />
+            {errors.username && (
+              <p className="help is-danger">Field is required</p>
+            )}
           </div>
         </div>
 
@@ -71,10 +62,12 @@ export default function RegisterPage() {
             <input
               className="input"
               type="text"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              {...register("email", { required: true })}
               placeholder="Email"
             />
+            {errors.email && (
+              <p className="help is-danger">Field is required</p>
+            )}
           </div>
         </div>
 
@@ -84,10 +77,12 @@ export default function RegisterPage() {
             <input
               className="input"
               type="phone"
-              value={phoneNumber}
-              onChange={(e) => setPhoneNumber(e.target.value)}
+              {...register("phoneNumber", { required: true })}
               placeholder="Phone number"
             />
+            {errors.phoneNumber && (
+              <p className="help is-danger">Field is required</p>
+            )}
           </div>
         </div>
 
@@ -97,10 +92,12 @@ export default function RegisterPage() {
             <input
               className="input"
               type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              {...register("password", { required: true })}
               placeholder="Password"
             />
+            {errors.password && (
+              <p className="help is-danger">Field is required</p>
+            )}
           </div>
         </div>
 
@@ -110,10 +107,12 @@ export default function RegisterPage() {
             <input
               className="input"
               type="password"
-              value={passwordConfirmation}
-              onChange={(e) => setPasswordConfirmation(e.target.value)}
+              {...register("passwordConfirmation", { required: true })}
               placeholder="Password confirmation"
             />
+            {errors.passwordConfirmation && (
+              <p className="help is-danger">Field is required</p>
+            )}
           </div>
         </div>
 
