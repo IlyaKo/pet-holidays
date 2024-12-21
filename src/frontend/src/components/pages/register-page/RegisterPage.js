@@ -1,14 +1,11 @@
 import { React, useState } from "react";
 import axios from "axios";
 import { API_URL } from "../../../config";
-import { useForm } from "react-hook-form";
+import { FormProvider, useForm } from "react-hook-form";
+import FormInput from "../../shared/FormInput";
 
 export default function RegisterPage() {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm();
+  const formMethods = useForm();
   const [errorMessage, setErrorMessage] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
 
@@ -39,82 +36,54 @@ export default function RegisterPage() {
   };
 
   return (
-    <div className="m-4">
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="field">
-          <label className="label is-normal">Username: </label>
-          <div className="body">
-            <input
-              className="input"
-              type="text"
-              {...register("username", { required: true })}
-              placeholder="Username"
-            />
-            {errors.username && (
-              <p className="help is-danger">Field is required</p>
-            )}
-          </div>
-        </div>
+    <FormProvider {...formMethods}>
+      <form className="m-4" onSubmit={formMethods.handleSubmit(onSubmit)}>
+        <FormInput
+          name="username"
+          label="Username"
+          rules={{
+            required: "Username is required",
+            minLength: { value: 2, message: "Username is too short" },
+            maxLength: { value: 200, message: "Username is too long" },
+          }}
+        />
 
-        <div className="field">
-          <label className="label is-normal">Email: </label>
-          <div className="body">
-            <input
-              className="input"
-              type="text"
-              {...register("email", { required: true })}
-              placeholder="Email"
-            />
-            {errors.email && (
-              <p className="help is-danger">Field is required</p>
-            )}
-          </div>
-        </div>
+        <FormInput
+          name="email"
+          label="Email"
+          type="email"
+          rules={{
+            required: "Email is required",
+            pattern: { value: /^\S+@\S+$/i, message: "Invalid email address" },
+          }}
+        />
 
-        <div className="field">
-          <label className="label is-normal">Phone number: </label>
-          <div className="body">
-            <input
-              className="input"
-              type="phone"
-              {...register("phoneNumber", { required: true })}
-              placeholder="Phone number"
-            />
-            {errors.phoneNumber && (
-              <p className="help is-danger">Field is required</p>
-            )}
-          </div>
-        </div>
+        <FormInput
+          name="phoneNumber"
+          label="Phone number"
+          type="tel"
+          rules={{
+            required: "Phone number is required",
+            maxLength: { value: 12, message: "Username is too long" },
+          }}
+        />
 
-        <div className="field">
-          <label className="label">Password: </label>
-          <div className="body">
-            <input
-              className="input"
-              type="password"
-              {...register("password", { required: true })}
-              placeholder="Password"
-            />
-            {errors.password && (
-              <p className="help is-danger">Field is required</p>
-            )}
-          </div>
-        </div>
+        <FormInput
+          name="password"
+          label="Password"
+          type="password"
+          rules={{
+            required: "Password is required",
+            minLength: { value: 6, message: "Password is too short" },
+          }}
+        />
 
-        <div className="field">
-          <label className="label">Password confirmation: </label>
-          <div className="body">
-            <input
-              className="input"
-              type="password"
-              {...register("passwordConfirmation", { required: true })}
-              placeholder="Password confirmation"
-            />
-            {errors.passwordConfirmation && (
-              <p className="help is-danger">Field is required</p>
-            )}
-          </div>
-        </div>
+        <FormInput
+          name="passwordConfirmation"
+          label="Password confirmation"
+          type="password"
+          rules={{ required: "Password confirmation is required" }}
+        />
 
         {successMessage && (
           <div className="notification is-success">{successMessage}</div>
@@ -126,6 +95,6 @@ export default function RegisterPage() {
           Sign Up
         </button>
       </form>
-    </div>
+    </FormProvider>
   );
 }

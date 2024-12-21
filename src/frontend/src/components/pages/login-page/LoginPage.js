@@ -1,14 +1,11 @@
 import { React, useState } from "react";
 import axios from "axios";
 import { API_URL } from "../../../config";
-import { useForm } from "react-hook-form";
+import { FormProvider, useForm } from "react-hook-form";
+import FormInput from "../../shared/FormInput";
 
 export default function LoginPage() {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm();
+  const formMethods = useForm();
   const [errorMessage, setErrorMessage] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
 
@@ -31,37 +28,27 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="m-4">
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="field">
-          <label className="label is-normal">Email: </label>
-          <div className="body">
-            <input
-              className="input"
-              type="text"
-              {...register("email", { required: true })}
-              placeholder="Email"
-            />
-            {errors.email && (
-              <p className="help is-danger">Field is required</p>
-            )}
-          </div>
-        </div>
+    <FormProvider {...formMethods}>
+      <form className="m-4" onSubmit={formMethods.handleSubmit(onSubmit)}>
+        <FormInput
+          name="email"
+          label="Email"
+          type="email"
+          rules={{
+            required: "Email is required",
+            pattern: { value: /^\S+@\S+$/i, message: "Invalid email address" },
+          }}
+        />
 
-        <div className="field">
-          <label className="label">Password: </label>
-          <div className="body">
-            <input
-              className="input"
-              type="password"
-              {...register("password", { required: true })}
-              placeholder="Password"
-            />
-            {errors.password && (
-              <p className="help is-danger">Field is required</p>
-            )}
-          </div>
-        </div>
+        <FormInput
+          name="password"
+          label="Password"
+          type="password"
+          rules={{
+            required: "Password is required",
+            minLength: { value: 6, message: "Password is too short" },
+          }}
+        />
 
         {successMessage && (
           <div className="notification is-success">{successMessage}</div>
@@ -74,6 +61,6 @@ export default function LoginPage() {
           Login
         </button>
       </form>
-    </div>
+    </FormProvider>
   );
 }
