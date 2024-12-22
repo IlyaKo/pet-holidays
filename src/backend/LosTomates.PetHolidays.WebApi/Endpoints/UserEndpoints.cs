@@ -59,5 +59,15 @@ public static class UserEndpoints
         .WithSummary("Update a user record")
         .Produces(StatusCodes.Status200OK)
         .Produces(StatusCodes.Status404NotFound);
+
+        mapGroup.MapGet("current", async (IUserService service) =>
+        {
+            var view = await service.GetCurrentUser();
+            return Results.Ok(view);
+        })
+        .WithSummary("Get authenticated user view")
+        .Produces<string>(StatusCodes.Status200OK)
+        .Produces(StatusCodes.Status401Unauthorized)
+        .RequireAuthorization();
     }
 }

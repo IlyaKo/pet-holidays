@@ -18,18 +18,23 @@ public sealed class UserService : IUserService
     private readonly ApplicationDbContext dbContext;
     private readonly IValidator<UserEditDto> validateService;
     private readonly UserManager<User> _userManager;
+    private readonly ICurrentUserProvider _userProvider;
     private readonly string _secretKey;
 
-    public UserService(ApplicationDbContext dbContext, IValidator<UserEditDto> validateService,
-                       UserManager<User> userManager, IConfiguration configuration)
+    public UserService(ApplicationDbContext dbContext, 
+        IValidator<UserEditDto> validateService,
+        UserManager<User> userManager,
+        ICurrentUserProvider userProvider,
+        IConfiguration configuration)
     {
         this.dbContext = dbContext;
         this.validateService = validateService;
-        this._userManager = userManager;
+        _userManager = userManager;
+        _userProvider = userProvider;
         var configuredKey = configuration["JwtSettings:SecretKey"];
         if (string.IsNullOrEmpty(configuredKey))
             throw new ApplicationException("You need to set up the JWT secret key");
-        this._secretKey = configuredKey;
+        _secretKey = configuredKey;
     }
 
     public async Task<UserView> GetById(string entityId)
@@ -142,5 +147,12 @@ public sealed class UserService : IUserService
     private async Task<User?> FindEntityById(string entityId)
     {
         return await dbContext.Users.FirstOrDefaultAsync(x => x.Id == entityId);
+    }
+
+    public async Task<UserView> GetCurrentUser()
+    {
+        var userId = _userProvider.GetUserId();
+
+        return await GetById(userId);
     }
 }
