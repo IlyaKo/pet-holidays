@@ -3,6 +3,7 @@ import axios from "axios";
 import { API_URL } from "../../../config";
 import { FormProvider, useForm } from "react-hook-form";
 import FormInput from "../../shared/FormInput";
+import ResultMessage from "../../shared/ResultMessage";
 
 export default function RegisterPage() {
   const formMethods = useForm();
@@ -85,12 +86,11 @@ export default function RegisterPage() {
           rules={{ required: "Password confirmation is required" }}
         />
 
-        {successMessage && (
-          <div className="notification is-success">{successMessage}</div>
-        )}
-        {errorMessage && (
-          <div className="notification is-danger">{errorMessage}</div>
-        )}
+        <ResultMessage
+          errorMessage={errorMessage}
+          successMessage={successMessage}
+        />
+
         <button className="button is-link" type="submit">
           Sign Up
         </button>
