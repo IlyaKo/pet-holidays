@@ -16,6 +16,12 @@ export default function Layout() {
           <Link className="navbar-item" to="/about">
             About
           </Link>
+          <Link className="navbar-item" to="/login">
+            Login
+          </Link>
+          <Link className="navbar-item" to="/sign-up">
+            Sign Up
+          </Link>
         </div>
       </nav>
       <hr />
