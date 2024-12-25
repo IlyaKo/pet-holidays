@@ -13,4 +13,6 @@ public interface IUserService
     Task<string> Login(LoginDto dto);
 
     Task<(string UserId, string UserName)> CurrentUser(ClaimsPrincipal userClaims);
+
+    Task<UserView> GetCurrentUser();
 }

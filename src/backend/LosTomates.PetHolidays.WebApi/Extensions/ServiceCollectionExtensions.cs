@@ -101,6 +101,9 @@ internal static class ServiceCollectionExtensions
                 ValidateAudience = false
             };
         });
+        services.AddScoped<ICurrentUserProvider, CurrentUserProvider>();
+        // We want to use the same instance of a provider for setting and for getting current user:
+        services.AddScoped(x => (ICurrentUserSetter) x.GetRequiredService<ICurrentUserProvider>());
 
         return services;
     }
