@@ -1,9 +1,7 @@
 ﻿namespace LosTomates.PetHolidays.Core.Domain.Bookings;
 
-public class Booking
+public class Booking : BaseEntity
 {
-    public int Id { get; set; }
-
     public string UserId { get; set; }
 
     public int RoomId { get; set; }

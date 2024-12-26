@@ -149,8 +149,8 @@ public static class FakeData
             UserId = "b10deb6c-63cb-4d73-8cbd-65203a5000db",
             RoomId = 1, 
             PetId = 1,
-            CheckInDate = DateTime.Now.Date,
-            CheckOutDate = DateTime.Now.AddDays(7).Date,
+            CheckInDate = DateTime.Now.Date.ToUniversalTime(),
+            CheckOutDate = DateTime.Now.AddDays(7).Date.ToUniversalTime(),
             BookingStatus = BookingStatus.Created
         },
         new()
@@ -159,8 +159,8 @@ public static class FakeData
             UserId = "1fb17ad5-f507-4683-8be7-4fe276d1f086",
             RoomId = 2, 
             PetId = 2,
-            CheckInDate = DateTime.Now.AddDays(3).Date,
-            CheckOutDate = DateTime.Now.AddDays(14).Date,
+            CheckInDate = DateTime.Now.AddDays(3).Date.ToUniversalTime(),
+            CheckOutDate = DateTime.Now.AddDays(14).Date.ToUniversalTime(),
             BookingStatus = BookingStatus.Created
         }
     ];
