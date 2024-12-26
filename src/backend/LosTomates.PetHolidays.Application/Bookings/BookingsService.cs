@@ -16,12 +16,13 @@ public sealed class BookingsService(ApplicationDbContext dbContext, IValidator<B
 
     public async Task<IReadOnlyList<BookingView>> GetAll()
     {
-        return await _dbContext.Bookings
-                               .Where(x => x.BookingStatus != Core.Domain.Bookings.BookingStatus.None 
-                                        && x.BookingStatus != Core.Domain.Bookings.BookingStatus.Removed
-                                        && x.BookingStatus != Core.Domain.Bookings.BookingStatus.Cancelled)
-                               .ProjectToType<BookingView>()
-                               .ToListAsync();
+        var entities = await _dbContext.Bookings
+                                       .Where(x => x.BookingStatus != Core.Domain.Bookings.BookingStatus.None 
+                                                && x.BookingStatus != Core.Domain.Bookings.BookingStatus.Removed
+                                                && x.BookingStatus != Core.Domain.Bookings.BookingStatus.Cancelled)
+                                       .ToListAsync();
+
+        return entities.Adapt<IReadOnlyList<BookingView>>();
     }
 
     public async Task<BookingView> GetById(int entityId)
