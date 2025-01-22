@@ -7,8 +7,7 @@ public class BookingDtoValidator : AbstractValidator<BookingDto>
 {
     public BookingDtoValidator()
     {
-        RuleFor(x => x.UserId).NotEmpty()
-                              .Length(1, DatabaseConstrains.UserIdMaxLength);
+        RuleFor(x => x.UserId).NotEmpty();
 
         RuleFor(x => x.RoomId).GreaterThan(0);
 

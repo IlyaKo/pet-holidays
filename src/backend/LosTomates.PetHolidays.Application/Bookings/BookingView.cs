@@ -1,4 +1,7 @@
-﻿namespace LosTomates.PetHolidays.Application.Bookings;
+﻿using LosTomates.PetHolidays.Application.Pets;
+using LosTomates.PetHolidays.Application.Rooms;
+
+namespace LosTomates.PetHolidays.Application.Bookings;
 
 public class BookingView
 {
@@ -15,4 +18,8 @@ public class BookingView
     public DateTime CheckOutDate { get; set; }
 
     public BookingStatus BookingStatus { get; set; }
+
+    public PetView Pet { get; set; }
+  
+    public RoomView Room { get; set; }
 }

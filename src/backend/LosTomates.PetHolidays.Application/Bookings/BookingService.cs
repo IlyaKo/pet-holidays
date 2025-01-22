@@ -8,22 +8,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace LosTomates.PetHolidays.Application.Bookings;
 
-public sealed class BookingsService(ApplicationDbContext dbContext, IValidator<BookingDto> validateService) : IBookingsService
+public sealed class BookingService(ApplicationDbContext dbContext, IValidator<BookingDto> validateService) : IBookingsService
 {
     private readonly ApplicationDbContext _dbContext = dbContext;
 
     private readonly IValidator<BookingDto> _validateService = validateService;
-
-    public async Task<IReadOnlyList<BookingView>> GetAll()
-    {
-        var entities = await _dbContext.Bookings
-                                       .Where(x => x.BookingStatus != Core.Domain.Bookings.BookingStatus.None 
-                                                && x.BookingStatus != Core.Domain.Bookings.BookingStatus.Removed
-                                                && x.BookingStatus != Core.Domain.Bookings.BookingStatus.Cancelled)
-                                       .ToListAsync();
-
-        return entities.Adapt<IReadOnlyList<BookingView>>();
-    }
 
     public async Task<BookingView> GetById(int entityId)
     {
@@ -31,6 +20,13 @@ public sealed class BookingsService(ApplicationDbContext dbContext, IValidator<B
                   ?? throw new NotFoundException(nameof(Hotel), entityId.ToString());
 
         return entity.Adapt<BookingView>();
+    }
+
+    public async Task<IReadOnlyList<BookingView>> GetByUserId(string userId)
+    {
+        var userBookings = await _dbContext.Bookings.Where(x => x.UserId == userId).ToListAsync();
+
+        return userBookings.Adapt<IReadOnlyList<BookingView>>();
     }
 
     public async Task<int> Create(BookingDto dto)

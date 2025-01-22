@@ -12,7 +12,7 @@ internal static class WebApplicationBuilderExtensions
         UserEndpoints.Map(app);
         RoomEndpoints.Map(app);
         RoomTypeEndpoints.Map(app);
-        BookingsEndPoints.Map(app);
+        BookingEndPoints.Map(app);
         PetTypeEndpoints.Map(app);
         PetEndpoints.Map(app);
 

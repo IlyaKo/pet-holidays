@@ -2,13 +2,13 @@
 
 public class BookingDto
 {
-    public string UserId { get; set; }
+    public required string UserId { get; set; }
 
-    public int RoomId { get; set; }
+    public required int RoomId { get; set; }
 
-    public int PetId { get; set; }
+    public required int PetId { get; set; }
 
-    public DateTime CheckInDate { get; set; }
+    public required DateTime CheckInDate { get; set; }
 
-    public DateTime CheckOutDate { get; set; }
+    public required DateTime CheckOutDate { get; set; }
 }

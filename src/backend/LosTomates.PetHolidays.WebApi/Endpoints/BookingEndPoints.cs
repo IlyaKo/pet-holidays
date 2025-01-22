@@ -1,6 +1,6 @@
 ﻿namespace LosTomates.PetHolidays.Application.Bookings;
 
-public class BookingsEndPoints
+public class BookingEndPoints
 {
     public static void Map(WebApplication app)
     {
@@ -8,10 +8,10 @@ public class BookingsEndPoints
                           .WithTags("Hotel bookings")
                           .WithOpenApi();
 
-        mapGroup.MapGet(string.Empty, async (IBookingsService service) => await service.GetAll())
-                .WithSummary("Get list of bookings")
-                .WithDescription("Return a list with all active bookings")
-                .Produces<List<BookingView>>(StatusCodes.Status200OK);
+        mapGroup.MapGet("{userId}", async (IBookingsService service, string userId) => await service.GetByUserId(userId))
+                .WithSummary("Get list bookings of user")
+                .WithDescription("Return a list with all active bookings of user")
+                .Produces<List<IReadOnlyList<BookingView>>>(StatusCodes.Status200OK);
 
         mapGroup.MapGet("{bookingId:int}", async (IBookingsService service, int bookingId) =>
         {

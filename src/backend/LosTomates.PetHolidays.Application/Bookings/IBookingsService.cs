@@ -2,9 +2,9 @@
 
 public interface IBookingsService
 {
-    Task<IReadOnlyList<BookingView>> GetAll();
-
     Task<BookingView> GetById(int hotelId);
+
+    Task<IReadOnlyList<BookingView>> GetByUserId(string userId);
 
     Task<int> Create(BookingDto dto);
 
