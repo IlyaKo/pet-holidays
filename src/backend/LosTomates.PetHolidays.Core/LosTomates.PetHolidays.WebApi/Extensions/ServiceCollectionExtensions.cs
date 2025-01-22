@@ -14,7 +14,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Text;
 
-namespace LosTomates.PetHolidays.WebApi.Extensions;
+namespace LosTomates.PetHolidays.Core.WebApi.Extensions;
 
 internal static class ServiceCollectionExtensions
 {

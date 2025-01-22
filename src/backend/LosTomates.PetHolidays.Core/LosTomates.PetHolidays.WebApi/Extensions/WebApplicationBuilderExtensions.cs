@@ -1,7 +1,7 @@
 ﻿using LosTomates.PetHolidays.Application.Bookings;
 using LosTomates.PetHolidays.WebApi.Endpoints;
 
-namespace LosTomates.PetHolidays.WebApi.Extensions;
+namespace LosTomates.PetHolidays.Core.WebApi.Extensions;
 
 internal static class WebApplicationBuilderExtensions
 {

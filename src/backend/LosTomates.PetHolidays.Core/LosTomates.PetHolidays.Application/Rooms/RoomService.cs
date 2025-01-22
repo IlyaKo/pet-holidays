@@ -1,13 +1,13 @@
 ﻿using FluentValidation;
-using LosTomates.PetHolidays.Application.Hotels;
-using LosTomates.PetHolidays.Application.RoomTypes;
-using LosTomates.PetHolidays.Core.Domain.Rooms;
-using LosTomates.PetHolidays.Core.Exceptions;
-using LosTomates.PetHolidays.DataAccess;
+using LosTomates.PetHolidays.Core.Application.Hotels;
+using LosTomates.PetHolidays.Core.Application.RoomTypes;
+using LosTomates.PetHolidays.Core.Core.Domain.Rooms;
+using LosTomates.PetHolidays.Core.Core.Exceptions;
+using LosTomates.PetHolidays.Core.DataAccess;
 using Mapster;
 using Microsoft.EntityFrameworkCore;
 
-namespace LosTomates.PetHolidays.Application.Rooms;
+namespace LosTomates.PetHolidays.Core.Application.Rooms;
 
 public sealed class RoomService(
     ApplicationDbContext dbContext,

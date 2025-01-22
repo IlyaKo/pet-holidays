@@ -1,6 +1,6 @@
-﻿using LosTomates.PetHolidays.Core.Domain.Users;
+﻿using LosTomates.PetHolidays.Core.Core.Domain.Users;
 
-namespace LosTomates.PetHolidays.Core.Domain.Pets;
+namespace LosTomates.PetHolidays.Core.Core.Domain.Pets;
 public class Pet : BaseEntity
 {
     public string? Name { get; set; }

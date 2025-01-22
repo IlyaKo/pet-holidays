@@ -1,3 +1,3 @@
-﻿namespace LosTomates.PetHolidays.Application.Pets;
+﻿namespace LosTomates.PetHolidays.Core.Application.Pets;
 
 public sealed record PetEditDto(string? Name, int PetTypeId);

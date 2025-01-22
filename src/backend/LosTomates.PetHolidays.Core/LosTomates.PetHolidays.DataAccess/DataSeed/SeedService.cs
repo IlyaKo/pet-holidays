@@ -1,11 +1,10 @@
-﻿using LosTomates.PetHolidays.Core.Domain.Bookings;
-using LosTomates.PetHolidays.Core.Domain.Hotels;
-using LosTomates.PetHolidays.Core.Domain.Pets;
-using LosTomates.PetHolidays.Core.Domain.Rooms;
-using LosTomates.PetHolidays.DataAccess.Migrations;
+﻿
+using LosTomates.PetHolidays.Core.Core.Domain.Hotels;
+using LosTomates.PetHolidays.Core.Core.Domain.Pets;
+using LosTomates.PetHolidays.Core.Core.Domain.Rooms;
 using Microsoft.EntityFrameworkCore;
 
-namespace LosTomates.PetHolidays.DataAccess.DataSeed;
+namespace LosTomates.PetHolidays.Core.DataAccess.DataSeed;
 
 public sealed class SeedService
 {

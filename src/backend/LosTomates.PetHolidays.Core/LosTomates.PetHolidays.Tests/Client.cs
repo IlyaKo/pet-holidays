@@ -1,4 +1,4 @@
-﻿namespace LosTomates.PetHolidays.Tests;
+﻿namespace LosTomates.PetHolidays.Core.Tests;
 
 public class Client
 {

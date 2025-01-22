@@ -1,6 +1,6 @@
-﻿using LosTomates.PetHolidays.Application.RoomTypes;
+﻿using LosTomates.PetHolidays.Core.Application.RoomTypes;
 
-namespace LosTomates.PetHolidays.Application.Rooms;
+namespace LosTomates.PetHolidays.Core.Application.Rooms;
 
 public sealed class RoomView
 {

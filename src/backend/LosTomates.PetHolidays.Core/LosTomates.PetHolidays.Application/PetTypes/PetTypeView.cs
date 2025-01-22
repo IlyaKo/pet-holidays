@@ -1,4 +1,4 @@
-﻿namespace LosTomates.PetHolidays.Application.PetTypes;
+﻿namespace LosTomates.PetHolidays.Core.Application.PetTypes;
 
 public class PetTypeView
 {

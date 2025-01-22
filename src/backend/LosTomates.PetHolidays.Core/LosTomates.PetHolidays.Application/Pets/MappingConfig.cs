@@ -1,7 +1,7 @@
-﻿using LosTomates.PetHolidays.Core.Domain.Pets;
+﻿using LosTomates.PetHolidays.Core.Core.Domain.Pets;
 using Mapster;
 
-namespace LosTomates.PetHolidays.Application.Pets;
+namespace LosTomates.PetHolidays.Core.Application.Pets;
 public class MappingConfig : IRegister
 {
     public void Register(TypeAdapterConfig config)

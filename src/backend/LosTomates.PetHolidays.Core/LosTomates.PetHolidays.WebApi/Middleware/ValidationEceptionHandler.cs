@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 
-namespace LosTomates.PetHolidays.WebApi.Middleware;
+namespace LosTomates.PetHolidays.Core.WebApi.Middleware;
 
 internal sealed class ValidationExceptionHandler : IExceptionHandler
 {

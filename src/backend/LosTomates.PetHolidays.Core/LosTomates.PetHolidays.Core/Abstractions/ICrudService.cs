@@ -1,6 +1,6 @@
 ﻿using System.Linq.Expressions;
 
-namespace LosTomates.PetHolidays.Core.Abstractions;
+namespace LosTomates.PetHolidays.Core.Core.Abstractions;
 
 public interface ICrudService<TEntity, TView, TEditDto>
     where TEntity : class

@@ -1,9 +1,9 @@
 ﻿using FluentValidation;
-using LosTomates.PetHolidays.Application.Shared;
-using LosTomates.PetHolidays.Core.Domain.Pets;
-using LosTomates.PetHolidays.DataAccess;
+using LosTomates.PetHolidays.Core.Application.Shared;
+using LosTomates.PetHolidays.Core.Core.Domain.Pets;
+using LosTomates.PetHolidays.Core.DataAccess;
 
-namespace LosTomates.PetHolidays.Application.PetTypes;
+namespace LosTomates.PetHolidays.Core.Application.PetTypes;
 
 public sealed class PetTypeService : CrudService<PetType, PetTypeView, PetTypeEditDto>, IPetTypeService
 {

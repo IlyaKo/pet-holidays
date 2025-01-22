@@ -1,13 +1,13 @@
 ﻿using FluentValidation;
-using LosTomates.PetHolidays.Application.PetTypes;
-using LosTomates.PetHolidays.Application.Users;
-using LosTomates.PetHolidays.Core.Domain.Pets;
-using LosTomates.PetHolidays.Core.Exceptions;
-using LosTomates.PetHolidays.DataAccess;
+using LosTomates.PetHolidays.Core.Application.PetTypes;
+using LosTomates.PetHolidays.Core.Application.Users;
+using LosTomates.PetHolidays.Core.Core.Domain.Pets;
+using LosTomates.PetHolidays.Core.Core.Exceptions;
+using LosTomates.PetHolidays.Core.DataAccess;
 using Mapster;
 using Microsoft.EntityFrameworkCore;
 
-namespace LosTomates.PetHolidays.Application.Pets;
+namespace LosTomates.PetHolidays.Core.Application.Pets;
 public sealed class PetService(
     ApplicationDbContext dbContext,
     IValidator<PetEditDto> validator,

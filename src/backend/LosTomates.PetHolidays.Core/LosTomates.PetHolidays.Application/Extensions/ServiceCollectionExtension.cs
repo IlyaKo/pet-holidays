@@ -2,7 +2,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
 
-namespace LosTomates.PetHolidays.Application.Extensions;
+namespace LosTomates.PetHolidays.Core.Application.Extensions;
 
 public static class ServiceCollectionExtension
 {

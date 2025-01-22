@@ -1,6 +1,6 @@
-﻿using LosTomates.PetHolidays.Application.PetTypes;
+﻿using LosTomates.PetHolidays.Core.Application.PetTypes;
 
-namespace LosTomates.PetHolidays.Application.Pets;
+namespace LosTomates.PetHolidays.Core.Application.Pets;
 
 public class PetView
 {

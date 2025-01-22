@@ -1,4 +1,4 @@
-﻿namespace LosTomates.PetHolidays.Application.Pets;
+﻿namespace LosTomates.PetHolidays.Core.Application.Pets;
 
 public interface IPetService
 {

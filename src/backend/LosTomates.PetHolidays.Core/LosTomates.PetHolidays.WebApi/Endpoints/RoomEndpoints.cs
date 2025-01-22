@@ -1,6 +1,6 @@
-﻿using LosTomates.PetHolidays.Application.Rooms;
+﻿using LosTomates.PetHolidays.Core.Application.Rooms;
 
-namespace LosTomates.PetHolidays.WebApi.Endpoints;
+namespace LosTomates.PetHolidays.Core.WebApi.Endpoints;
 
 public static class RoomEndpoints
 {
