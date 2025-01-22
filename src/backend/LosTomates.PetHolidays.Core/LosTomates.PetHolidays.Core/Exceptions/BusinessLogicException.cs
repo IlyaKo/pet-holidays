@@ -1,4 +1,4 @@
-﻿namespace LosTomates.PetHolidays.Core.Exceptions;
+﻿namespace LosTomates.PetHolidays.Core.Core.Exceptions;
 
 public sealed class BusinessLogicException : Exception
 {

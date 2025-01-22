@@ -7,15 +7,15 @@ Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-co
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "LosTomates.PetHolidays.Core", "LosTomates.PetHolidays.Core", "{3F16CADE-47A2-4D22-961E-E113F80DCF41}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LosTomates.PetHolidays.Application", "src\backend\LosTomates.PetHolidays.Core\LosTomates.PetHolidays.Application\LosTomates.PetHolidays.Application.csproj", "{C57EC516-599F-490E-A393-011A1CCE725B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LosTomates.PetHolidays.Core.Application", "src\backend\LosTomates.PetHolidays.Core\LosTomates.PetHolidays.Application\LosTomates.PetHolidays.Core.Application.csproj", "{C57EC516-599F-490E-A393-011A1CCE725B}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LosTomates.PetHolidays.Core", "src\backend\LosTomates.PetHolidays.Core\LosTomates.PetHolidays.Core\LosTomates.PetHolidays.Core.csproj", "{433804C8-24EF-4F04-B63D-3665A8943390}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LosTomates.PetHolidays.Core.Core", "src\backend\LosTomates.PetHolidays.Core\LosTomates.PetHolidays.Core\LosTomates.PetHolidays.Core.Core.csproj", "{433804C8-24EF-4F04-B63D-3665A8943390}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LosTomates.PetHolidays.DataAccess", "src\backend\LosTomates.PetHolidays.Core\LosTomates.PetHolidays.DataAccess\LosTomates.PetHolidays.DataAccess.csproj", "{C2107972-2FAF-411E-AF8C-2A6C680E73F8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LosTomates.PetHolidays.Core.DataAccess", "src\backend\LosTomates.PetHolidays.Core\LosTomates.PetHolidays.DataAccess\LosTomates.PetHolidays.Core.DataAccess.csproj", "{C2107972-2FAF-411E-AF8C-2A6C680E73F8}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LosTomates.PetHolidays.Tests", "src\backend\LosTomates.PetHolidays.Core\LosTomates.PetHolidays.Tests\LosTomates.PetHolidays.Tests.csproj", "{DDD5290F-E9C9-4951-8AB6-5EFC2AE1D253}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LosTomates.PetHolidays.Core.Tests", "src\backend\LosTomates.PetHolidays.Core\LosTomates.PetHolidays.Tests\LosTomates.PetHolidays.Core.Tests.csproj", "{DDD5290F-E9C9-4951-8AB6-5EFC2AE1D253}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LosTomates.PetHolidays.WebApi", "src\backend\LosTomates.PetHolidays.Core\LosTomates.PetHolidays.WebApi\LosTomates.PetHolidays.WebApi.csproj", "{6C27AE6A-C2E9-4696-B288-0EDB6AC2F514}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LosTomates.PetHolidays.Core.WebApi", "src\backend\LosTomates.PetHolidays.Core\LosTomates.PetHolidays.WebApi\LosTomates.PetHolidays.Core.WebApi.csproj", "{6C27AE6A-C2E9-4696-B288-0EDB6AC2F514}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

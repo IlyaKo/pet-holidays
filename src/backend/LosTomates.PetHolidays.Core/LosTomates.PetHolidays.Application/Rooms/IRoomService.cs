@@ -1,5 +1,5 @@
 ﻿
-namespace LosTomates.PetHolidays.Application.Rooms;
+namespace LosTomates.PetHolidays.Core.Application.Rooms;
 
 public interface IRoomService
 {

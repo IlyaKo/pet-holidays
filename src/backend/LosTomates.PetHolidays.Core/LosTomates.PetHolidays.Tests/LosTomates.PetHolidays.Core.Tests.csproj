@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
@@ -30,13 +30,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Using Include="Xunit" />
+    <ProjectReference Include="..\LosTomates.PetHolidays.Application\LosTomates.PetHolidays.Core.Application.csproj" />
+    <ProjectReference Include="..\LosTomates.PetHolidays.DataAccess\LosTomates.PetHolidays.Core.DataAccess.csproj" />
+    <ProjectReference Include="..\LosTomates.PetHolidays.WebApi\LosTomates.PetHolidays.Core.WebApi.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\LosTomates.PetHolidays.Application\LosTomates.PetHolidays.Application.csproj" />
-    <ProjectReference Include="..\LosTomates.PetHolidays.DataAccess\LosTomates.PetHolidays.DataAccess.csproj" />
-    <ProjectReference Include="..\LosTomates.PetHolidays.WebApi\LosTomates.PetHolidays.WebApi.csproj" />
+    <Using Include="Xunit" />
   </ItemGroup>
 
 </Project>

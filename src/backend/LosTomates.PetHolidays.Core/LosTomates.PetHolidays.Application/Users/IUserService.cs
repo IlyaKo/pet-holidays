@@ -1,6 +1,6 @@
 ﻿using System.Security.Claims;
 
-namespace LosTomates.PetHolidays.Application.Users;
+namespace LosTomates.PetHolidays.Core.Application.Users;
 
 public interface IUserService
 {

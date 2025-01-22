@@ -1,7 +1,7 @@
 ﻿using FluentValidation;
-using LosTomates.PetHolidays.DataAccess;
+using LosTomates.PetHolidays.Core.DataAccess;
 
-namespace LosTomates.PetHolidays.Application.Users;
+namespace LosTomates.PetHolidays.Core.Application.Users;
 
 public class UserEditDtoValidator : AbstractValidator<UserEditDto>
 {

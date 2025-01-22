@@ -1,19 +1,19 @@
 ﻿using FluentValidation;
-using LosTomates.PetHolidays.Application.Hotels;
-using LosTomates.PetHolidays.Application.Pets;
-using LosTomates.PetHolidays.Application.PetTypes;
-using LosTomates.PetHolidays.Application.Rooms;
-using LosTomates.PetHolidays.Application.RoomTypes;
-using LosTomates.PetHolidays.Application.Users;
-using LosTomates.PetHolidays.DataAccess;
-using LosTomates.PetHolidays.DataAccess.DataSeed;
+using LosTomates.PetHolidays.Core.Application.Hotels;
+using LosTomates.PetHolidays.Core.Application.Pets;
+using LosTomates.PetHolidays.Core.Application.PetTypes;
+using LosTomates.PetHolidays.Core.Application.Rooms;
+using LosTomates.PetHolidays.Core.Application.RoomTypes;
+using LosTomates.PetHolidays.Core.Application.Users;
+using LosTomates.PetHolidays.Core.DataAccess;
+using LosTomates.PetHolidays.Core.DataAccess.DataSeed;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Text;
 
-namespace LosTomates.PetHolidays.WebApi.Extensions;
+namespace LosTomates.PetHolidays.Core.WebApi.Extensions;
 
 internal static class ServiceCollectionExtensions
 {

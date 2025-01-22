@@ -1,9 +1,9 @@
-﻿using LosTomates.PetHolidays.Core.Domain.Hotels;
-using LosTomates.PetHolidays.Core.Domain.Users;
-using LosTomates.PetHolidays.Core.Domain.Rooms;
-using LosTomates.PetHolidays.Core.Domain.Pets;
+﻿using LosTomates.PetHolidays.Core.Core.Domain.Hotels;
+using LosTomates.PetHolidays.Core.Core.Domain.Pets;
+using LosTomates.PetHolidays.Core.Core.Domain.Rooms;
+using LosTomates.PetHolidays.Core.Core.Domain.Users;
 
-namespace LosTomates.PetHolidays.DataAccess.DataSeed;
+namespace LosTomates.PetHolidays.Core.DataAccess.DataSeed;
 
 public static class FakeData
 {

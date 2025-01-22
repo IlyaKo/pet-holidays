@@ -1,4 +1,4 @@
-﻿namespace LosTomates.PetHolidays.Application.RoomTypes;
+﻿namespace LosTomates.PetHolidays.Core.Application.RoomTypes;
 
 public interface IRoomTypeService
 {

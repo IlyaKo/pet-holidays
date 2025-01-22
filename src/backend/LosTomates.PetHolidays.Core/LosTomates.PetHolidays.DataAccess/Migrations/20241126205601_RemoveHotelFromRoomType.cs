@@ -2,7 +2,7 @@
 
 #nullable disable
 
-namespace LosTomates.PetHolidays.DataAccess.Migrations
+namespace LosTomates.PetHolidays.Core.DataAccess.Migrations
 {
     /// <inheritdoc />
     public partial class RemoveHotelFromRoomType : Migration

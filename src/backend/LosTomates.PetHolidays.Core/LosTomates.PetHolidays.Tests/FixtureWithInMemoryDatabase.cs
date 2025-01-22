@@ -1,9 +1,9 @@
-﻿using LosTomates.PetHolidays.DataAccess;
+﻿using LosTomates.PetHolidays.Core.DataAccess;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace LosTomates.PetHolidays.Tests;
+namespace LosTomates.PetHolidays.Core.Tests;
 
 public sealed class FixtureWithInMemoryDatabase : IDisposable
 {

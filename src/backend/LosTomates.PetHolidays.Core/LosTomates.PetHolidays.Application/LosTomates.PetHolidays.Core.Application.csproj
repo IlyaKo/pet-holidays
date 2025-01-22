@@ -4,6 +4,7 @@
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <RootNamespace>LosTomates.PetHolidays.Core.Core</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
@@ -14,8 +15,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\LosTomates.PetHolidays.Core\LosTomates.PetHolidays.Core.csproj" />
-    <ProjectReference Include="..\LosTomates.PetHolidays.DataAccess\LosTomates.PetHolidays.DataAccess.csproj" />
+    <ProjectReference Include="..\LosTomates.PetHolidays.Core\LosTomates.PetHolidays.Core.Core.csproj" />
+    <ProjectReference Include="..\LosTomates.PetHolidays.DataAccess\LosTomates.PetHolidays.Core.DataAccess.csproj" />
   </ItemGroup>
 
   <ItemGroup>

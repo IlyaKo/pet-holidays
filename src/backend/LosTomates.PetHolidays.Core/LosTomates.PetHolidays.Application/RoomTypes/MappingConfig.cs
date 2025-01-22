@@ -1,7 +1,7 @@
-﻿using LosTomates.PetHolidays.Core.Domain.Rooms;
+﻿using LosTomates.PetHolidays.Core.Core.Domain.Rooms;
 using Mapster;
 
-namespace LosTomates.PetHolidays.Application.RoomTypes;
+namespace LosTomates.PetHolidays.Core.Application.RoomTypes;
 
 public class MappingConfig : IRegister
 {

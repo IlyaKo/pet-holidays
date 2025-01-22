@@ -1,4 +1,4 @@
-﻿namespace LosTomates.PetHolidays.WebApi.Endpoints;
+﻿namespace LosTomates.PetHolidays.Core.WebApi.Endpoints;
 
 public static class AdminEndpoints
 {

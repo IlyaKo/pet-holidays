@@ -1,6 +1,6 @@
-﻿using LosTomates.PetHolidays.Core.Domain.Hotels;
+﻿using LosTomates.PetHolidays.Core.Core.Domain.Hotels;
 
-namespace LosTomates.PetHolidays.Core.Domain.Rooms;
+namespace LosTomates.PetHolidays.Core.Core.Domain.Rooms;
 
 public sealed class Room
 {

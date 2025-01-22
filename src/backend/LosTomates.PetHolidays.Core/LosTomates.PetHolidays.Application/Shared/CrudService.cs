@@ -1,12 +1,12 @@
 ﻿using FluentValidation;
-using LosTomates.PetHolidays.Core.Abstractions;
-using LosTomates.PetHolidays.Core.Exceptions;
-using LosTomates.PetHolidays.DataAccess;
+using LosTomates.PetHolidays.Core.Core.Abstractions;
+using LosTomates.PetHolidays.Core.Core.Exceptions;
+using LosTomates.PetHolidays.Core.DataAccess;
 using Mapster;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 
-namespace LosTomates.PetHolidays.Application.Shared;
+namespace LosTomates.PetHolidays.Core.Application.Shared;
 
 public class CrudService<TEntity, TView, TEditDto> : ICrudService<TEntity, TView, TEditDto>
         where TEntity : class

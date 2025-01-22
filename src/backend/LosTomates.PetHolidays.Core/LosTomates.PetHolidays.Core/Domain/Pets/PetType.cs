@@ -1,4 +1,4 @@
-﻿namespace LosTomates.PetHolidays.Core.Domain.Pets;
+﻿namespace LosTomates.PetHolidays.Core.Core.Domain.Pets;
 
 public class PetType : BaseEntity
 {

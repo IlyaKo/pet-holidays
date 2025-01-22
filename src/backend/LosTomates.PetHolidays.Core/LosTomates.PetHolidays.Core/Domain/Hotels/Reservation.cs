@@ -1,4 +1,4 @@
-﻿namespace LosTomates.PetHolidays.Core.Domain.Hotels;
+﻿namespace LosTomates.PetHolidays.Core.Core.Domain.Hotels;
 
 public sealed class Reservation
 {

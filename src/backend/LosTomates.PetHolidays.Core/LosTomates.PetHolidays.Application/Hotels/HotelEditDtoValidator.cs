@@ -1,7 +1,7 @@
 ﻿using FluentValidation;
-using LosTomates.PetHolidays.DataAccess;
+using LosTomates.PetHolidays.Core.DataAccess;
 
-namespace LosTomates.PetHolidays.Application.Hotels;
+namespace LosTomates.PetHolidays.Core.Application.Hotels;
 
 public class HotelEditDtoValidator : AbstractValidator<HotelEditDto>
 {

@@ -1,15 +1,15 @@
 using FluentAssertions;
 using FluentValidation;
-using LosTomates.PetHolidays.Application.Hotels;
-using LosTomates.PetHolidays.Application.Rooms;
-using LosTomates.PetHolidays.Application.RoomTypes;
-using LosTomates.PetHolidays.Core.Domain.Hotels;
-using LosTomates.PetHolidays.Core.Domain.Rooms;
-using LosTomates.PetHolidays.DataAccess;
+using LosTomates.PetHolidays.Core.Application.Hotels;
+using LosTomates.PetHolidays.Core.Application.Rooms;
+using LosTomates.PetHolidays.Core.Application.RoomTypes;
+using LosTomates.PetHolidays.Core.Core.Domain.Hotels;
+using LosTomates.PetHolidays.Core.Core.Domain.Rooms;
+using LosTomates.PetHolidays.Core.DataAccess;
 using Microsoft.Extensions.DependencyInjection;
 using Moq;
 
-namespace LosTomates.PetHolidays.Tests;
+namespace LosTomates.PetHolidays.Core.Tests;
 
 public class RoomServiceTests : IClassFixture<FixtureWithInMemoryDatabase>
 {

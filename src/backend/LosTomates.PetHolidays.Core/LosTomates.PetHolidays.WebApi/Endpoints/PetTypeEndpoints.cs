@@ -1,6 +1,6 @@
-﻿using LosTomates.PetHolidays.Application.PetTypes;
+﻿using LosTomates.PetHolidays.Core.Application.PetTypes;
 
-namespace LosTomates.PetHolidays.WebApi.Endpoints;
+namespace LosTomates.PetHolidays.Core.WebApi.Endpoints;
 
 public static class PetTypeEndpoints
 {

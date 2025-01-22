@@ -1,7 +1,7 @@
 ﻿using FluentValidation;
-using LosTomates.PetHolidays.DataAccess;
+using LosTomates.PetHolidays.Core.DataAccess;
 
-namespace LosTomates.PetHolidays.Application.RoomTypes;
+namespace LosTomates.PetHolidays.Core.Application.RoomTypes;
 
 public class RoomTypeEditDtoValidator : AbstractValidator<RoomTypeEditDto>
 {

@@ -3,7 +3,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
-namespace LosTomates.PetHolidays.DataAccess.Migrations
+namespace LosTomates.PetHolidays.Core.DataAccess.Migrations
 {
     /// <inheritdoc />
     public partial class AddPetEntity : Migration

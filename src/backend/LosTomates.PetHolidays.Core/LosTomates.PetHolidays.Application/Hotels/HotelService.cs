@@ -1,11 +1,11 @@
 ﻿using FluentValidation;
-using LosTomates.PetHolidays.Core.Domain.Hotels;
-using LosTomates.PetHolidays.Core.Exceptions;
-using LosTomates.PetHolidays.DataAccess;
+using LosTomates.PetHolidays.Core.Core.Domain.Hotels;
+using LosTomates.PetHolidays.Core.Core.Exceptions;
+using LosTomates.PetHolidays.Core.DataAccess;
 using Mapster;
 using Microsoft.EntityFrameworkCore;
 
-namespace LosTomates.PetHolidays.Application.Hotels;
+namespace LosTomates.PetHolidays.Core.Application.Hotels;
 
 public sealed class HotelService(
     ApplicationDbContext dbContext,

@@ -1,4 +1,4 @@
-﻿namespace LosTomates.PetHolidays.DataAccess;
+﻿namespace LosTomates.PetHolidays.Core.DataAccess;
 
 public static class DatabaseConstrains
 {

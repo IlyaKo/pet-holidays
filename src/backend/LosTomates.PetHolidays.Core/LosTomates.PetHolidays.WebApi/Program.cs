@@ -1,12 +1,12 @@
-using LosTomates.PetHolidays.Application.Extensions;
-using LosTomates.PetHolidays.Core.Domain.Users;
-using LosTomates.PetHolidays.DataAccess;
-using LosTomates.PetHolidays.DataAccess.DataSeed;
-using LosTomates.PetHolidays.WebApi.Extensions;
-using LosTomates.PetHolidays.WebApi.Middleware;
+using LosTomates.PetHolidays.Core.Application.Extensions;
+using LosTomates.PetHolidays.Core.Core.Domain.Users;
+using LosTomates.PetHolidays.Core.DataAccess;
+using LosTomates.PetHolidays.Core.DataAccess.DataSeed;
+using LosTomates.PetHolidays.Core.WebApi.Extensions;
+using LosTomates.PetHolidays.Core.WebApi.Middleware;
 using Microsoft.AspNetCore.Identity;
 
-namespace LosTomates.PetHolidays.WebApi;
+namespace LosTomates.PetHolidays.Core.WebApi;
 
 public class Program
 {
