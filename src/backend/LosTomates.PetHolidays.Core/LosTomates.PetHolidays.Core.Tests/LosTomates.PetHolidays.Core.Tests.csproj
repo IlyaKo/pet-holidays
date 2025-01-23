@@ -30,9 +30,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\LosTomates.PetHolidays.Application\LosTomates.PetHolidays.Core.Application.csproj" />
-    <ProjectReference Include="..\LosTomates.PetHolidays.DataAccess\LosTomates.PetHolidays.Core.DataAccess.csproj" />
-    <ProjectReference Include="..\LosTomates.PetHolidays.WebApi\LosTomates.PetHolidays.Core.WebApi.csproj" />
+    <ProjectReference Include="..\LosTomates.PetHolidays.Core.Application\LosTomates.PetHolidays.Core.Application.csproj" />
+    <ProjectReference Include="..\LosTomates.PetHolidays.Core.DataAccess\LosTomates.PetHolidays.Core.DataAccess.csproj" />
+    <ProjectReference Include="..\LosTomates.PetHolidays.Core.WebApi\LosTomates.PetHolidays.Core.WebApi.csproj" />
   </ItemGroup>
 
   <ItemGroup>

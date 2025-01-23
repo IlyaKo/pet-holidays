@@ -15,12 +15,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\LosTomates.PetHolidays.Core\LosTomates.PetHolidays.Core.Core.csproj" />
-    <ProjectReference Include="..\LosTomates.PetHolidays.DataAccess\LosTomates.PetHolidays.Core.DataAccess.csproj" />
+    <PackageReference Include="FluentValidation" Version="11.10.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="FluentValidation" Version="11.10.0" />
+    <ProjectReference Include="..\LosTomates.PetHolidays.Core.Core\LosTomates.PetHolidays.Core.Core.csproj" />
+    <ProjectReference Include="..\LosTomates.PetHolidays.Core.DataAccess\LosTomates.PetHolidays.Core.DataAccess.csproj" />
   </ItemGroup>
 
 </Project>
