@@ -3,11 +3,11 @@ on:
     push:
       branches: [ "main", "develop" ]
       paths:
-          - "src/backend/**"
+          - "src/backend/LosTomates.PetHolidays.Core/**"
     pull_request:
       branches: [ "main", "develop" ]
       paths:
-          - "src/backend/**"
+          - "src/backend/LosTomates.PetHolidays.Core/**"
     workflow_dispatch:
 
 jobs:
