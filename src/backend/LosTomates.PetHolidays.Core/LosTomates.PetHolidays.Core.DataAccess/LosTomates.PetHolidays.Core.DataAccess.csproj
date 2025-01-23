@@ -11,7 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\LosTomates.PetHolidays.Core\LosTomates.PetHolidays.Core.Core.csproj" />
+    <ProjectReference Include="..\LosTomates.PetHolidays.Core.Core\LosTomates.PetHolidays.Core.Core.csproj" />
   </ItemGroup>
 
 </Project>
