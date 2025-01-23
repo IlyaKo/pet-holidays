@@ -1,6 +1,6 @@
 services:
 
-  petholidays-webapi:
+  petholidays-core-webapi:
 
     ports:
       - "5001:8080"

@@ -8,11 +8,11 @@ services:
     ports:
       - "80:80"  
 
-  petholidays-webapi:
-    container_name: petholidays-webapi
+  petholidays-core-webapi:
+    container_name: petholidays-core-webapi
     build:
-      context: ./src/backend
-      dockerfile: LosTomates.PetHolidays.WebApi/Dockerfile 
+      context: ./src/backend/LosTomates.PetHolidays.Core
+      dockerfile: LosTomates.PetHolidays.Core.WebApi/Dockerfile 
     ports:
       - "5001:8080"
     environment:
