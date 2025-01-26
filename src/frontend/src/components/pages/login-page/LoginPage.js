@@ -4,13 +4,13 @@ import FormInput from "../../shared/FormInput";
 import ResultMessage from "../../shared/ResultMessage";
 import { userLogin } from "../../../stores/authActions";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 export default function LoginPage() {
   const formMethods = useForm();
   const dispatch = useDispatch();
-  const { token, loading, error, authenticated } = useSelector(
-    (state) => state.auth
-  );
+  const navigate = useNavigate();
+  const { loading, error, authenticated } = useSelector((state) => state.auth);
 
   const onSubmit = (data) => {
     dispatch(userLogin({ email: data.email, password: data.password }));
@@ -18,10 +18,9 @@ export default function LoginPage() {
 
   useEffect(() => {
     if (authenticated) {
-      // Redirect or perform any other action after successful login
-      console.log("User authenticated");
+      navigate("/hotels");
     }
-  }, [authenticated]);
+  }, [authenticated, navigate]);
 
   return (
     <FormProvider {...formMethods}>
@@ -46,9 +45,9 @@ export default function LoginPage() {
           }}
         />
 
-        <ResultMessage errorMessage={error} successMessage={token} />
+        <ResultMessage errorMessage={error} />
 
-        <button className="button is-link" type="submit">
+        <button className="button is-link" type="submit" disabled={loading}>
           Login
         </button>
       </form>
