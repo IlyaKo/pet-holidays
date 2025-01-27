@@ -15,6 +15,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LosTomates.PetHolidays.Test
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{98EB6D95-00F4-4277-B5FC-8446C4D643DF}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "LosTomates.PetHolidays.FileService", "LosTomates.PetHolidays.FileService", "{858EAD76-3F57-4D2D-AA0D-C1DC278216CA}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "LosTomates.PetHolidays.FileService.WebApi", "LosTomates.PetHolidays.FileService.WebApi", "{4C9A44ED-3994-47DA-B95D-3080C408C552}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LosTomates.PetHolidays.FileService.WebApi", "src\backend\LosTomates.PetHolidays.FileService\LosTomates.PetHolidays.FileService.WebApi\LosTomates.PetHolidays.FileService.WebApi.csproj", "{90FE2417-516C-4063-90B1-D3ED5DE40491}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,9 +51,17 @@ Global
 		{98EB6D95-00F4-4277-B5FC-8446C4D643DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{98EB6D95-00F4-4277-B5FC-8446C4D643DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{98EB6D95-00F4-4277-B5FC-8446C4D643DF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{90FE2417-516C-4063-90B1-D3ED5DE40491}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{90FE2417-516C-4063-90B1-D3ED5DE40491}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{90FE2417-516C-4063-90B1-D3ED5DE40491}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{90FE2417-516C-4063-90B1-D3ED5DE40491}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{4C9A44ED-3994-47DA-B95D-3080C408C552} = {858EAD76-3F57-4D2D-AA0D-C1DC278216CA}
+		{90FE2417-516C-4063-90B1-D3ED5DE40491} = {4C9A44ED-3994-47DA-B95D-3080C408C552}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {54B422D8-9E14-4C75-8A58-E7C6238ECAA9}
