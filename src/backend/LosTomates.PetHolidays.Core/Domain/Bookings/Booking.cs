@@ -1,14 +1,24 @@
-﻿namespace LosTomates.PetHolidays.Core.Domain.Bookings;
+﻿using LosTomates.PetHolidays.Core.Domain.Hotels;
+using LosTomates.PetHolidays.Core.Domain.Pets;
+using LosTomates.PetHolidays.Core.Domain.Rooms;
+
+namespace LosTomates.PetHolidays.Core.Domain.Bookings;
 
 public class Booking : BaseEntity
 {
-    public string UserId { get; set; }
+    public required string UserId { get; set; }
 
     public int HotelId { get;set; }
 
     public int RoomId { get; set; }
 
     public int PetId { get; set; }
+
+    public Hotel? Hotel { get; set; }
+
+    public Room? Room { get; set; }
+
+    public Pet? Pet { get; set; }
 
     public DateTime CheckInDate { get; set; }
 
