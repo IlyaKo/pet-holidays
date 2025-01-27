@@ -1,4 +1,5 @@
-﻿using LosTomates.PetHolidays.Core.Domain.Hotels;
+﻿using LosTomates.PetHolidays.Core.Domain.Bookings;
+using LosTomates.PetHolidays.Core.Domain.Hotels;
 using LosTomates.PetHolidays.Core.Domain.Pets;
 using LosTomates.PetHolidays.Core.Domain.Rooms;
 using LosTomates.PetHolidays.Core.Domain.Users;
@@ -14,6 +15,8 @@ public sealed class ApplicationDbContext(DbContextOptions<ApplicationDbContext> 
     public DbSet<RoomType> RoomTypes => Set<RoomType>();
 
     public DbSet<Room> Rooms => Set<Room>();
+
+    public DbSet<Booking> Bookings => Set<Booking>();
 
     public DbSet<PetType> PetTypes => Set<PetType>();
 
@@ -60,6 +63,11 @@ public sealed class ApplicationDbContext(DbContextOptions<ApplicationDbContext> 
                   .WithMany(x => x.Rooms)
                   .HasForeignKey(x => x.RoomTypeId)
                   .OnDelete(DeleteBehavior.Restrict);
+        });
+
+        modelBuilder.Entity<Booking>(entity =>
+        {
+
         });
 
         modelBuilder.Entity<PetType>(entity =>
