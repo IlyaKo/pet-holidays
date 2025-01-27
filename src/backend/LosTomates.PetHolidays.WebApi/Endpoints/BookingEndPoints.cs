@@ -39,6 +39,14 @@ public class BookingEndPoints
         .Produces(StatusCodes.Status200OK)
         .Produces(StatusCodes.Status404NotFound);
 
+        mapGroup.MapPut("status/{bookingId:int}", async (IBookingService service, int bookingId, UpdateBookingDto dto) =>
+        {
+            await service.UpdateStatus(bookingId, dto);
+        })
+        .WithSummary("Update status a booking record")
+        .Produces(StatusCodes.Status200OK)
+        .Produces(StatusCodes.Status404NotFound);
+
         mapGroup.MapDelete("{bookingId:int}", async (IBookingService service, int bookingId) =>
         {
             await service.Delete(bookingId);
