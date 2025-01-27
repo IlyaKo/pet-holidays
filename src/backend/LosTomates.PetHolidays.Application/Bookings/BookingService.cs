@@ -25,10 +25,10 @@ public sealed class BookingService(ApplicationDbContext dbContext, IValidator<Bo
     public async Task<IReadOnlyList<BookingView>> GetByUserId(string userId)
     {
         var userBookings = await _dbContext.Bookings.Where(x => x.UserId == userId)
-                                                    .Include(x => x.UserId)
-                                                    .Include(x => x.PetId)
-                                                    .Include(x => x.HotelId)
-                                                    .Include(x => x.RoomId)
+                                                    .Include(x => x.User)
+                                                    .Include(x => x.Pet)
+                                                    .Include(x => x.Hotel)
+                                                    .Include(x => x.Room)
                                                     .ToListAsync();
 
         return userBookings.Adapt<IReadOnlyList<BookingView>>();
@@ -83,10 +83,10 @@ public sealed class BookingService(ApplicationDbContext dbContext, IValidator<Bo
 
     private async Task<Booking?> FindEntityById(int entityId)
     {
-        return await _dbContext.Bookings.Include(x => x.UserId)
-                                        .Include(x => x.PetId)
-                                        .Include(x => x.HotelId)
-                                        .Include(x => x.RoomId)
+        return await _dbContext.Bookings.Include(x => x.User)
+                                        .Include(x => x.Pet)
+                                        .Include(x => x.Hotel)
+                                        .Include(x => x.Room)
                                         .FirstOrDefaultAsync(x => x.Id == entityId);
     }
 }

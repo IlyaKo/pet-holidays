@@ -1,6 +1,7 @@
 ﻿using LosTomates.PetHolidays.Core.Domain.Hotels;
 using LosTomates.PetHolidays.Core.Domain.Pets;
 using LosTomates.PetHolidays.Core.Domain.Rooms;
+using LosTomates.PetHolidays.Core.Domain.Users;
 
 namespace LosTomates.PetHolidays.Core.Domain.Bookings;
 
@@ -13,6 +14,8 @@ public class Booking : BaseEntity
     public int RoomId { get; set; }
 
     public int PetId { get; set; }
+
+    public User? User { get; set; }
 
     public Hotel? Hotel { get; set; }
 
