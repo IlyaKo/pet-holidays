@@ -27,8 +27,10 @@ public sealed class BookingService(ApplicationDbContext dbContext, IValidator<Bo
         var userBookings = await _dbContext.Bookings.Where(x => x.UserId == userId)
                                                     .Include(x => x.User)
                                                     .Include(x => x.Pet)
+                                                    .Include(x => x.Pet.PetType)
                                                     .Include(x => x.Hotel)
                                                     .Include(x => x.Room)
+                                                    .Include(x => x.Room.RoomType)
                                                     .ToListAsync();
 
         return userBookings.Adapt<IReadOnlyList<BookingView>>();
@@ -85,8 +87,10 @@ public sealed class BookingService(ApplicationDbContext dbContext, IValidator<Bo
     {
         return await _dbContext.Bookings.Include(x => x.User)
                                         .Include(x => x.Pet)
+                                        .Include(x => x.Pet.PetType)
                                         .Include(x => x.Hotel)
                                         .Include(x => x.Room)
+                                        .Include(x => x.Room.RoomType)
                                         .FirstOrDefaultAsync(x => x.Id == entityId);
     }
 }
