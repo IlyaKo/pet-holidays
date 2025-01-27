@@ -17,7 +17,7 @@ Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-co
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "LosTomates.PetHolidays.FileService", "LosTomates.PetHolidays.FileService", "{858EAD76-3F57-4D2D-AA0D-C1DC278216CA}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "LosTomates.PetHolidays.FileService.WebApi", "LosTomates.PetHolidays.FileService.WebApi", "{4C9A44ED-3994-47DA-B95D-3080C408C552}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "LosTomates.PetHolidays.FileService", "LosTomates.PetHolidays.FileService", "{4C9A44ED-3994-47DA-B95D-3080C408C552}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LosTomates.PetHolidays.FileService.WebApi", "src\backend\LosTomates.PetHolidays.FileService\LosTomates.PetHolidays.FileService.WebApi\LosTomates.PetHolidays.FileService.WebApi.csproj", "{90FE2417-516C-4063-90B1-D3ED5DE40491}"
 EndProject

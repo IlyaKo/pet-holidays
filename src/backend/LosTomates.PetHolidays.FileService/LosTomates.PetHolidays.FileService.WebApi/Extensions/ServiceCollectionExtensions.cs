@@ -6,7 +6,7 @@ public static class ServiceCollectionExtensions
 {
     public static IServiceCollection AddServices(this IServiceCollection services)
     {
-        services.AddScoped<IFileStorageService, FileStorageService>();
+        services.AddScoped<IFileStorageService, MinioFileStorageService>();
 
         return services;
     }
