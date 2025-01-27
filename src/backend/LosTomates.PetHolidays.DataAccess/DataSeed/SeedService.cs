@@ -25,9 +25,9 @@ public sealed class SeedService
         AddUsers();
         AddRoomTypes();
         AddRooms();
-        AddBookings();
         AddPetTypes();
         AddPets();
+        AddBookings();
     }
 
     private void AddPets()
