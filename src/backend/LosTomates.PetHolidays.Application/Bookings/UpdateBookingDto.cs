@@ -2,5 +2,5 @@
 
 public class UpdateBookingDto
 {
-    public BookingStatus Status;
+    public BookingStatus Status { get; set; }
 }
