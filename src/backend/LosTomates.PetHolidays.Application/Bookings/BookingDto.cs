@@ -4,6 +4,8 @@ public class BookingDto
 {
     public required string UserId { get; set; }
 
+    public required int HotelId { get; set; }
+
     public required int RoomId { get; set; }
 
     public required int PetId { get; set; }

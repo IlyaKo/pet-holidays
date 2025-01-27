@@ -4,6 +4,8 @@ public class Booking : BaseEntity
 {
     public string UserId { get; set; }
 
+    public int HotelId { get;set; }
+
     public int RoomId { get; set; }
 
     public int PetId { get; set; }

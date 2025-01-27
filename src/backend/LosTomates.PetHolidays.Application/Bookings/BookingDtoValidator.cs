@@ -1,5 +1,4 @@
 ﻿using FluentValidation;
-using LosTomates.PetHolidays.DataAccess;
 
 namespace LosTomates.PetHolidays.Application.Bookings;
 

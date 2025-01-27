@@ -1,4 +1,5 @@
-﻿using LosTomates.PetHolidays.Application.Pets;
+﻿using LosTomates.PetHolidays.Application.Hotels;
+using LosTomates.PetHolidays.Application.Pets;
 using LosTomates.PetHolidays.Application.Rooms;
 using LosTomates.PetHolidays.Application.Users;
 
@@ -18,5 +19,7 @@ public class BookingView
 
     public required PetView Pet { get; set; }
   
+    public required HotelView Hotel { get; set; }
+
     public required RoomView Room { get; set; }
 }

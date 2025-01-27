@@ -147,6 +147,7 @@ public static class FakeData
         {
             Id = 1,
             UserId = "b10deb6c-63cb-4d73-8cbd-65203a5000db",
+            HotelId = 1,
             RoomId = 1, 
             PetId = 1,
             CheckInDate = DateTime.Now.Date.ToUniversalTime(),
@@ -157,6 +158,7 @@ public static class FakeData
         {
             Id = 2,
             UserId = "1fb17ad5-f507-4683-8be7-4fe276d1f086",
+            HotelId = 2,
             RoomId = 2, 
             PetId = 2,
             CheckInDate = DateTime.Now.AddDays(3).Date.ToUniversalTime(),
