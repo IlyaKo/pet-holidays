@@ -1,9 +1,6 @@
 using LosTomates.PetHolidays.FileService.WebApi.Extensions;
-using LosTomates.PetHolidays.FileService.WebApi.Models;
 using LosTomates.PetHolidays.FileService.WebApi.Services;
-using Microsoft.AspNetCore.Mvc;
 using Minio;
-using Minio.DataModel;
 
 var builder = WebApplication.CreateBuilder(args);
 
