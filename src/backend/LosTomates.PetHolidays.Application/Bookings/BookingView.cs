@@ -1,5 +1,6 @@
 ﻿using LosTomates.PetHolidays.Application.Pets;
 using LosTomates.PetHolidays.Application.Rooms;
+using LosTomates.PetHolidays.Application.Users;
 
 namespace LosTomates.PetHolidays.Application.Bookings;
 
@@ -7,19 +8,15 @@ public class BookingView
 {
     public int Id { get; set; }
 
-    public int UserId { get; set; }
-
-    public int RoomId { get; set; }
-
-    public int PetId { get; set; }
+    public required UserView User { get; set; }
 
     public DateTime CheckInDate { get; set; }
 
     public DateTime CheckOutDate { get; set; }
 
-    public BookingStatus BookingStatus { get; set; }
+    public BookingStatus Status { get; set; }
 
-    public PetView Pet { get; set; }
+    public required PetView Pet { get; set; }
   
-    public RoomView Room { get; set; }
+    public required RoomView Room { get; set; }
 }

@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace LosTomates.PetHolidays.Application.Bookings;
 
-public sealed class BookingService(ApplicationDbContext dbContext, IValidator<BookingDto> validateService) : IBookingsService
+public sealed class BookingService(ApplicationDbContext dbContext, IValidator<BookingDto> validateService) : IBookingService
 {
     private readonly ApplicationDbContext _dbContext = dbContext;
 
@@ -24,7 +24,11 @@ public sealed class BookingService(ApplicationDbContext dbContext, IValidator<Bo
 
     public async Task<IReadOnlyList<BookingView>> GetByUserId(string userId)
     {
-        var userBookings = await _dbContext.Bookings.Where(x => x.UserId == userId).ToListAsync();
+        var userBookings = await _dbContext.Bookings.Where(x => x.UserId == userId)
+                                                    .Include(x => x.UserId)
+                                                    .Include(x => x.PetId)
+                                                    .Include(x => x.RoomId)
+                                                    .ToListAsync();
 
         return userBookings.Adapt<IReadOnlyList<BookingView>>();
     }
@@ -34,6 +38,7 @@ public sealed class BookingService(ApplicationDbContext dbContext, IValidator<Bo
         _validateService.ValidateAndThrow(dto);
 
         var entity = dto.Adapt<Booking>();
+        entity.Status = Core.Domain.Bookings.BookingStatus.Created;
 
         _dbContext.Add(entity);
 
@@ -49,6 +54,16 @@ public sealed class BookingService(ApplicationDbContext dbContext, IValidator<Bo
         var entity = await FindEntityById(entityId)
                   ?? throw new NotFoundException(nameof(Booking), entityId.ToString());
 
+        dto.Adapt(entity);
+
+        await _dbContext.SaveChangesAsync();
+    }
+
+    public async Task UpdateStatus(int entityId, UpdateBookingDto dto)
+    {
+        var entity = await FindEntityById(entityId)
+                  ?? throw new NotFoundException(nameof(Booking), entityId.ToString());
+        
         dto.Adapt(entity);
 
         await _dbContext.SaveChangesAsync();

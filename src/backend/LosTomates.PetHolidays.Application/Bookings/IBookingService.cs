@@ -1,6 +1,6 @@
 ﻿namespace LosTomates.PetHolidays.Application.Bookings;
 
-public interface IBookingsService
+public interface IBookingService
 {
     Task<BookingView> GetById(int hotelId);
 
@@ -9,6 +9,8 @@ public interface IBookingsService
     Task<int> Create(BookingDto dto);
 
     Task Update(int entityId, BookingDto dto);
+
+    Task UpdateStatus(int entityId, UpdateBookingDto dto);
 
     Task Delete(int entityId);
 }

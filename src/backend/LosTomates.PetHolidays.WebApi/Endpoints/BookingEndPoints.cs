@@ -8,12 +8,12 @@ public class BookingEndPoints
                           .WithTags("Hotel bookings")
                           .WithOpenApi();
 
-        mapGroup.MapGet("{userId}", async (IBookingsService service, string userId) => await service.GetByUserId(userId))
+        mapGroup.MapGet("{userId}", async (IBookingService service, string userId) => await service.GetByUserId(userId))
                 .WithSummary("Get list bookings of user")
                 .WithDescription("Return a list with all active bookings of user")
                 .Produces<List<IReadOnlyList<BookingView>>>(StatusCodes.Status200OK);
 
-        mapGroup.MapGet("{bookingId:int}", async (IBookingsService service, int bookingId) =>
+        mapGroup.MapGet("{bookingId:int}", async (IBookingService service, int bookingId) =>
         {
             var entityView = await service.GetById(bookingId);
             return Results.Ok(entityView);
@@ -23,7 +23,7 @@ public class BookingEndPoints
         .Produces<int>(StatusCodes.Status200OK)
         .Produces(StatusCodes.Status404NotFound);
 
-        mapGroup.MapPost(string.Empty, async (IBookingsService service, BookingDto dto) =>
+        mapGroup.MapPost(string.Empty, async (IBookingService service, BookingDto dto) =>
         {
             return await service.Create(dto);
         })
@@ -31,7 +31,7 @@ public class BookingEndPoints
         .WithDescription("Return an id of a created booking")
         .Produces<BookingView>(StatusCodes.Status200OK);
 
-        mapGroup.MapPut("{bookingId:int}", async (IBookingsService service, int bookingId, BookingDto dto) =>
+        mapGroup.MapPut("{bookingId:int}", async (IBookingService service, int bookingId, BookingDto dto) =>
         {
             await service.Update(bookingId, dto);
         })
@@ -39,7 +39,7 @@ public class BookingEndPoints
         .Produces(StatusCodes.Status200OK)
         .Produces(StatusCodes.Status404NotFound);
 
-        mapGroup.MapDelete("{bookingId:int}", async (IBookingsService service, int bookingId) =>
+        mapGroup.MapDelete("{bookingId:int}", async (IBookingService service, int bookingId) =>
         {
             await service.Delete(bookingId);
         })

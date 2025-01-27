@@ -56,7 +56,7 @@ internal static class ServiceCollectionExtensions
         services.AddScoped<IPetService, PetService>();
         services.AddScoped<IRoomService, RoomService>();
         services.AddScoped<IRoomTypeService, RoomTypeService>();
-        services.AddScoped<IBookingsService, BookingService>();
+        services.AddScoped<IBookingService, BookingService>();
         
         return services;
     }

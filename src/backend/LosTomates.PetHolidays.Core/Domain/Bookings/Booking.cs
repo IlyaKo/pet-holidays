@@ -12,5 +12,5 @@ public class Booking : BaseEntity
 
     public DateTime CheckOutDate { get; set; }
 
-    public BookingStatus BookingStatus { get; set; }
+    public BookingStatus Status { get; set; }
 }

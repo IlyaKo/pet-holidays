@@ -151,7 +151,7 @@ public static class FakeData
             PetId = 1,
             CheckInDate = DateTime.Now.Date.ToUniversalTime(),
             CheckOutDate = DateTime.Now.AddDays(7).Date.ToUniversalTime(),
-            BookingStatus = BookingStatus.Created
+            Status = BookingStatus.Created
         },
         new()
         {
@@ -161,7 +161,7 @@ public static class FakeData
             PetId = 2,
             CheckInDate = DateTime.Now.AddDays(3).Date.ToUniversalTime(),
             CheckOutDate = DateTime.Now.AddDays(14).Date.ToUniversalTime(),
-            BookingStatus = BookingStatus.Created
+            Status = BookingStatus.Created
         }
     ];
 
