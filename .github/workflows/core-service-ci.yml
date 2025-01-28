@@ -1,0 +1,39 @@
+name: core-service-ci
+on:
+    push:
+      branches: [ "main", "develop" ]
+      paths:
+          - "src/backend/LosTomates.PetHolidays.Core/**"
+    pull_request:
+      branches: [ "main", "develop" ]
+      paths:
+          - "src/backend/LosTomates.PetHolidays.Core/**"
+    workflow_dispatch:
+
+jobs:
+   build_job:
+      runs-on: ubuntu-latest
+      
+      steps:
+         - name: Get code
+           uses: actions/checkout@v4
+         
+         - name: Setup .NET
+           uses: actions/setup-dotnet@v4
+           with:
+              dotnet-version: ${{ env.DOTNET_VERSION }}
+         
+         - name: List files in repository 
+           run: ls -alh
+         
+         - name: Install dependencies
+           run: dotnet restore LosTomates.PetHolidays.sln
+         
+         - name: Build
+           run: dotnet build LosTomates.PetHolidays.sln --configuration Release --no-restore
+
+         - name: Test
+           run: dotnet test LosTomates.PetHolidays.sln --configuration Release --no-build
+
+         - name: Run The end
+           run: echo The end!
