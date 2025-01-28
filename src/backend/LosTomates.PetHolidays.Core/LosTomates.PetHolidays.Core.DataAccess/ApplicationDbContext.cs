@@ -6,7 +6,7 @@ using LosTomates.PetHolidays.Core.Domain.Users;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-namespace LosTomates.PetHolidays.DataAccess;
+namespace LosTomates.PetHolidays.Core.DataAccess;
 
 public sealed class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : IdentityDbContext<User>(options)
 {
