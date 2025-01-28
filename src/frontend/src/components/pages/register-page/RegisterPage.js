@@ -1,39 +1,40 @@
-import { React, useState } from "react";
-import axios from "axios";
-import { API_URL } from "../../../config";
+import { React, useEffect } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import FormInput from "../../shared/FormInput";
 import ResultMessage from "../../shared/ResultMessage";
+import { useDispatch, useSelector } from "react-redux";
+import { registerUser } from "../../../stores/authActions";
+import { useNavigate } from "react-router-dom";
 
 export default function RegisterPage() {
   const formMethods = useForm();
-  const [errorMessage, setErrorMessage] = useState("");
-  const [successMessage, setSuccessMessage] = useState("");
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const { authenticated, loading, error } = useSelector((state) => state.auth);
+
+  useEffect(() => {
+    if (authenticated) {
+      navigate("/hotels");
+    }
+  }, [authenticated, navigate]);
 
   const onSubmit = async (data) => {
-    setErrorMessage("");
-    setSuccessMessage("");
-
     if (data.password !== data.passwordConfirmation) {
-      setErrorMessage("Password and password confirmation do not match");
+      formMethods.setError("passwordConfirmation", {
+        type: "manual",
+        message: "Password and password confirmation do not match",
+      });
       return;
     }
-
-    try {
-      const response = await axios.post(API_URL + "users", {
-        UserName: data.username,
-        Email: data.email,
-        PhoneNumber: data.phoneNumber,
-        Password: data.password,
-      });
-      const token = response.data.jwt;
-      console.log("Token: ", token);
-      setSuccessMessage("User created");
-      // Store the token or update the UI as needed
-    } catch (error) {
-      setErrorMessage("Error: " + error.message);
-      console.error("Error fetching token: ", error);
-    }
+    dispatch(
+      registerUser({
+        username: data.username,
+        email: data.email,
+        phoneNumber: data.phoneNumber,
+        password: data.password,
+      })
+    );
   };
 
   return (
@@ -65,7 +66,7 @@ export default function RegisterPage() {
           type="tel"
           rules={{
             required: "Phone number is required",
-            maxLength: { value: 12, message: "Username is too long" },
+            maxLength: { value: 12, message: "Number is too long" },
           }}
         />
 
@@ -86,12 +87,9 @@ export default function RegisterPage() {
           rules={{ required: "Password confirmation is required" }}
         />
 
-        <ResultMessage
-          errorMessage={errorMessage}
-          successMessage={successMessage}
-        />
+        <ResultMessage errorMessage={error} />
 
-        <button className="button is-link" type="submit">
+        <button className="button is-link" type="submit" disabled={loading}>
           Sign Up
         </button>
       </form>

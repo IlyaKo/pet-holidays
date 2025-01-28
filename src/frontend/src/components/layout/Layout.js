@@ -1,27 +1,70 @@
-import { Link, Outlet } from "react-router-dom";
+import { NavLink, Outlet } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { logout } from "../../stores/auth";
 
 export default function Layout() {
+  const dispatch = useDispatch();
+  const { authenticated } = useSelector((state) => state.auth);
+
+  const onLogoutClick = () => {
+    dispatch(logout());
+  };
+
   return (
     <>
       <nav className="navbar">
         <div className="navbar-brand ">
-          <Link to="/" className="title m-2">
+          <NavLink to="/" className="title m-2">
             Pet Holidays
-          </Link>
+          </NavLink>
         </div>
         <div className="navbar-start">
-          <Link className="navbar-item" to="/hotels">
+          <NavLink
+            className={({ isActive }) =>
+              isActive ? "navbar-item is-active" : "navbar-item"
+            }
+            to="/hotels"
+          >
             Hotels
-          </Link>
-          <Link className="navbar-item" to="/about">
+          </NavLink>
+          <NavLink
+            className={({ isActive }) =>
+              isActive ? "navbar-item is-active" : "navbar-item"
+            }
+            to="/about"
+          >
             About
-          </Link>
-          <Link className="navbar-item" to="/login">
-            Login
-          </Link>
-          <Link className="navbar-item" to="/sign-up">
-            Sign Up
-          </Link>
+          </NavLink>
+          {!authenticated ? (
+            <>
+              <NavLink
+                className={({ isActive }) =>
+                  isActive ? "navbar-item is-active" : "navbar-item"
+                }
+                to="/login"
+              >
+                Login
+              </NavLink>
+              <NavLink
+                className={({ isActive }) =>
+                  isActive ? "navbar-item is-active" : "navbar-item"
+                }
+                to="/sign-up"
+              >
+                Sign Up
+              </NavLink>
+            </>
+          ) : (
+            <NavLink
+              className={({ isActive }) =>
+                isActive ? "navbar-item is-active" : "navbar-item"
+              }
+              onClick={onLogoutClick}
+              to="/"
+            >
+              Logout
+            </NavLink>
+          )}
         </div>
       </nav>
       <hr />
