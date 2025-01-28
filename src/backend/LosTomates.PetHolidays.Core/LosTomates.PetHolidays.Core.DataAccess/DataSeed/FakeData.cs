@@ -1,4 +1,5 @@
-﻿using LosTomates.PetHolidays.Core.Core.Domain.Hotels;
+﻿using LosTomates.PetHolidays.Core.Core.Domain.Bookings;
+using LosTomates.PetHolidays.Core.Core.Domain.Hotels;
 using LosTomates.PetHolidays.Core.Core.Domain.Pets;
 using LosTomates.PetHolidays.Core.Core.Domain.Rooms;
 using LosTomates.PetHolidays.Core.Core.Domain.Users;

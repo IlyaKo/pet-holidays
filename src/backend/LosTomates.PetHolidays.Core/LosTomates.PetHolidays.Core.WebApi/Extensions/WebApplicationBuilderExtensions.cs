@@ -1,5 +1,5 @@
 ﻿using LosTomates.PetHolidays.Application.Bookings;
-using LosTomates.PetHolidays.WebApi.Endpoints;
+using LosTomates.PetHolidays.Core.WebApi.Endpoints;
 
 namespace LosTomates.PetHolidays.Core.WebApi.Extensions;
 

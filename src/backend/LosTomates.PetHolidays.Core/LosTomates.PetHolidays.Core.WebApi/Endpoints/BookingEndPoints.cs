@@ -1,4 +1,6 @@
-﻿namespace LosTomates.PetHolidays.Application.Bookings;
+﻿using LosTomates.PetHolidays.Core.Application.Bookings;
+
+namespace LosTomates.PetHolidays.Application.Bookings;
 
 public class BookingEndPoints
 {

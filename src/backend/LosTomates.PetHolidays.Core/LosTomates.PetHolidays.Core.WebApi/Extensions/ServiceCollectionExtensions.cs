@@ -1,13 +1,13 @@
 ﻿using FluentValidation;
-using LosTomates.PetHolidays.Application.Bookings;
-using LosTomates.PetHolidays.Application.Hotels;
-using LosTomates.PetHolidays.Application.Pets;
-using LosTomates.PetHolidays.Application.PetTypes;
-using LosTomates.PetHolidays.Application.Rooms;
-using LosTomates.PetHolidays.Application.RoomTypes;
-using LosTomates.PetHolidays.Application.Users;
-using LosTomates.PetHolidays.DataAccess;
-using LosTomates.PetHolidays.DataAccess.DataSeed;
+using LosTomates.PetHolidays.Core.Application.Bookings;
+using LosTomates.PetHolidays.Core.Application.Hotels;
+using LosTomates.PetHolidays.Core.Application.Pets;
+using LosTomates.PetHolidays.Core.Application.PetTypes;
+using LosTomates.PetHolidays.Core.Application.Rooms;
+using LosTomates.PetHolidays.Core.Application.RoomTypes;
+using LosTomates.PetHolidays.Core.Application.Users;
+using LosTomates.PetHolidays.Core.DataAccess;
+using LosTomates.PetHolidays.Core.DataAccess.DataSeed;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -57,7 +57,7 @@ internal static class ServiceCollectionExtensions
         services.AddScoped<IRoomService, RoomService>();
         services.AddScoped<IRoomTypeService, RoomTypeService>();
         services.AddScoped<IBookingService, BookingService>();
-        
+
         return services;
     }
 
@@ -105,7 +105,7 @@ internal static class ServiceCollectionExtensions
         });
         services.AddScoped<ICurrentUserProvider, CurrentUserProvider>();
         // We want to use the same instance of a provider for setting and for getting current user:
-        services.AddScoped(x => (ICurrentUserSetter) x.GetRequiredService<ICurrentUserProvider>());
+        services.AddScoped(x => (ICurrentUserSetter)x.GetRequiredService<ICurrentUserProvider>());
 
         return services;
     }
