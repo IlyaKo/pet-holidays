@@ -1,6 +1,7 @@
 ﻿using FluentValidation;
 using LosTomates.PetHolidays.Core.Core.Domain.Users;
 using LosTomates.PetHolidays.Core.Core.Exceptions;
+using LosTomates.PetHolidays.Core.Core.Users;
 using LosTomates.PetHolidays.Core.DataAccess;
 using Mapster;
 using Microsoft.AspNetCore.Identity;
@@ -45,19 +46,23 @@ public sealed class UserService : IUserService
         return entity.Adapt<UserView>();
     }
 
-    public async Task<string> Create(UserEditDto dto)
+    public async Task<LoginResponse> Create(UserEditDto dto)
     {
         validateService.ValidateAndThrow(dto);
+
+        _userManager.Options.Password.RequireNonAlphanumeric = false;
+        _userManager.Options.User.RequireUniqueEmail = true;
+        
         var user = dto.Adapt<User>();
         var result = await _userManager.CreateAsync(user, dto.Password);
-
-        if (result.Succeeded)
+        if (!result.Succeeded)
         {
-            return user.Id;
+            var errors = result.Errors.Select(e => e.Description).ToList();
+            throw new ValidationException(string.Join(", ", errors));
         }
 
-        var errors = result.Errors.Select(e => e.Description).ToList();
-        throw new ValidationException(string.Join(", ", errors));
+        var loginDto = new LoginDto { Email = user.Email!, Password = dto.Password };
+        return await Login(loginDto);
     }
 
     public async Task Update(string entityId, UserEditDto dto)
@@ -71,31 +76,35 @@ public sealed class UserService : IUserService
         await dbContext.SaveChangesAsync();
     }
 
-    public async Task<string> Login(LoginDto dto)
+    public async Task<LoginResponse> Login(LoginDto dto)
     {
         var user = await _userManager.FindByEmailAsync(dto.Email)
             ?? throw new UnauthorizedAccessException("Invalid credentials");
 
         var result = await _userManager.CheckPasswordAsync(user, dto.Password);
         if (!result)
-        {
             throw new UnauthorizedAccessException("Invalid credentials");
-        }
 
         var tokenHandler = new JwtSecurityTokenHandler();
         var key = Encoding.ASCII.GetBytes(_secretKey);
         var tokenDescriptor = new SecurityTokenDescriptor
         {
-            Subject = new ClaimsIdentity(new Claim[]
-            {
+            Subject = new ClaimsIdentity(
+            [
                 new Claim(ClaimTypes.NameIdentifier, user.Id),
-                new Claim(ClaimTypes.Name, user.UserName)
-            }),
+                new Claim(ClaimTypes.Name, user.UserName!)
+            ]),
             Expires = DateTime.UtcNow.AddDays(7),
             SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
         };
-        var token = tokenHandler.CreateToken(tokenDescriptor);
-        return tokenHandler.WriteToken(token);
+        var securityToken = tokenHandler.CreateToken(tokenDescriptor);
+        var token = tokenHandler.WriteToken(securityToken);
+
+        return new()
+        {
+            Token = token,
+            Username = user.UserName!
+        };
     }
 
     public (string UserId, string UserName) GetUserFromToken(string token)
