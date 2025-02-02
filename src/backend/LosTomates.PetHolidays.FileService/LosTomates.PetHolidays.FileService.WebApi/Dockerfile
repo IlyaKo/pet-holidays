@@ -4,24 +4,23 @@
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
 USER app
 WORKDIR /app
-EXPOSE 8080
-EXPOSE 8081
+
 
 
 # This stage is used to build the service project
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY ["src/backend/LosTomates.PetHolidays.FileService/LosTomates.PetHolidays.FileService.WebApi/LosTomates.PetHolidays.FileService.WebApi.csproj", "src/backend/LosTomates.PetHolidays.FileService/LosTomates.PetHolidays.FileService.WebApi/"]
-RUN dotnet restore "./src/backend/LosTomates.PetHolidays.FileService/LosTomates.PetHolidays.FileService.WebApi/LosTomates.PetHolidays.FileService.WebApi.csproj"
+COPY ["LosTomates.PetHolidays.FileService.WebApi/LosTomates.PetHolidays.FileService.WebApi.csproj", "LosTomates.PetHolidays.FileService.WebApi/"]
+RUN dotnet restore "LosTomates.PetHolidays.FileService.WebApi/LosTomates.PetHolidays.FileService.WebApi.csproj"
 COPY . .
-WORKDIR "/src/src/backend/LosTomates.PetHolidays.FileService/LosTomates.PetHolidays.FileService.WebApi"
-RUN dotnet build "./LosTomates.PetHolidays.FileService.WebApi.csproj" -c $BUILD_CONFIGURATION -o /app/build
+WORKDIR "/src/LosTomates.PetHolidays.FileService.WebApi"
+RUN dotnet build "LosTomates.PetHolidays.FileService.WebApi.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
 # This stage is used to publish the service project to be copied to the final stage
 FROM build AS publish
 ARG BUILD_CONFIGURATION=Release
-RUN dotnet publish "./LosTomates.PetHolidays.FileService.WebApi.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "LosTomates.PetHolidays.FileService.WebApi.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
 
 # This stage is used in production or when running from VS in regular mode (Default when not using the Debug configuration)
 FROM base AS final
