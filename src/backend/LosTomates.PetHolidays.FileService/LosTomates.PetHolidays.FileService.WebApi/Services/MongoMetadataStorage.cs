@@ -10,11 +10,10 @@ public class MongoMetadataStorage : IMetadataStorage
 {
     private readonly IMongoDatabase _database;
 
-    public MongoMetadataStorage(IOptions<MongoDbSettings> options)
+    public MongoMetadataStorage(IMongoClient mongoClient, IOptions<MongoDbSettings> options)
     {
         var settings = options.Value;
-        var client = new MongoClient(settings.ConnectionString);
-        _database = client.GetDatabase(settings.DatabaseName);
+        _database = mongoClient.GetDatabase(settings.DatabaseName);
     }
 
     public async Task InsertMetadataAsync(FileMetadata metadata, string collectionName)

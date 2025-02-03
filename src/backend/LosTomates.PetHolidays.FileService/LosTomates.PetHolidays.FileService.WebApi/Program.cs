@@ -6,6 +6,7 @@ using LosTomates.PetHolidays.FileService.WebApi.Services.Abstractions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Minio;
+using MongoDB.Driver;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,21 +18,16 @@ builder.Services.AddServices();
 builder.Services.Configure<MongoDbSettings>(builder.Configuration.GetSection("MongoDB"));
 builder.Services.Configure<MinioSettings>(builder.Configuration.GetSection("Minio"));
 
-builder.Services.AddSingleton<IMinioClient>(sp =>
+builder.Services.AddSingleton(sp =>
 {
     var options = sp.GetRequiredService<IOptions<MinioSettings>>().Value;
-    Console.WriteLine($"Using MinIO Endpoint: {options.Endpoint}");
 
-    var endpoint = options.Endpoint?.Trim();
-
-    if (string.IsNullOrWhiteSpace(endpoint) || !endpoint.StartsWith("http"))
-    {
-        throw new Exception($"Invalid MinIO endpoint: {endpoint}");
-    }
-
+    var endpointUri = new Uri(options.Endpoint);
+    string host = endpointUri.Host;
+    int port = endpointUri.Port;
 
     var minioClient = new MinioClient()
-        .WithEndpoint(options.Endpoint)
+        .WithEndpoint(host, port)
         .WithCredentials(options.AccessKey, options.SecretKey);
 
     if (options.UseSSL)
@@ -39,6 +35,13 @@ builder.Services.AddSingleton<IMinioClient>(sp =>
 
     return minioClient.Build();
 });
+
+builder.Services.AddSingleton<IMongoClient>(sp =>
+{
+    var settings = sp.GetRequiredService<IOptions<MongoDbSettings>>().Value;
+    return new MongoClient(settings.ConnectionString);
+});
+
 
 var app = builder.Build();
 
