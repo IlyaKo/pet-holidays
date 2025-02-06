@@ -10,7 +10,7 @@ public static class ServiceCollectionExtensions
         services.AddSingleton<IFileStorage, MinioFileStorage>();
         services.AddSingleton<IMetadataStorage, MongoMetadataStorage>();
 
-        services.AddScoped<IFileStorageService,FileStorageService>();
+        services.AddScoped<IFileStorageService, FileStorageService>();
 
         return services;
     }

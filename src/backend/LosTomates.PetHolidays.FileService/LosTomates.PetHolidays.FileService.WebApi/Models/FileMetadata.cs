@@ -20,4 +20,16 @@ public class FileMetadata
 
     [BsonElement("uploadedAt")]
     public DateTime UploadedAt { get; set; } = DateTime.UtcNow;
+
+    [BsonElement("originalFileName")]
+    public string OriginalFileName { get; set; } = string.Empty;
+
+    [BsonElement("fileExtension")]
+    public string FileExtension { get; set; } = string.Empty;
+
+    [BsonElement("fileSize")]
+    public long FileSize { get; set; } = 0;
+
+    [BsonElement("contentType")]
+    public string ContentType { get; set; } = "application/octet-stream";
 }

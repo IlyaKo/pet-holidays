@@ -19,21 +19,22 @@ public class MongoMetadataStorage : IMetadataStorage
     public async Task InsertMetadataAsync(FileMetadata metadata, string collectionName)
     {
         var collection = GetCollection(collectionName);
-        await collection.DeleteManyAsync(x => x.EntityId == metadata.EntityId);
         await collection.InsertOneAsync(metadata);
     }
 
-    public async Task<FileMetadata?> FindFileByEntityAsync(string entityId, string collectionName)
+    public async Task<List<FileMetadata>> FindFilesByEntityIdAsync(string entityId, string collectionName)
     {
         var collection = GetCollection(collectionName);
-        return await collection.Find(x => x.EntityId == entityId).FirstOrDefaultAsync();
+        return await collection.Find(x => x.EntityId == entityId)
+            .ToListAsync();
     }
 
-    public async Task DeleteFileByEntityAsync(string entityId, string collectionName)
+    public async Task DeleteFileByEntitiesIdAsync(List<string> entitiesId, string collectionName)
     {
         var collection = GetCollection(collectionName);
-        await collection.DeleteOneAsync(x => x.EntityId == entityId);
+        await collection.DeleteManyAsync(x => entitiesId.Contains(x.EntityId));
     }
+
 
     private IMongoCollection<FileMetadata> GetCollection(string collectionName)
     {

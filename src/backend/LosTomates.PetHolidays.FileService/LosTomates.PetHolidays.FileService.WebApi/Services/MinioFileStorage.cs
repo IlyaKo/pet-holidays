@@ -15,16 +15,16 @@ public class MinioFileStorage : IFileStorage
         _minioClient = minioClient;
     }
 
-    public async Task<string> UploadFileAsync(string bucketName, string objectName, Stream stream)
+    public async Task<string> UploadFileAsync(string objectName, Stream stream, string bucketName)
     {
         var found = await _minioClient.BucketExistsAsync(new BucketExistsArgs().WithBucket(bucketName));
 
         if (!found)
         {
             await _minioClient.MakeBucketAsync(new MakeBucketArgs().WithBucket(bucketName));
-            await SetPublicBucketPolicyAsync(bucketName); 
+            await SetPublicBucketPolicyAsync(bucketName);
         }
-           
+
 
         await _minioClient.PutObjectAsync(
             new PutObjectArgs()
@@ -38,7 +38,7 @@ public class MinioFileStorage : IFileStorage
     }
 
 
-    public async Task<Stream> DownloadFileAsync(string bucketName, string objectName)
+    public async Task<Stream> DownloadFileAsync(string objectName, string bucketName)
     {
         var memoryStream = new MemoryStream();
 
@@ -52,14 +52,21 @@ public class MinioFileStorage : IFileStorage
         return memoryStream;
     }
 
-    public async Task DeleteFileAsync(string bucketName, string objectName)
+    public async Task DeleteFilesAsync(List<string> objectNames, string bucketName)
     {
-        var removeBucketArgs = new RemoveObjectArgs()
-            .WithBucket(bucketName)
-            .WithObject(objectName);
+        var deleteTasks = objectNames.Select(objectName =>
+        {
+            var removeObjectArgs = new RemoveObjectArgs()
+                .WithBucket(bucketName)
+                .WithObject(objectName);
 
-        await _minioClient.RemoveObjectAsync(removeBucketArgs);
+            return _minioClient.RemoveObjectAsync(removeObjectArgs);
+        });
+
+        await Task.WhenAll(deleteTasks);
     }
+
+
 
     private async Task SetPublicBucketPolicyAsync(string bucketName)
     {

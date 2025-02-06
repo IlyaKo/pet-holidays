@@ -5,6 +5,6 @@ namespace LosTomates.PetHolidays.FileService.WebApi.Services.Abstractions;
 public interface IMetadataStorage
 {
     Task InsertMetadataAsync(FileMetadata metadata, string collectionName);
-    Task<FileMetadata?> FindFileByEntityAsync(string entityId, string collectionName);
-    Task DeleteFileByEntityAsync(string entityId, string collectionName);
+    Task<List<FileMetadata>> FindFilesByEntityIdAsync(string entityId, string collectionName);
+    Task DeleteFileByEntitiesIdAsync(List<string> entitiesId, string collectionName);
 }
