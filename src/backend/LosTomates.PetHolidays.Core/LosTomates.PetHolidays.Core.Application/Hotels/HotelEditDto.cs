@@ -7,5 +7,7 @@ public sealed record HotelEditDto
     public string? Description { get; init; }
 
     public bool IsActive { get; init; }
+
+    public string? PhotoUrl { get; set; }
 }
 
