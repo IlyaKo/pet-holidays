@@ -1,0 +1,6 @@
+@LosTomates.PetHolidays.RabbitMQ.Web_HostAddress = http://localhost:5143
+
+GET {{LosTomates.PetHolidays.RabbitMQ.Web_HostAddress}}/rabbit/
+Accept: application/json
+
+###
