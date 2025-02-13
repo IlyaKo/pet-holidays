@@ -59,12 +59,12 @@ public static class FileServiceEndpoints
 
         app.MapGet("/download", async ([FromServices] IFileStorageService fileService, [AsParameters] UploadFileDto request) =>
         {
-            if (string.IsNullOrWhiteSpace(request.BucketName) || string.IsNullOrWhiteSpace(request.EntityId) || string.IsNullOrWhiteSpace(request.CollectionName))
+            if (string.IsNullOrWhiteSpace(request.EntityId) || string.IsNullOrWhiteSpace(request.CollectionName))
                 return Results.BadRequest("Bucket name, entity ID, and collection name are required.");
 
             try
             {
-                var fileResponse = await fileService.DownloadFileAsync(request.EntityId, request.BucketName, request.CollectionName);
+                var fileResponse = await fileService.DownloadFileAsync(request.EntityId, request.CollectionName);
 
                 return Results.File(fileResponse.FileStream, fileResponse.ContentType, fileResponse.FileName, enableRangeProcessing: true);
             }
