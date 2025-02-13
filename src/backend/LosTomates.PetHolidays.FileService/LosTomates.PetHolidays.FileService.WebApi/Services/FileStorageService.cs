@@ -15,7 +15,7 @@ public class FileStorageService : IFileStorageService
         _metadataStorage = metadataStorageService;
     }
 
-    public async Task<string> UploadFileAsync(IFormFile file, string entityId, string bucketName, string collectionName)
+    public async Task<string> UploadFileAsync(IFormFile file, string entityId, string collectionName)
     {
         var objectName = $"{Guid.NewGuid()}{Path.GetExtension(file.FileName)}";
         var contentType = file.ContentType ?? "application/octet-stream";
@@ -23,12 +23,12 @@ public class FileStorageService : IFileStorageService
         string url;
 
         using (var stream = file.OpenReadStream())
-            url = await _fileStorage.UploadFileAsync(objectName, stream, bucketName);
+            url = await _fileStorage.UploadFileAsync(objectName, stream, collectionName);
 
         var metadata = new FileMetadata
         {
             Url = url,
-            BucketName = bucketName,
+            BucketName = collectionName,
             EntityId = entityId,
             OriginalFileName = file.FileName,
             FileExtension = Path.GetExtension(file.FileName),
@@ -41,7 +41,7 @@ public class FileStorageService : IFileStorageService
         return url;
     }
 
-    public async Task<FileResponse> DownloadFileAsync(string entityId, string bucketName, string collectionName)
+    public async Task<FileResponse> DownloadFileAsync(string entityId,  string collectionName)
     {
         var files = await _metadataStorage.FindFilesByEntityIdAsync(entityId, collectionName);
         if (!files.Any())
@@ -53,7 +53,7 @@ public class FileStorageService : IFileStorageService
 
         var objectName = Path.GetFileName(new Uri(file.Url).AbsolutePath);
 
-        var fileStream = await _fileStorage.DownloadFileAsync(objectName, bucketName);
+        var fileStream = await _fileStorage.DownloadFileAsync(objectName, collectionName);
 
         return new FileResponse()
         {
@@ -64,7 +64,7 @@ public class FileStorageService : IFileStorageService
         };
     }
 
-    public async Task DeleteFileAsync(string entityId, string bucketName, string collectionName)
+    public async Task DeleteFileAsync(string entityId,  string collectionName)
     {
         var filesMetadata = await _metadataStorage.FindFilesByEntityIdAsync(entityId, collectionName);
         if (!filesMetadata.Any())
@@ -74,7 +74,7 @@ public class FileStorageService : IFileStorageService
             .Select(x => Path.GetFileName(new Uri(x.Url).AbsolutePath))
             .ToList();
 
-        await _fileStorage.DeleteFilesAsync(objectNames, bucketName);
+        await _fileStorage.DeleteFilesAsync(objectNames, collectionName);
 
         await _metadataStorage.DeleteFileByEntitiesIdAsync(filesMetadata.Select(x => x.EntityId).ToList(), collectionName);
     }

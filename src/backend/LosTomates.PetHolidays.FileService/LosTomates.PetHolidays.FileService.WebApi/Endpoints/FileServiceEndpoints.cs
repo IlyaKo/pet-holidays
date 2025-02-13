@@ -13,7 +13,7 @@ public static class FileServiceEndpoints
             if (file == null || file.Length == 0)
                 return Results.BadRequest("File is required.");
 
-            if (string.IsNullOrWhiteSpace(request.BucketName) || string.IsNullOrWhiteSpace(request.EntityId) || string.IsNullOrWhiteSpace(request.CollectionName))
+            if (string.IsNullOrWhiteSpace(request.EntityId) || string.IsNullOrWhiteSpace(request.CollectionName))
                 return Results.BadRequest("Bucket name, entity ID, and collection name are required.");
 
             var allowedExtensions = new HashSet<string> { ".jpg", ".jpeg", ".png" };
@@ -24,7 +24,7 @@ public static class FileServiceEndpoints
 
             try
             {
-                var fileUrl = await fileStorageService.UploadFileAsync(file, request.EntityId, request.BucketName, request.CollectionName);
+                var fileUrl = await fileStorageService.UploadFileAsync(file, request.EntityId, request.CollectionName);
                 return Results.Ok(new { url = fileUrl });
             }
             catch (Exception ex)
@@ -38,12 +38,12 @@ public static class FileServiceEndpoints
         app.MapDelete("/delete", async ([FromServices] IFileStorageService fileService, [AsParameters] UploadFileDto request) =>
         {
 
-            if (string.IsNullOrWhiteSpace(request.BucketName) || string.IsNullOrWhiteSpace(request.EntityId) || string.IsNullOrWhiteSpace(request.CollectionName))
+            if (string.IsNullOrWhiteSpace(request.EntityId) || string.IsNullOrWhiteSpace(request.CollectionName))
                 return Results.BadRequest("Bucket name, entity ID, and collection name are required.");
 
             try
             {
-                await fileService.DeleteFileAsync(request.EntityId, request.BucketName, request.CollectionName);
+                await fileService.DeleteFileAsync(request.EntityId,  request.CollectionName);
                 return Results.Ok();
             }
             catch (FileNotFoundException)
