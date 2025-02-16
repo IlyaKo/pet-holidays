@@ -46,8 +46,6 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
-
 FileServiceEndpoints.Map(app);
 
 app.Run();

@@ -15,7 +15,7 @@ public class FileStorageService : IFileStorageService
         _metadataStorage = metadataStorageService;
     }
 
-    public async Task<string> UploadFileAsync(IFormFile file, string entityId, string collectionName)
+    public async Task<UploadFileResponse> UploadFileAsync(IFormFile file, string entityId, string collectionName)
     {
         var objectName = $"{Guid.NewGuid()}{Path.GetExtension(file.FileName)}";
         var contentType = file.ContentType ?? "application/octet-stream";
@@ -38,7 +38,7 @@ public class FileStorageService : IFileStorageService
 
         await _metadataStorage.InsertMetadataAsync(metadata, collectionName);
 
-        return url;
+        return new UploadFileResponse { Url = url};
     }
 
     public async Task<FileResponse> DownloadFileAsync(string entityId,  string collectionName)

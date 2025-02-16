@@ -24,8 +24,8 @@ public static class FileServiceEndpoints
 
             try
             {
-                var fileUrl = await fileStorageService.UploadFileAsync(file, request.EntityId, request.CollectionName);
-                return Results.Ok(new { url = fileUrl });
+                var uploadFileResponse = await fileStorageService.UploadFileAsync(file, request.EntityId, request.CollectionName);
+                return Results.Ok(uploadFileResponse);
             }
             catch (Exception ex)
             {

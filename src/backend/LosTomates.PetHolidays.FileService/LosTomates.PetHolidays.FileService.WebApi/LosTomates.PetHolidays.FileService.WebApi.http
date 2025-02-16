@@ -1,6 +1,0 @@
-@LosTomates.PetHolidays.FileService.WebApi_HostAddress = http://localhost:5089
-
-GET {{LosTomates.PetHolidays.FileService.WebApi_HostAddress}}/weatherforecast/
-Accept: application/json
-
-###
