@@ -1,0 +1,10 @@
+﻿using LosTomates.PetHolidays.FileService.WebApi.Dto;
+
+namespace LosTomates.PetHolidays.FileService.WebApi.Services.Abstractions;
+
+public interface IFileStorageService
+{
+    Task<UploadFileResponse> UploadFileAsync(IFormFile file, string entityId, string collectionName);
+    Task<FileResponse> DownloadFileAsync(string entityId, string collectionName);
+    Task DeleteFileAsync(string entityId,  string collectionName);
+}

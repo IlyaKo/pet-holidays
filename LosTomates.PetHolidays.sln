@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.11.35312.102
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{98EB6D95-00F4-4277-B5FC-8446C4D643DF}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "LosTomates.PetHolidays.Core", "LosTomates.PetHolidays.Core", "{3F16CADE-47A2-4D22-961E-E113F80DCF41}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LosTomates.PetHolidays.Core.Application", "src\backend\LosTomates.PetHolidays.Core\LosTomates.PetHolidays.Core.Application\LosTomates.PetHolidays.Core.Application.csproj", "{5A04113B-2FFC-4321-A54E-FF595F2D157D}"
@@ -15,7 +13,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LosTomates.PetHolidays.Core
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LosTomates.PetHolidays.Core.Tests", "src\backend\LosTomates.PetHolidays.Core\LosTomates.PetHolidays.Core.Tests\LosTomates.PetHolidays.Core.Tests.csproj", "{B13DCCD3-147E-4D52-92AC-109CBE7592B6}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LosTomates.PetHolidays.Core.WebApi", "src\backend\LosTomates.PetHolidays.Core\LosTomates.PetHolidays.Core.WebApi\LosTomates.PetHolidays.Core.WebApi.csproj", "{DD2B82E1-B8F2-4A0C-BB16-70401A7190F2}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "LosTomates.PetHolidays.FileService", "LosTomates.PetHolidays.FileService", "{858EAD76-3F57-4D2D-AA0D-C1DC278216CA}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LosTomates.PetHolidays.Core.WebApi", "src\backend\LosTomates.PetHolidays.Core\LosTomates.PetHolidays.Core.WebApi\LosTomates.PetHolidays.Core.WebApi.csproj", "{4BC10464-8187-4A88-927A-F0B267CDA3D8}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LosTomates.PetHolidays.FileService.WebApi", "src\backend\LosTomates.PetHolidays.FileService\LosTomates.PetHolidays.FileService.WebApi\LosTomates.PetHolidays.FileService.WebApi.csproj", "{94BA32EC-A7E4-4FAE-8F91-8CD6959E53A2}"
+EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{98EB6D95-00F4-4277-B5FC-8446C4D643DF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,10 +27,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{98EB6D95-00F4-4277-B5FC-8446C4D643DF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{98EB6D95-00F4-4277-B5FC-8446C4D643DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{98EB6D95-00F4-4277-B5FC-8446C4D643DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{98EB6D95-00F4-4277-B5FC-8446C4D643DF}.Release|Any CPU.Build.0 = Release|Any CPU
 		{5A04113B-2FFC-4321-A54E-FF595F2D157D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{5A04113B-2FFC-4321-A54E-FF595F2D157D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5A04113B-2FFC-4321-A54E-FF595F2D157D}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -43,21 +43,29 @@ Global
 		{B13DCCD3-147E-4D52-92AC-109CBE7592B6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B13DCCD3-147E-4D52-92AC-109CBE7592B6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B13DCCD3-147E-4D52-92AC-109CBE7592B6}.Release|Any CPU.Build.0 = Release|Any CPU
-		{DD2B82E1-B8F2-4A0C-BB16-70401A7190F2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{DD2B82E1-B8F2-4A0C-BB16-70401A7190F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{DD2B82E1-B8F2-4A0C-BB16-70401A7190F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{DD2B82E1-B8F2-4A0C-BB16-70401A7190F2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4BC10464-8187-4A88-927A-F0B267CDA3D8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4BC10464-8187-4A88-927A-F0B267CDA3D8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4BC10464-8187-4A88-927A-F0B267CDA3D8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4BC10464-8187-4A88-927A-F0B267CDA3D8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{94BA32EC-A7E4-4FAE-8F91-8CD6959E53A2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{94BA32EC-A7E4-4FAE-8F91-8CD6959E53A2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{94BA32EC-A7E4-4FAE-8F91-8CD6959E53A2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{94BA32EC-A7E4-4FAE-8F91-8CD6959E53A2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{98EB6D95-00F4-4277-B5FC-8446C4D643DF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{98EB6D95-00F4-4277-B5FC-8446C4D643DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{98EB6D95-00F4-4277-B5FC-8446C4D643DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{98EB6D95-00F4-4277-B5FC-8446C4D643DF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{98EB6D95-00F4-4277-B5FC-8446C4D643DF} = {3F16CADE-47A2-4D22-961E-E113F80DCF41}
 		{5A04113B-2FFC-4321-A54E-FF595F2D157D} = {3F16CADE-47A2-4D22-961E-E113F80DCF41}
 		{9108C38D-A53B-420A-9E52-DCCDDF6A64B2} = {3F16CADE-47A2-4D22-961E-E113F80DCF41}
 		{AFBB7C15-4D10-47A9-9439-CC1A63EDB5CC} = {3F16CADE-47A2-4D22-961E-E113F80DCF41}
 		{B13DCCD3-147E-4D52-92AC-109CBE7592B6} = {3F16CADE-47A2-4D22-961E-E113F80DCF41}
-		{DD2B82E1-B8F2-4A0C-BB16-70401A7190F2} = {3F16CADE-47A2-4D22-961E-E113F80DCF41}
+		{4BC10464-8187-4A88-927A-F0B267CDA3D8} = {3F16CADE-47A2-4D22-961E-E113F80DCF41}
+		{94BA32EC-A7E4-4FAE-8F91-8CD6959E53A2} = {858EAD76-3F57-4D2D-AA0D-C1DC278216CA}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {54B422D8-9E14-4C75-8A58-E7C6238ECAA9}
