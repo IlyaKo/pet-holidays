@@ -25,7 +25,6 @@ public class MinioFileStorage : IFileStorage
             await SetPublicBucketPolicyAsync(bucketName);
         }
 
-
         await _minioClient.PutObjectAsync(
             new PutObjectArgs()
                 .WithBucket(bucketName)
@@ -36,7 +35,6 @@ public class MinioFileStorage : IFileStorage
 
         return $"{_minioClient.Config.Endpoint}/{bucketName}/{objectName}";
     }
-
 
     public async Task<Stream> DownloadFileAsync(string objectName, string bucketName)
     {
@@ -62,11 +60,8 @@ public class MinioFileStorage : IFileStorage
 
             return _minioClient.RemoveObjectAsync(removeObjectArgs);
         });
-
         await Task.WhenAll(deleteTasks);
     }
-
-
 
     private async Task SetPublicBucketPolicyAsync(string bucketName)
     {

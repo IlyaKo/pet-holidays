@@ -20,10 +20,8 @@ public class FileStorageService : IFileStorageService
         var objectName = $"{Guid.NewGuid()}{Path.GetExtension(file.FileName)}";
         var contentType = file.ContentType ?? "application/octet-stream";
 
-        string url;
-
-        using (var stream = file.OpenReadStream())
-            url = await _fileStorage.UploadFileAsync(objectName, stream, collectionName);
+        using var stream = file.OpenReadStream();
+        var url = await _fileStorage.UploadFileAsync(objectName, stream, collectionName);
 
         var metadata = new FileMetadata
         {
@@ -38,10 +36,10 @@ public class FileStorageService : IFileStorageService
 
         await _metadataStorage.InsertMetadataAsync(metadata, collectionName);
 
-        return new UploadFileResponse { Url = url};
+        return new UploadFileResponse { Url = url };
     }
 
-    public async Task<FileResponse> DownloadFileAsync(string entityId,  string collectionName)
+    public async Task<FileResponse> DownloadFileAsync(string entityId, string collectionName)
     {
         var files = await _metadataStorage.FindFilesByEntityIdAsync(entityId, collectionName);
         if (!files.Any())
@@ -64,7 +62,7 @@ public class FileStorageService : IFileStorageService
         };
     }
 
-    public async Task DeleteFileAsync(string entityId,  string collectionName)
+    public async Task DeleteFileAsync(string entityId, string collectionName)
     {
         var filesMetadata = await _metadataStorage.FindFilesByEntityIdAsync(entityId, collectionName);
         if (!filesMetadata.Any())
