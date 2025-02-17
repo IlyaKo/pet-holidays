@@ -1,32 +1,26 @@
-import { React, useState } from "react";
-import axios from "axios";
-import { API_URL } from "../../../config";
+import { React, useEffect } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import FormInput from "../../shared/FormInput";
 import ResultMessage from "../../shared/ResultMessage";
+import { userLogin } from "../../../stores/authActions";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 export default function LoginPage() {
   const formMethods = useForm();
-  const [errorMessage, setErrorMessage] = useState("");
-  const [successMessage, setSuccessMessage] = useState("");
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { loading, error, authenticated } = useSelector((state) => state.auth);
 
-  const onSubmit = async (data) => {
-    setErrorMessage("");
-    setSuccessMessage("");
-    try {
-      const response = await axios.post(API_URL + "users/login", {
-        Email: data.email,
-        Password: data.password,
-      });
-      const token = response.data.jwt;
-      console.log("Token: ", token);
-      setSuccessMessage("Token: " + token);
-      // Store the token or update the UI as needed
-    } catch (error) {
-      setErrorMessage("Error: " + error.message);
-      console.error("Error fetching token: ", error);
-    }
+  const onSubmit = (data) => {
+    dispatch(userLogin({ email: data.email, password: data.password }));
   };
+
+  useEffect(() => {
+    if (authenticated) {
+      navigate("/hotels");
+    }
+  }, [authenticated, navigate]);
 
   return (
     <FormProvider {...formMethods}>
@@ -51,12 +45,9 @@ export default function LoginPage() {
           }}
         />
 
-        <ResultMessage
-          errorMessage={errorMessage}
-          successMessage={successMessage}
-        />
+        <ResultMessage errorMessage={error} />
 
-        <button className="button is-link" type="submit">
+        <button className="button is-link" type="submit" disabled={loading}>
           Login
         </button>
       </form>

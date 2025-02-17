@@ -1,4 +1,5 @@
-﻿using System.Security.Claims;
+﻿using LosTomates.PetHolidays.Core.Core.Users;
+using System.Security.Claims;
 
 namespace LosTomates.PetHolidays.Core.Application.Users;
 
@@ -6,11 +7,13 @@ public interface IUserService
 {
     Task<UserView> GetById(string userId);
 
-    Task<string> Create(UserEditDto dto);
+    Task<LoginResponse> Create(UserEditDto dto);
 
     Task Update(string entityId, UserEditDto dto);
+
     (string UserId, string UserName) GetUserFromToken(string token);
-    Task<string> Login(LoginDto dto);
+
+    Task<LoginResponse> Login(LoginDto dto);
 
     Task<(string UserId, string UserName)> CurrentUser(ClaimsPrincipal userClaims);
 
