@@ -1,6 +1,6 @@
 ﻿using System.Security.Authentication;
 
-namespace LosTomates.PetHolidays.Core.Application.Users;
+namespace LosTomates.PetHolidays.Auth.Application.Users;
 
 public sealed class CurrentUserProvider : ICurrentUserProvider, ICurrentUserSetter
 {

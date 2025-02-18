@@ -1,0 +1,20 @@
+﻿using LosTomates.PetHolidays.Auth.WebApi.Endpoints;
+
+namespace LosTomates.PetHolidays.Auth.WebApi.Extensions;
+
+internal static class WebApplicationBuilderExtensions
+{
+    internal static IApplicationBuilder MapApplicationEndpoints(this WebApplication app)
+    {
+        AdminEndpoints.Map(app);
+        HotelEndpoints.Map(app);
+        UserEndpoints.Map(app);
+        RoomEndpoints.Map(app);
+        RoomTypeEndpoints.Map(app);
+        BookingEndPoints.Map(app);
+        PetTypeEndpoints.Map(app);
+        PetEndpoints.Map(app);
+
+        return app;
+    }
+}

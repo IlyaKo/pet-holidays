@@ -1,5 +1,5 @@
 ﻿
-namespace LosTomates.PetHolidays.Core.Application.Users;
+namespace LosTomates.PetHolidays.Auth.Application.Users;
 
 public interface ICurrentUserSetter
 {

@@ -1,8 +1,8 @@
 ﻿using FluentValidation;
-using LosTomates.PetHolidays.Core.Core.Domain.Users;
-using LosTomates.PetHolidays.Core.Core.Exceptions;
-using LosTomates.PetHolidays.Core.Core.Users;
-using LosTomates.PetHolidays.Core.DataAccess;
+using LosTomates.PetHolidays.Auth.Core.Domain.Users;
+using LosTomates.PetHolidays.Auth.Core.Exceptions;
+using LosTomates.PetHolidays.Auth.Core.Users;
+using LosTomates.PetHolidays.Auth.DataAccess;
 using Mapster;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -12,7 +12,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 
-namespace LosTomates.PetHolidays.Core.Application.Users;
+namespace LosTomates.PetHolidays.Auth.Application.Users;
 
 public sealed class UserService : IUserService
 {
