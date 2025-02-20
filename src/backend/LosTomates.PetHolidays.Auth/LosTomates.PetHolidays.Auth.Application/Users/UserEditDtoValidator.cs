@@ -1,5 +1,5 @@
 ﻿using FluentValidation;
-using LosTomates.PetHolidays.Core.DataAccess;
+using LosTomates.PetHolidays.Auth.DataAccess;
 
 namespace LosTomates.PetHolidays.Auth.Application.Users;
 

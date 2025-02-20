@@ -1,10 +1,4 @@
 ﻿using FluentValidation;
-using LosTomates.PetHolidays.Auth.Application.Bookings;
-using LosTomates.PetHolidays.Auth.Application.Hotels;
-using LosTomates.PetHolidays.Auth.Application.Pets;
-using LosTomates.PetHolidays.Auth.Application.PetTypes;
-using LosTomates.PetHolidays.Auth.Application.Rooms;
-using LosTomates.PetHolidays.Auth.Application.RoomTypes;
 using LosTomates.PetHolidays.Auth.Application.Users;
 using LosTomates.PetHolidays.Auth.DataAccess;
 using LosTomates.PetHolidays.Auth.DataAccess.DataSeed;
@@ -50,13 +44,7 @@ internal static class ServiceCollectionExtensions
 
     internal static IServiceCollection AddApplicationServices(this IServiceCollection services)
     {
-        services.AddScoped<IHotelService, HotelService>();
         services.AddScoped<IUserService, UserService>();
-        services.AddScoped<IPetTypeService, PetTypeService>();
-        services.AddScoped<IPetService, PetService>();
-        services.AddScoped<IRoomService, RoomService>();
-        services.AddScoped<IRoomTypeService, RoomTypeService>();
-        services.AddScoped<IBookingService, BookingService>();
 
         return services;
     }
@@ -75,7 +63,7 @@ internal static class ServiceCollectionExtensions
 
     internal static IServiceCollection AddFluentValidation(this IServiceCollection services)
     {
-        services.AddValidatorsFromAssembly(typeof(HotelEditDtoValidator).Assembly);
+        services.AddValidatorsFromAssembly(typeof(UserEditDtoValidator).Assembly);
 
         return services;
     }

@@ -1,5 +1,4 @@
-﻿using LosTomates.PetHolidays.Core.Core.Users;
-using System.Security.Claims;
+﻿using System.Security.Claims;
 
 namespace LosTomates.PetHolidays.Auth.Application.Users;
 

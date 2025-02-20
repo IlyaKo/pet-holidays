@@ -13,7 +13,7 @@ ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 COPY ["LosTomates.PetHolidays.Auth.WebApi/LosTomates.PetHolidays.Auth.WebApi.csproj", "LosTomates.PetHolidays.Auth.WebApi/"]
 COPY ["LosTomates.PetHolidays.Auth.Application/LosTomates.PetHolidays.Auth.Application.csproj", "LosTomates.PetHolidays.Auth.Application/"]
-COPY ["LosTomates.PetHolidays.Auth.Auth/LosTomates.PetHolidays.Auth.Auth.csproj", "LosTomates.PetHolidays.Auth.Auth/"]
+COPY ["LosTomates.PetHolidays.Auth.Core/LosTomates.PetHolidays.Auth.Core.csproj", "LosTomates.PetHolidays.Auth.Core/"]
 COPY ["LosTomates.PetHolidays.Auth.DataAccess/LosTomates.PetHolidays.Auth.DataAccess.csproj", "LosTomates.PetHolidays.Auth.DataAccess/"]
 RUN dotnet restore "./LosTomates.PetHolidays.Auth.WebApi/LosTomates.PetHolidays.Auth.WebApi.csproj"
 COPY . .

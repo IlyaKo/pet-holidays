@@ -1,8 +1,7 @@
-﻿using LosTomates.PetHolidays.Core.Application.Users;
-using LosTomates.PetHolidays.Core.Core.Users;
+﻿using LosTomates.PetHolidays.Auth.Application.Users;
 using System.Security.Claims;
 
-namespace LosTomates.PetHolidays.Core.WebApi.Endpoints;
+namespace LosTomates.PetHolidays.Auth.WebApi.Endpoints;
 
 public static class UserEndpoints
 {

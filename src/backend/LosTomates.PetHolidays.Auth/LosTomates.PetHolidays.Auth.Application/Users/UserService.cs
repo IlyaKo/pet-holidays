@@ -1,7 +1,6 @@
 ﻿using FluentValidation;
 using LosTomates.PetHolidays.Auth.Core.Domain.Users;
 using LosTomates.PetHolidays.Auth.Core.Exceptions;
-using LosTomates.PetHolidays.Auth.Core.Users;
 using LosTomates.PetHolidays.Auth.DataAccess;
 using Mapster;
 using Microsoft.AspNetCore.Identity;
@@ -136,22 +135,22 @@ public sealed class UserService : IUserService
     }
 
     public async Task<(string UserId, string UserName)> CurrentUser(ClaimsPrincipal userClaims)
-{
-    if (userClaims == null || !userClaims.Identity.IsAuthenticated)
     {
-        throw new UnauthorizedAccessException("User is not authenticated.");
+        if (userClaims == null || !userClaims.Identity.IsAuthenticated)
+        {
+            throw new UnauthorizedAccessException("User is not authenticated.");
+        }
+
+        var userId = userClaims.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+        var userName = userClaims.FindFirst(ClaimTypes.Name)?.Value;
+
+        if (string.IsNullOrEmpty(userId) || string.IsNullOrEmpty(userName))
+        {
+            throw new UnauthorizedAccessException("User information is missing.");
+        }
+
+        return (userId, userName);
     }
-
-    var userId = userClaims.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-    var userName = userClaims.FindFirst(ClaimTypes.Name)?.Value;
-
-    if (string.IsNullOrEmpty(userId) || string.IsNullOrEmpty(userName))
-    {
-        throw new UnauthorizedAccessException("User information is missing.");
-    }
-
-    return (userId, userName);
-}
 
     private async Task<User?> FindEntityById(string entityId)
     {

@@ -23,6 +23,21 @@ services:
     networks:
       - pet-holidays-network 
 
+  petholidays-auth-webapi:
+    container_name: petholidays-auth-webapi
+    build:
+      context: ./src/backend/LosTomates.PetHolidays.Auth
+      dockerfile: LosTomates.PetHolidays.Auth.WebApi/Dockerfile 
+    ports:
+      - "5002:8082"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__CoreDb=Host=postgres;Port=5432;Database=PetHolidaysCore;User id=postgres;Password=password
+    depends_on:
+      - postgres
+    networks:
+      - pet-holidays-network 
+
   postgres:
     image: postgres:latest
     container_name: postgres

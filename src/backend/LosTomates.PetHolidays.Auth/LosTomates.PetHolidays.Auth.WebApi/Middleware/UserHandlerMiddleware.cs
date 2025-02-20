@@ -1,4 +1,4 @@
-﻿using LosTomates.PetHolidays.Core.Application.Users;
+﻿using LosTomates.PetHolidays.Auth.Application.Users;
 using System.Security.Claims;
 
 namespace LosTomates.PetHolidays.Auth.WebApi.Middleware;

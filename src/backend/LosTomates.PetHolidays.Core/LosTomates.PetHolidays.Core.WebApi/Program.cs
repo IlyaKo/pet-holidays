@@ -63,7 +63,6 @@ public class Program
 
         app.UseAuthentication();
         app.UseAuthorization();
-        app.UseMiddleware<UserHandlerMiddleware>();
 
         app.UseCors(options => options.AllowAnyOrigin()
                                       .AllowAnyHeader()

@@ -1,4 +1,4 @@
-﻿using LosTomates.PetHolidays.Core.Core.Exceptions;
+﻿using LosTomates.PetHolidays.Auth.Core.Exceptions;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 

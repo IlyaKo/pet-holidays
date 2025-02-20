@@ -51,13 +51,12 @@ internal static class ServiceCollectionExtensions
     internal static IServiceCollection AddApplicationServices(this IServiceCollection services)
     {
         services.AddScoped<IHotelService, HotelService>();
-        services.AddScoped<IUserService, UserService>();
         services.AddScoped<IPetTypeService, PetTypeService>();
         services.AddScoped<IPetService, PetService>();
         services.AddScoped<IRoomService, RoomService>();
         services.AddScoped<IRoomTypeService, RoomTypeService>();
         services.AddScoped<IBookingService, BookingService>();
-
+        services.AddHttpClient<UserClient>();
         return services;
     }
 
@@ -103,9 +102,6 @@ internal static class ServiceCollectionExtensions
                 ValidateAudience = false
             };
         });
-        services.AddScoped<ICurrentUserProvider, CurrentUserProvider>();
-        // We want to use the same instance of a provider for setting and for getting current user:
-        services.AddScoped(x => (ICurrentUserSetter)x.GetRequiredService<ICurrentUserProvider>());
 
         return services;
     }

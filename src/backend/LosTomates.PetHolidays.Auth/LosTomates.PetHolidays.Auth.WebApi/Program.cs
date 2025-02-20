@@ -14,6 +14,7 @@ AddServices(builder.Services, builder.Configuration);
 
 var app = builder.Build();
 
+SeedData(app.Services);
 ConfigurePipeline(app);
 
 app.Run();
@@ -60,7 +61,17 @@ static void ConfigurePipeline(WebApplication app)
     app.UseMiddleware<UserHandlerMiddleware>();
 
     app.UseCors(options => options.AllowAnyOrigin()
-                                    .AllowAnyHeader()
-                                    .AllowAnyMethod());
+                                  .AllowAnyHeader()
+                                  .AllowAnyMethod());
     app.MapApplicationEndpoints();
+}
+
+// Migrate and add testing data to the database if necessary.
+static void SeedData(IServiceProvider services)
+{
+    using var scope = services.CreateScope();
+    var seedService = scope.ServiceProvider.GetRequiredService<SeedService>();
+
+    seedService.ApplyMigrations();
+    seedService.SeedData();
 }
