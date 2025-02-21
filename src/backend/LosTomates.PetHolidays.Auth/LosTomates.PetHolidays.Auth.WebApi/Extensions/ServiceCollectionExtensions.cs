@@ -51,9 +51,9 @@ internal static class ServiceCollectionExtensions
 
     internal static IServiceCollection AddDatabaseContext(this IServiceCollection services, IConfiguration configuration)
     {
-        var connectionString = configuration.GetConnectionString("CoreDb");
+        var connectionString = configuration.GetConnectionString("AuthDb");
         if (string.IsNullOrWhiteSpace(connectionString))
-            throw new ApplicationException("An environment variable named ConnectionStrings__CoreDb is not set");
+            throw new ApplicationException("An environment variable named ConnectionStrings__AuthDb is not set");
 
         services.AddDbContext<ApplicationDbContext>(options => options.UseNpgsql(connectionString));
         services.AddTransient<SeedService>();
