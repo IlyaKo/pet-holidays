@@ -9,10 +9,12 @@ namespace LosTomates.PetHolidays.FileService.WebApi.Services;
 public class MinioFileStorage : IFileStorage
 {
     private readonly IMinioClient _minioClient;
+    private readonly string _baseUrl;
 
     public MinioFileStorage(IOptions<MinioSettings> options, IMinioClient minioClient)
     {
         _minioClient = minioClient;
+        _baseUrl = options.Value.BaseUrl ?? $"http://{_minioClient.Config.Endpoint}";
     }
 
     public async Task<string> UploadFileAsync(string objectName, Stream stream, string bucketName)
@@ -33,7 +35,7 @@ public class MinioFileStorage : IFileStorage
                 .WithObjectSize(stream.Length)
         );
 
-        return $"{_minioClient.Config.Endpoint}/{bucketName}/{objectName}";
+        return $"{_baseUrl}/{bucketName}/{objectName}";
     }
 
     public async Task<Stream> DownloadFileAsync(string objectName, string bucketName)
@@ -48,6 +50,16 @@ public class MinioFileStorage : IFileStorage
         );
         memoryStream.Position = 0;
         return memoryStream;
+    }
+
+    public async Task<string> GetFileUrlAsync(string objectName, string bucketName)
+    {
+        var statArgs = new StatObjectArgs()
+            .WithBucket(bucketName)
+            .WithObject(objectName);
+        await _minioClient.StatObjectAsync(statArgs);
+
+        return $"{_baseUrl}/{bucketName}/{objectName}";
     }
 
     public async Task DeleteFilesAsync(List<string> objectNames, string bucketName)

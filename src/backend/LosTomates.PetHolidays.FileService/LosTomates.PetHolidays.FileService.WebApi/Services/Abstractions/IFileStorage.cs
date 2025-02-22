@@ -4,4 +4,5 @@ public interface IFileStorage
     Task<string> UploadFileAsync(string objectName, Stream stream, string bucketName);
     Task<Stream> DownloadFileAsync(string objectName, string bucketName);
     Task DeleteFilesAsync(List<string> objectNames, string bucketName);
+    Task<string> GetFileUrlAsync(string objectName, string bucketName);
 }
