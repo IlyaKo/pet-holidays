@@ -1,5 +1,6 @@
 using LosTomates.PetHolidays.Core.Application.Extensions;
 using LosTomates.PetHolidays.Core.Core.Domain.Users;
+using LosTomates.PetHolidays.Core.Core.FileService;
 using LosTomates.PetHolidays.Core.DataAccess;
 using LosTomates.PetHolidays.Core.DataAccess.DataSeed;
 using LosTomates.PetHolidays.Core.WebApi.Extensions;
@@ -48,6 +49,8 @@ public class Program
         services.AddJwtAuthentication(configuration);
 
         services.AddScoped<SignInManager<User>>();
+
+        services.AddHttpClient<IFileServiceClient, FileServiceClient>();
     }
 
     // Configure the HTTP request pipeline.
