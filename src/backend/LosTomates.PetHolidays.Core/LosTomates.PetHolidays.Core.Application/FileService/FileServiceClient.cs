@@ -11,7 +11,7 @@ public class FileServiceClient : IFileServiceClient
     public FileServiceClient(HttpClient httpClient, IConfiguration configuration)
     {
         _httpClient = httpClient ?? throw new ArgumentNullException(nameof(httpClient));
-        _fileServiceEndpoint = configuration["FileService:Endpoint"]
+        _fileServiceEndpoint = configuration["FileService:Endpoint"] 
             ?? throw new ArgumentException("FileService:Endpoint is not configured", nameof(configuration));
     }
 
@@ -65,7 +65,7 @@ public class FileServiceClient : IFileServiceClient
 
     private class FileUrlResponse
     {
-        public string Url { get; set; }
+        public required string Url { get; set; }
     }
 
 }

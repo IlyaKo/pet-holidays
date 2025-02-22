@@ -13,8 +13,8 @@ public static class FileServiceEndpoints
                          .WithOpenApi();
 
         mapGroup.MapPost("/upload/{collectionName}/{entityId}", async (
-            string collectionName,
             string entityId,
+            string collectionName,
             IFormFile file,
             IFileStorageService fileStorageService) =>
         {
@@ -44,8 +44,8 @@ public static class FileServiceEndpoints
         .DisableAntiforgery();
 
         mapGroup.MapGet("/download/{collectionName}/{entityId}", async (
-            string collectionName,
             string entityId,
+            string collectionName,
             IFileStorageService fileStorageService) =>
         {
             if (string.IsNullOrWhiteSpace(entityId) || string.IsNullOrWhiteSpace(collectionName))
@@ -69,8 +69,8 @@ public static class FileServiceEndpoints
         .WithSummary("Download file");
 
         mapGroup.MapGet("/{collectionName}/{entityId}/url", async (
-            string collectionName,
             string entityId,
+            string collectionName,
             IFileStorageService fileStorageService) =>
         {
             if (string.IsNullOrWhiteSpace(entityId) || string.IsNullOrWhiteSpace(collectionName))
@@ -90,8 +90,8 @@ public static class FileServiceEndpoints
         .WithOpenApi();
 
         mapGroup.MapDelete("/{collectionName}/{entityId}", async (
-            string collectionName,
             string entityId,
+            string collectionName,
             IFileStorageService fileStorageService) =>
         {
 

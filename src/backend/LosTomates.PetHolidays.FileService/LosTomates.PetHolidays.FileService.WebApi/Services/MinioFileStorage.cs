@@ -13,8 +13,8 @@ public class MinioFileStorage : IFileStorage
 
     public MinioFileStorage(IOptions<MinioSettings> options, IMinioClient minioClient)
     {
-        _minioClient = minioClient;
-        _baseUrl = options.Value.BaseUrl ?? $"http://{_minioClient.Config.Endpoint}";
+        _minioClient = minioClient ?? throw new ArgumentNullException(nameof(minioClient));
+        _baseUrl = options.Value.BaseUrl ?? throw new ArgumentException("BaseUrl must not be null", nameof(options));
     }
 
     public async Task<string> UploadFileAsync(string objectName, Stream stream, string bucketName)
