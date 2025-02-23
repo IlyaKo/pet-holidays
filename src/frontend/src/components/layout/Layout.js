@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { NavLink, Outlet } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../stores/auth";
+import { FaSun, FaMoon } from "react-icons/fa";
 
 export default function Layout() {
   const dispatch = useDispatch();
@@ -14,7 +15,7 @@ export default function Layout() {
   const onLogoutClick = () => {
     dispatch(logout());
   };
-  
+
   useEffect(() => {
     if (isDark) {
       document.documentElement.classList.add("dark-mode");
@@ -85,8 +86,10 @@ export default function Layout() {
           )}
         </div>
         <div className="navbar-end">
-          <button className="button is-light m-2" onClick={toggleTheme}>
-            {isDark ? "Light mode" : "Dark mode"}
+          <button
+            onClick={toggleTheme}
+            className={`button m-2 is-flex is-align-items-center ${isDark ? "is-light" : "is-dark"}`}style={{ gap: "0.5rem" }}>
+            {isDark ? <FaSun /> : <FaMoon />}
           </button>
         </div>
       </nav>
