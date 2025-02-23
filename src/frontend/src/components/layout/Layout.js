@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import { NavLink, Outlet } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../stores/auth";
@@ -5,9 +6,23 @@ import { logout } from "../../stores/auth";
 export default function Layout() {
   const dispatch = useDispatch();
   const { authenticated } = useSelector((state) => state.auth);
+  const [isDark, setIsDark] = useState(false);
 
   const onLogoutClick = () => {
     dispatch(logout());
+  };
+
+  useEffect(() => {
+    const root = document.documentElement;
+    if (isDark) {
+      root.classList.add("dark-mode");
+    } else {
+      root.classList.remove("dark-mode");
+    }
+  }, [isDark]);
+
+  const toggleTheme = () => {
+    setIsDark((prev) => !prev);
   };
 
   return (
@@ -65,6 +80,11 @@ export default function Layout() {
               Logout
             </NavLink>
           )}
+        </div>
+        <div className="navbar-end">
+          <button className="button is-light m-2" onClick={toggleTheme}>
+            {isDark ? "Light mode" : "Dark mode"}
+          </button>
         </div>
       </nav>
       <hr />
