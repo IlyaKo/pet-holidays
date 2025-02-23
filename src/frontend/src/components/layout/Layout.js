@@ -6,19 +6,22 @@ import { logout } from "../../stores/auth";
 export default function Layout() {
   const dispatch = useDispatch();
   const { authenticated } = useSelector((state) => state.auth);
-  const [isDark, setIsDark] = useState(false);
+  const [isDark, setIsDark] = useState(() => {
+    const savedTheme = localStorage.getItem("theme");
+    return savedTheme ? savedTheme === "dark" : false;
+  });
 
   const onLogoutClick = () => {
     dispatch(logout());
   };
-
+  
   useEffect(() => {
-    const root = document.documentElement;
     if (isDark) {
-      root.classList.add("dark-mode");
+      document.documentElement.classList.add("dark-mode");
     } else {
-      root.classList.remove("dark-mode");
+      document.documentElement.classList.remove("dark-mode");
     }
+    localStorage.setItem("theme", isDark ? "dark" : "light");
   }, [isDark]);
 
   const toggleTheme = () => {
@@ -28,7 +31,7 @@ export default function Layout() {
   return (
     <>
       <nav className="navbar">
-        <div className="navbar-brand ">
+        <div className="navbar-brand">
           <NavLink to="/" className="title m-2">
             Pet Holidays
           </NavLink>
