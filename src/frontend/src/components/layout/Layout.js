@@ -8,8 +8,13 @@ export default function Layout() {
   const dispatch = useDispatch();
   const { authenticated } = useSelector((state) => state.auth);
   const [isDark, setIsDark] = useState(() => {
-    const savedTheme = localStorage.getItem("theme");
-    return savedTheme ? savedTheme === "dark" : false;
+    let savedTheme = localStorage.getItem("theme");
+    if (!savedTheme) 
+    {
+      localStorage.setItem("theme", "light");
+      savedTheme = "light";
+    }
+    return savedTheme === "dark";
   });
 
   const onLogoutClick = () => {
@@ -17,12 +22,16 @@ export default function Layout() {
   };
 
   useEffect(() => {
-    if (isDark) {
+    if (isDark) 
+    {
       document.documentElement.classList.add("dark-mode");
-    } else {
+      localStorage.setItem("theme", "dark");
+    } 
+    else 
+    {
       document.documentElement.classList.remove("dark-mode");
+      localStorage.setItem("theme", "light");
     }
-    localStorage.setItem("theme", isDark ? "dark" : "light");
   }, [isDark]);
 
   const toggleTheme = () => {
