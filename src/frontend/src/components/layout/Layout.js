@@ -96,8 +96,8 @@ export default function Layout() {
         </div>
         <div className="navbar-end">
           <button
-            onClick={toggleTheme}
-            className={`button m-2 is-flex is-align-items-center ${isDark ? "is-light" : "is-dark"}`}style={{ gap: "0.5rem" }}>
+            onClick={toggleTheme}что
+            className={`button m-2 is-flex is-align-items-center ${isDark ? "is-light" : "is-dark"}`}>
             {isDark ? <FaSun /> : <FaMoon />}
           </button>
         </div>
