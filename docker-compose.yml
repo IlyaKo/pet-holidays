@@ -19,6 +19,7 @@ services:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://+:5001
       - ConnectionStrings__CoreDb=Host=postgres;Port=5432;Database=PetHolidaysCore;User id=postgres;Password=password
+      - FileService__Endpoint=http://petholidays-file-service-webapi:5002/api/files
     depends_on:
       - postgres
     networks:

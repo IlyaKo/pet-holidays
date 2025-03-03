@@ -12,8 +12,8 @@ public class FileMetadata
     [BsonElement("entityId")]
     public string EntityId { get; set; } = string.Empty;
 
-    [BsonElement("url")]
-    public string Url { get; set; } = string.Empty;
+    [BsonElement("objectName")]
+    public string ObjectName { get; set; } = string.Empty;
 
     [BsonElement("bucketName")]
     public string BucketName { get; set; } = string.Empty;

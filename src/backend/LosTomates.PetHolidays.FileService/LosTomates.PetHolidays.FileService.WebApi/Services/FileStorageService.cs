@@ -15,8 +15,11 @@ public class FileStorageService : IFileStorageService
         _metadataStorage = metadataStorageService;
     }
 
-    public async Task<UploadFileResponse> UploadFileAsync(IFormFile file, string entityId, string collectionName)
+    public async Task<FileUploadResponse> UploadFileAsync(IFormFile file, string entityId, string collectionName)
     {
+        if (file == null || file.Length == 0)
+            throw new ArgumentException("No file uploaded");
+
         var objectName = $"{Guid.NewGuid()}{Path.GetExtension(file.FileName)}";
         var contentType = file.ContentType ?? "application/octet-stream";
 
@@ -25,7 +28,7 @@ public class FileStorageService : IFileStorageService
 
         var metadata = new FileMetadata
         {
-            Url = url,
+            ObjectName = objectName,
             BucketName = collectionName,
             EntityId = entityId,
             OriginalFileName = file.FileName,
@@ -36,24 +39,22 @@ public class FileStorageService : IFileStorageService
 
         await _metadataStorage.InsertMetadataAsync(metadata, collectionName);
 
-        return new UploadFileResponse { Url = url };
+        return new FileUploadResponse { Url = url };
     }
 
-    public async Task<FileResponse> DownloadFileAsync(string entityId, string collectionName)
+    public async Task<FileDownloadResponse> DownloadFileAsync(string entityId, string collectionName)
     {
         var files = await _metadataStorage.FindFilesByEntityIdAsync(entityId, collectionName);
         if (!files.Any())
-            throw new FileNotFoundException("File not found.");
+            throw new FileNotFoundException("File not found");
 
         var file = files
             .OrderBy(f => f.UploadedAt)
             .Last();
 
-        var objectName = Path.GetFileName(new Uri(file.Url).AbsolutePath);
+        var fileStream = await _fileStorage.DownloadFileAsync(file.ObjectName, collectionName);
 
-        var fileStream = await _fileStorage.DownloadFileAsync(objectName, collectionName);
-
-        return new FileResponse()
+        return new FileDownloadResponse()
         {
             FileStream = fileStream,
             FileName = file.OriginalFileName,
@@ -66,14 +67,23 @@ public class FileStorageService : IFileStorageService
     {
         var filesMetadata = await _metadataStorage.FindFilesByEntityIdAsync(entityId, collectionName);
         if (!filesMetadata.Any())
-            throw new FileNotFoundException("File not found.");
+            throw new FileNotFoundException("File not found");
 
-        var objectNames = filesMetadata
-            .Select(x => Path.GetFileName(new Uri(x.Url).AbsolutePath))
-            .ToList();
+        var objectNames = filesMetadata.Select(x => x.ObjectName).ToList();
 
         await _fileStorage.DeleteFilesAsync(objectNames, collectionName);
 
         await _metadataStorage.DeleteFileByEntitiesIdAsync(filesMetadata.Select(x => x.EntityId).ToList(), collectionName);
+    }
+
+    public async Task<string> GetFileUrlAsync(string entityId, string collectionName)
+    {
+        var files = await _metadataStorage.FindFilesByEntityIdAsync(entityId, collectionName);
+        if (!files.Any())
+            throw new FileNotFoundException("File not found");
+
+        var file = files.OrderBy(f => f.UploadedAt).Last();
+        
+        return await _fileStorage.GetFileUrlAsync(file.ObjectName, collectionName);
     }
 }
