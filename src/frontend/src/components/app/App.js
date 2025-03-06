@@ -12,6 +12,8 @@ import AboutPage from "../pages/about-page/AboutPage";
 import NotFoundPage from "../pages/not-found-page/NotFoundPage";
 import LoginPage from "../pages/login-page/LoginPage";
 import RegisterPage from "../pages/register-page/RegisterPage";
+import BookingsPage from "../pages/bookings-page/BookingsPage";
+import NewReservationForm from "../new-reservation-form/NewReservationForm";
 
 const router = createBrowserRouter([
   {
@@ -30,6 +32,14 @@ const router = createBrowserRouter([
       {
         path: "/hotels/:hotelId",
         element: <HotelPage />,
+      },
+      {
+        path: "/bookings/new",
+        element: <NewReservationForm />,
+      },
+      {
+        path: "/bookings",
+        element: <BookingsPage />,
       },
       {
         path: "/about",

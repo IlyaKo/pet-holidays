@@ -19,7 +19,7 @@ public class BookingView
 
     public required PetView Pet { get; set; }
 
-    public required HotelView Hotel { get; set; }
+    public required HotelShortView Hotel { get; set; }
 
     public required RoomView Room { get; set; }
 }

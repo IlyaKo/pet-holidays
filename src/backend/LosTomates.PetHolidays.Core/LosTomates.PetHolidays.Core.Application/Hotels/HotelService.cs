@@ -15,18 +15,20 @@ public sealed class HotelService(
 
     private readonly IValidator<HotelEditDto> _validateService = validateService;
 
-    public async Task<IReadOnlyList<HotelView>> GetAll()
+    public async Task<IReadOnlyList<HotelShortView>> GetAll()
     {
         return await _dbContext.Hotels
                               .Where(x => x.IsActive)
-                              .ProjectToType<HotelView>()
+                              .ProjectToType<HotelShortView>()
                               .ToListAsync();
     }
 
     public async Task<HotelView> GetById(int entityId)
     {
-        var entity = await FindEntityById(entityId)
-                  ?? throw new NotFoundException(nameof(Hotel), entityId.ToString());
+        var entity = await _dbContext.Hotels
+                                     .Include(x => x.Rooms)
+                                     .FirstOrDefaultAsync(x => x.Id == entityId)
+                   ?? throw new NotFoundException(nameof(Hotel), entityId.ToString());
 
         return entity.Adapt<HotelView>();
     }
