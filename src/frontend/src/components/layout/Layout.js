@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { NavLink, Outlet } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../stores/auth";
-import { FaSun, FaMoon } from "react-icons/fa";
+import { FaSun, FaMoon, FaUser } from "react-icons/fa";
 
 export default function Layout() {
   const dispatch = useDispatch();
@@ -10,12 +10,13 @@ export default function Layout() {
   const [isDark, setIsDark] = useState(() => {
     let savedTheme = localStorage.getItem("theme");
     if (!savedTheme) 
-    {
+      {
       localStorage.setItem("theme", "light");
       savedTheme = "light";
     }
     return savedTheme === "dark";
   });
+  const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
 
   const onLogoutClick = () => {
     dispatch(logout());
@@ -23,11 +24,11 @@ export default function Layout() {
 
   useEffect(() => {
     if (isDark) 
-    {
+      {
       document.documentElement.classList.add("dark-mode");
       localStorage.setItem("theme", "dark");
     } 
-    else 
+    else
     {
       document.documentElement.classList.remove("dark-mode");
       localStorage.setItem("theme", "light");
@@ -83,21 +84,33 @@ export default function Layout() {
               </NavLink>
             </>
           ) : (
-            <NavLink
-              className={({ isActive }) =>
-                isActive ? "navbar-item is-active" : "navbar-item"
-              }
-              onClick={onLogoutClick}
-              to="/"
-            >
-              Logout
-            </NavLink>
+            <button className="navbar-item" onClick={onLogoutClick}>Logout</button>
           )}
         </div>
-        <div className="navbar-end">
+        <div className="navbar-end is-flex is-align-items-center">
+          {authenticated && (
+            <div className={`dropdown ${isProfileMenuOpen ? "is-active" : ""} is-right`}>
+              <div className="dropdown-trigger">
+                <button
+                  className="button is-dark m-2"
+                  onClick={() => setIsProfileMenuOpen(!isProfileMenuOpen)}
+                >
+                  <FaUser />
+                </button>
+              </div>
+              <div className="dropdown-menu" role="menu">
+                <div className="dropdown-content">
+                  <NavLink className="dropdown-item" to="/my-pets">
+                    My pets
+                  </NavLink>
+                </div>
+              </div>
+            </div>
+          )}
           <button
-            onClick={toggleTheme}что
-            className={`button m-2 is-flex is-align-items-center ${isDark ? "is-light" : "is-dark"}`}>
+            onClick={toggleTheme}
+            className="button is-dark m-2"
+          >
             {isDark ? <FaSun /> : <FaMoon />}
           </button>
         </div>
