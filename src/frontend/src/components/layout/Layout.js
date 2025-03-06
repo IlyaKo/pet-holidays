@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { NavLink, Outlet } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../stores/auth";
@@ -17,6 +17,7 @@ export default function Layout() {
     return savedTheme === "dark";
   });
   const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
+  const profileMenuRef = useRef(null);
 
   const onLogoutClick = () => {
     dispatch(logout());
@@ -28,7 +29,7 @@ export default function Layout() {
       document.documentElement.classList.add("dark-mode");
       localStorage.setItem("theme", "dark");
     } 
-    else
+    else 
     {
       document.documentElement.classList.remove("dark-mode");
       localStorage.setItem("theme", "light");
@@ -37,6 +38,10 @@ export default function Layout() {
 
   const toggleTheme = () => {
     setIsDark((prev) => !prev);
+  };
+
+  const handleMouseLeave = () => {
+    setIsProfileMenuOpen(false);
   };
 
   return (
@@ -89,7 +94,11 @@ export default function Layout() {
         </div>
         <div className="navbar-end is-flex is-align-items-center">
           {authenticated && (
-            <div className={`dropdown ${isProfileMenuOpen ? "is-active" : ""} is-right`}>
+            <div
+              ref={profileMenuRef}
+              className={`dropdown ${isProfileMenuOpen ? "is-active" : ""} is-right`}
+              onMouseLeave={handleMouseLeave}
+            >
               <div className="dropdown-trigger">
                 <button
                   className="button is-dark m-2"
