@@ -13,17 +13,17 @@ public sealed class PetService(
     ApplicationDbContext dbContext,
     IValidator<PetEditDto> validator,
     IPetTypeService petTypeService,
-    UserClient userClient) : IPetService
+    IUserService userService) : IPetService
 {
     private readonly ApplicationDbContext _dbContext = dbContext;
     private readonly IValidator<PetEditDto> _validator = validator;
     private readonly IPetTypeService _petTypeService = petTypeService;
-    private readonly UserClient _userClient = userClient;
+    private readonly IUserService _userService = userService;
     public async Task<int> Create(string userId, PetEditDto dto)
     {
         _validator.ValidateAndThrow(dto);
 
-        await _userClient.CheckExistById(userId);
+        await _userService.GetById(userId);
         await _petTypeService.GetById(dto.PetTypeId);
 
         var pet = dto.Adapt<Pet>();

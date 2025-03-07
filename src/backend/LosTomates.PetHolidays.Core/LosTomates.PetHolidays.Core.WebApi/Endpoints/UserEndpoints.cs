@@ -1,13 +1,13 @@
-﻿using LosTomates.PetHolidays.Auth.Application.Users;
+﻿using LosTomates.PetHolidays.Core.Application.Users;
 using System.Security.Claims;
 
-namespace LosTomates.PetHolidays.Auth.WebApi.Endpoints;
+namespace LosTomates.PetHolidays.Core.WebApi.Endpoints;
 
 public static class UserEndpoints
 {
     public static void Map(WebApplication app)
     {
-        var mapGroup = app.MapGroup("api/auth-users")
+        var mapGroup = app.MapGroup("api/users")
                           .WithTags("User management")
                           .WithOpenApi();
 

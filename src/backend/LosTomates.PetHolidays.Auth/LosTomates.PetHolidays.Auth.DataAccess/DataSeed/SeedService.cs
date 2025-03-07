@@ -30,21 +30,5 @@ public sealed class SeedService
             dbContext.Add(entity);
         }
         dbContext.SaveChanges();
-
-#warning Нужно ли предусмотреть сброс индектов?
-        //ResetSequence<User>(); 
-    }
-
-    private void ResetSequence<TEntity>() where TEntity : class
-    {
-        var tableName = dbContext.Model.FindEntityType(typeof(TEntity))?.GetTableName();
-
-        var maxId = dbContext.Set<TEntity>()
-                             .AsNoTracking()
-                             .Max(e => EF.Property<int>(e, "Id"));
-
-        var sql = $@"SELECT setval(pg_get_serial_sequence('""{tableName}""', 'Id'), {maxId});";
-
-        dbContext.Database.ExecuteSqlRaw(sql);
     }
 }

@@ -6,6 +6,7 @@ internal static class WebApplicationBuilderExtensions
 {
     internal static IApplicationBuilder MapApplicationEndpoints(this WebApplication app)
     {
+        UserEndpoints.Map(app);
         AdminEndpoints.Map(app);
         HotelEndpoints.Map(app);
         RoomEndpoints.Map(app);
