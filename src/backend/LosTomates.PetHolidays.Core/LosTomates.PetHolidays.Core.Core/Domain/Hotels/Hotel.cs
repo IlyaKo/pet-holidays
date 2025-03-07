@@ -13,6 +13,4 @@ public sealed class Hotel
     public bool IsActive { get; set; }
 
     public List<Room>? Rooms { get; set; }
-
-    public string? PhotoUrl { get; set; }
 }

@@ -15,6 +15,4 @@ public sealed class RoomView
     public string? Description { get; set; }
 
     public decimal Price { get; set; }
-
-    public string? PhotoUrl { get; set; }
 }

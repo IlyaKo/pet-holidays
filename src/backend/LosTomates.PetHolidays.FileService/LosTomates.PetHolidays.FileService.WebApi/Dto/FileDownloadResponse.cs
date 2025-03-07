@@ -1,6 +1,6 @@
 ﻿namespace LosTomates.PetHolidays.FileService.WebApi.Dto;
 
-public class FileResponse
+public class FileDownloadResponse
 {
     public required Stream FileStream { get; set; }
     public required string FileName { get; set; }

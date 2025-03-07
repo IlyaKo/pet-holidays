@@ -12,6 +12,4 @@ public class Pet : BaseEntity
     public PetType? PetType { get; set; } 
 
     public User? PetOwner { get; set; }
-
-    public string? PhotoUrl { get; set; }
 }
