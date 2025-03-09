@@ -1,8 +1,8 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { NavLink, Outlet } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../stores/auth";
-import { FaSun, FaMoon, FaUser } from "react-icons/fa";
+import { FaSun, FaMoon } from "react-icons/fa";
 
 export default function Layout() {
   const dispatch = useDispatch();
@@ -16,8 +16,6 @@ export default function Layout() {
     }
     return savedTheme === "dark";
   });
-  const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
-  const profileMenuRef = useRef(null);
 
   const onLogoutClick = () => {
     dispatch(logout());
@@ -40,10 +38,6 @@ export default function Layout() {
     setIsDark((prev) => !prev);
   };
 
-  const handleMouseLeave = () => {
-    setIsProfileMenuOpen(false);
-  };
-
   return (
     <>
       <nav className="navbar">
@@ -61,6 +55,16 @@ export default function Layout() {
           >
             Hotels
           </NavLink>
+          {authenticated && (
+            <NavLink
+              className={({ isActive }) =>
+                isActive ? "navbar-item is-active" : "navbar-item"
+              }
+              to="/my-pets"
+            >
+              My pets
+            </NavLink>
+          )}
           <NavLink
             className={({ isActive }) =>
               isActive ? "navbar-item is-active" : "navbar-item"
@@ -93,29 +97,6 @@ export default function Layout() {
           )}
         </div>
         <div className="navbar-end is-flex is-align-items-center">
-          {authenticated && (
-            <div
-              ref={profileMenuRef}
-              className={`dropdown ${isProfileMenuOpen ? "is-active" : ""} is-right`}
-              onMouseLeave={handleMouseLeave}
-            >
-              <div className="dropdown-trigger">
-                <button
-                  className="button is-dark m-2"
-                  onClick={() => setIsProfileMenuOpen(!isProfileMenuOpen)}
-                >
-                  <FaUser />
-                </button>
-              </div>
-              <div className="dropdown-menu" role="menu">
-                <div className="dropdown-content">
-                  <NavLink className="dropdown-item" to="/my-pets">
-                    My pets
-                  </NavLink>
-                </div>
-              </div>
-            </div>
-          )}
           <button
             onClick={toggleTheme}
             className="button is-dark m-2"
