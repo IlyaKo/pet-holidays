@@ -12,6 +12,7 @@ import AboutPage from "../pages/about-page/AboutPage";
 import NotFoundPage from "../pages/not-found-page/NotFoundPage";
 import LoginPage from "../pages/login-page/LoginPage";
 import RegisterPage from "../pages/register-page/RegisterPage";
+import PetsPage from "../pages/pets-page/PetsPage"; 
 
 const router = createBrowserRouter([
   {
@@ -30,6 +31,10 @@ const router = createBrowserRouter([
       {
         path: "/hotels/:hotelId",
         element: <HotelPage />,
+      },
+      {
+        path: "/my-pets", 
+        element: <PetsPage />,
       },
       {
         path: "/about",
