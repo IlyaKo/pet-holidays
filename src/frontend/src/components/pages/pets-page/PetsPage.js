@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import PetCard from "../../pet-list/PetCard";
+import PetCard, { PetTable } from "../../pet-list/PetTable";
 import AddPetForm from "../../pet-list/AddPetForm"; 
 import api from "../../shared/api";
 
@@ -84,15 +84,12 @@ export default function PetsPage() {
         </div>
       )}
  
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          {pets && pets.length > 0 ? (
-            pets.map((pet) => (
-              <PetCard key={pet.id} pet={pet} onDelete={handleDelete} />
-            ))
-          ) : (
-            <p>Loading pets...</p>
-          )}
-        </div>
+
+ {pets && pets.length > 0 ? (
+  <PetTable pets={pets} onDelete={handleDelete} />
+) : (
+  <p>Loading pets...</p>
+)}
 
 
         <button
