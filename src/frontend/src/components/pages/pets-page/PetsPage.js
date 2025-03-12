@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from "react";
 import PetCard from "../../pet-list/PetCard";
 import AddPetForm from "../../pet-list/AddPetForm"; 
-import { FaPlus } from "react-icons/fa"; 
 import api from "../../shared/api";
-import { useNavigate } from "react-router-dom";
 
 api.interceptors.request.use(
   (config) => {
@@ -22,7 +20,6 @@ export default function PetsPage() {
   const [petTypes, setPetTypes] = useState([]);
   const [petTypeRequiredError, setPetTypeRequiredError] = useState(false);
   const [isFormVisible, setIsFormVisible] = useState(false);
-  const navigate = useNavigate(); // Навигация
 
   useEffect(() => {
     fetchPets();
