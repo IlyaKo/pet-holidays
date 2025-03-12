@@ -5,7 +5,7 @@ const DEFAULT_PET_PHOTO = "https://img.freepik.com/premium-psd/contact-icon-illu
 
 function PetCard({ pet, onDelete }) {
   return (
-    <div className="bg-white rounded-lg shadow-md p-4 flex flex-col items-center space-y-3 md:space-x-4">
+    <div>
       <div className="w-24 h-24 rounded-full overflow-hidden flex-shrink-0">
         <img
           src={pet.photo || DEFAULT_PET_PHOTO}

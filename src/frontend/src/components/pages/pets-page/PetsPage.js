@@ -1,15 +1,9 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
-import { API_URL } from "../../../config";
 import PetCard from "../../pet-list/PetCard";
 import AddPetForm from "../../pet-list/AddPetForm"; 
 import { FaPlus } from "react-icons/fa"; 
-
-
-
-const api = axios.create({
-  baseURL: `${API_URL}`,
-});
+import api from "../../shared/api";
+import { useNavigate } from "react-router-dom";
 
 api.interceptors.request.use(
   (config) => {
@@ -28,6 +22,7 @@ export default function PetsPage() {
   const [petTypes, setPetTypes] = useState([]);
   const [petTypeRequiredError, setPetTypeRequiredError] = useState(false);
   const [isFormVisible, setIsFormVisible] = useState(false);
+  const navigate = useNavigate(); // Навигация
 
   useEffect(() => {
     fetchPets();
@@ -85,8 +80,13 @@ export default function PetsPage() {
       <h2 className="title m-4">My Pets</h2>
       <hr />
       <div className="max-w-2xl mx-auto p-6">
- 
 
+      {error && (
+        <div className="alert alert-error mb-4">
+          <p>{error}</p>
+        </div>
+      )}
+ 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {pets && pets.length > 0 ? (
             pets.map((pet) => (
@@ -100,9 +100,9 @@ export default function PetsPage() {
 
         <button
           onClick={() => setIsFormVisible(!isFormVisible)}
-          className="bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white font-semibold py-2 px-4 rounded-lg shadow-md transition duration-300 ease-in-out transform hover:scale-105 flex items-center gap-2"
+          className="button is-primary my-4"
         >
-          <FaPlus /> Add New Pet  </button>
+          <button /> Add New Pet  </button>
 
 
         {isFormVisible && (
