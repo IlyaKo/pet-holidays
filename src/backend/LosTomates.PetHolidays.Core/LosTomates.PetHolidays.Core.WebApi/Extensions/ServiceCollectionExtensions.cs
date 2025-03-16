@@ -6,12 +6,14 @@ using LosTomates.PetHolidays.Core.Application.PetTypes;
 using LosTomates.PetHolidays.Core.Application.Rooms;
 using LosTomates.PetHolidays.Core.Application.RoomTypes;
 using LosTomates.PetHolidays.Core.Application.Users;
+using LosTomates.PetHolidays.Core.Core.Exchange;
 using LosTomates.PetHolidays.Core.DataAccess;
 using LosTomates.PetHolidays.Core.DataAccess.DataSeed;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using RabbitMQ.Client;
 using System.Text;
 
 namespace LosTomates.PetHolidays.Core.WebApi.Extensions;
@@ -57,6 +59,7 @@ internal static class ServiceCollectionExtensions
         services.AddScoped<IRoomService, RoomService>();
         services.AddScoped<IRoomTypeService, RoomTypeService>();
         services.AddScoped<IBookingService, BookingService>();
+        services.AddScoped<IRabbitService, RabbitService>();
 
         return services;
     }
@@ -76,6 +79,17 @@ internal static class ServiceCollectionExtensions
     internal static IServiceCollection AddFluentValidation(this IServiceCollection services)
     {
         services.AddValidatorsFromAssembly(typeof(HotelEditDtoValidator).Assembly);
+
+        return services;
+    }
+
+    internal static IServiceCollection AddRabbitMQ(this IServiceCollection services, IConfiguration configuration)
+    {
+        var connectionString = configuration.GetConnectionString("RabbitMq");
+        if (string.IsNullOrWhiteSpace(connectionString))
+            throw new ApplicationException("An environment variable named ConnectionStrings__RabbitMQ is not set");
+        
+        services.AddSingleton(new ConnectionFactory { HostName = connectionString });
 
         return services;
     }

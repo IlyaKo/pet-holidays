@@ -1,3 +1,4 @@
+using LosTomates.PetHolidays.FileService.WebApi.BackgroundServices;
 using LosTomates.PetHolidays.FileService.WebApi.Configuration;
 using LosTomates.PetHolidays.FileService.WebApi.Endpoints;
 using LosTomates.PetHolidays.FileService.WebApi.Extensions;
@@ -36,6 +37,8 @@ builder.Services.AddSingleton<IMongoClient>(sp =>
     return new MongoClient(settings.ConnectionString);
 });
 
+builder.Services.AddRabbitMQ(builder.Configuration);
+builder.Services.AddHostedService<RabbitEventsReceiver>();
 
 var app = builder.Build();
 
