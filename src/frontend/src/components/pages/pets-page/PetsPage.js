@@ -15,7 +15,7 @@ api.interceptors.request.use(
 );
 
 export default function PetsPage() {
-  const [pets, setPets] = useState(null);
+  const [pets, setPets] = useState([]); 
   const [error, setError] = useState("");
   const [petTypes, setPetTypes] = useState([]);
   const [petTypeRequiredError, setPetTypeRequiredError] = useState(false);
@@ -25,6 +25,40 @@ export default function PetsPage() {
     fetchPets();
     fetchPetTypes();
   }, []);
+
+  const handlePhotoUpload = async (petId, formData) => {
+    console.log("Uploading photo for pet:", petId);
+  
+    try {
+      const uploadResponse = await api.post(`/pets/${petId}/photo`, formData, {
+        headers: { "Content-Type": "multipart/form-data" },
+      });
+  
+      if (uploadResponse.status === 200) {
+        console.log("Photo uploaded successfully.");
+  
+        // 🔥 **Получаем актуальный URL фото после загрузки**
+        const photoResponse = await api.get(`/pets/${petId}/photo`);
+        if (photoResponse.status === 200) {
+          const updatedUrl = photoResponse.data.PhotoUrl;
+          console.log("Updated photo URL:", updatedUrl);
+  
+          // 🔥 **Обновляем только фото в `pets` без перезапроса всего списка**
+          setPets((prevPets) =>
+            prevPets.map((pet) =>
+              pet.id === petId ? { ...pet, photo: updatedUrl } : pet
+            )
+          );
+        } else {
+          console.error("Failed to fetch updated photo URL.");
+        }
+      } else {
+        console.error("Photo upload failed", uploadResponse);
+      }
+    } catch (error) {
+      console.error("Error uploading or fetching updated photo:", error);
+    }
+  };
 
   const fetchPets = async () => {
     try {
@@ -86,17 +120,18 @@ export default function PetsPage() {
  
 
  {pets && pets.length > 0 ? (
-  <PetTable pets={pets} onDelete={handleDelete} />
+  <PetTable pets={pets} onDelete={handleDelete} onPhotoUpload={handlePhotoUpload}/>
 ) : (
   <p>Loading pets...</p>
 )}
 
 
-        <button
-          onClick={() => setIsFormVisible(!isFormVisible)}
-          className="button is-primary my-4"
-        >
-          <button /> Add New Pet  </button>
+<button
+  onClick={() => setIsFormVisible(!isFormVisible)}
+  className="button is-primary my-4"
+>
+  Add New Pet
+</button>
 
 
         {isFormVisible && (
