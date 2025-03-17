@@ -38,7 +38,7 @@ export default function PetsPage() {
   
         const photoResponse = await api.get(`/pets/${petId}/photo`);
         if (photoResponse.status === 200) {
-          const updatedUrl = photoResponse.data.PhotoUrl;
+          const updatedUrl = photoResponse.data.url;
           console.log("Updated photo URL:", updatedUrl);
   
           setPets((prevPets) =>
