@@ -36,9 +36,7 @@ export default function PetsPage() {
       if (uploadResponse.status === 200) {
         console.log("Photo uploaded successfully.");
   
-        const photoResponse = await api.get(`/pets/${petId}/photo`);
-        if (photoResponse.status === 200) {
-          const updatedUrl = photoResponse.data.url;
+          const updatedUrl = uploadResponse.data.url;
           console.log("Updated photo URL:", updatedUrl);
   
           setPets((prevPets) =>
@@ -46,9 +44,7 @@ export default function PetsPage() {
               pet.id === petId ? { ...pet, photo: updatedUrl } : pet
             )
           );
-        } else {
-          console.error("Failed to fetch updated photo URL.");
-        }
+       
       } else {
         console.error("Photo upload failed", uploadResponse);
       }
