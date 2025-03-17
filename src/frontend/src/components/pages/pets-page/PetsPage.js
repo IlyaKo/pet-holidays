@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import PetCard, { PetTable } from "../../pet-list/PetTable";
+import PetTable from "../../pet-list/PetTable";
 import AddPetForm from "../../pet-list/AddPetForm"; 
 import api from "../../shared/api";
 
@@ -16,8 +16,8 @@ api.interceptors.request.use(
 
 export default function PetsPage() {
   const [pets, setPets] = useState([]); 
-  const [error, setError] = useState("");
   const [petTypes, setPetTypes] = useState([]);
+  const [error, setError] = useState("");
   const [petTypeRequiredError, setPetTypeRequiredError] = useState(false);
   const [isFormVisible, setIsFormVisible] = useState(false);
 
@@ -28,7 +28,6 @@ export default function PetsPage() {
 
   const handlePhotoUpload = async (petId, formData) => {
     console.log("Uploading photo for pet:", petId);
-  
     try {
       const uploadResponse = await api.post(`/pets/${petId}/photo`, formData, {
         headers: { "Content-Type": "multipart/form-data" },
@@ -37,13 +36,11 @@ export default function PetsPage() {
       if (uploadResponse.status === 200) {
         console.log("Photo uploaded successfully.");
   
-        // 🔥 **Получаем актуальный URL фото после загрузки**
         const photoResponse = await api.get(`/pets/${petId}/photo`);
         if (photoResponse.status === 200) {
           const updatedUrl = photoResponse.data.PhotoUrl;
           console.log("Updated photo URL:", updatedUrl);
   
-          // 🔥 **Обновляем только фото в `pets` без перезапроса всего списка**
           setPets((prevPets) =>
             prevPets.map((pet) =>
               pet.id === petId ? { ...pet, photo: updatedUrl } : pet
@@ -65,7 +62,6 @@ export default function PetsPage() {
       const response = await api.get("/pets");
       setPets(response.data);
     } catch (error) {
-      console.error("Error loading pets:", error);
       setError("Failed to load the list of pets.");
     }
   };
@@ -75,7 +71,6 @@ export default function PetsPage() {
       const response = await api.get("/pet-types");
       setPetTypes(response.data);
     } catch (error) {
-      console.error("Error loading pet types:", error);
       setError("Failed to load the list of pet types.");
     }
   };
@@ -89,9 +84,8 @@ export default function PetsPage() {
     try {
       await api.post("/pets", newPet);
       fetchPets();
-      setIsFormVisible(false); // Закрываем форму после успешного добавления
+      setIsFormVisible(false); 
     } catch (error) {
-      console.error("Error saving pet:", error);
       setError("Error saving pet.");
     }
   };
@@ -101,7 +95,6 @@ export default function PetsPage() {
       await api.delete(`/pets/${id}`);
       fetchPets();
     } catch (error) {
-      console.error("Error deleting pet:", error);
       setError("Error deleting pet.");
     }
   };

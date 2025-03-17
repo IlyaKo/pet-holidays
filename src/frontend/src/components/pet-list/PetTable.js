@@ -1,10 +1,31 @@
-import React, { useState } from 'react';
-import { FaCamera } from 'react-icons/fa';
+import React, { useState, useEffect } from 'react'; // ✅ Добавлен useEffect
+import { FaCamera,FaTrash } from 'react-icons/fa';
+import api from "../shared/api";
 
 const DEFAULT_PET_PHOTO = "https://img.freepik.com/premium-psd/contact-icon-illustration-isolated_23-2151903357.jpg?w=740";
 
 export function PetTable({ pets, onDelete, onPhotoUpload }) {
   const [hoveredPet, setHoveredPet] = useState(null);
+  const [petPhotos, setPetPhotos] = useState({});
+
+  useEffect(() => {
+    pets.forEach((pet) => {
+      fetchPetPhoto(pet.id);
+    });
+  }, [pets]);
+
+  const fetchPetPhoto = async (petId) => {
+    try {
+      const response = await api.get(`/pets/${petId}/photo`);
+      if (response.status === 200) 
+      {
+        console.log(`Fetched photo for pet ${petId}:`, response.data);
+        setPetPhotos((prev) => ({ ...prev, [petId]: response.data.url }));
+      }
+    } catch (error) {
+      console.error(`Error fetching photo for pet ${petId}:`, error);
+    }
+  };
 
   const handlePhotoChange = (event, petId) => {
     const file = event.target.files[0];
@@ -20,7 +41,7 @@ export function PetTable({ pets, onDelete, onPhotoUpload }) {
     <table className="table is-fullwidth is-striped">
       <thead>
         <tr>
-          <th style={{ width: "250px" }}>Photo</th>
+          <th style={{ width: "300px" }}>Photo</th>
           <th>Name</th>
           <th>Type</th>
           <th>Age</th>
@@ -39,7 +60,7 @@ export function PetTable({ pets, onDelete, onPhotoUpload }) {
                 style={{ position: 'relative', display: 'inline-block' }}
               >
                 <img 
-                  src={pet.photo || DEFAULT_PET_PHOTO} 
+                  src={petPhotos[pet.id] || DEFAULT_PET_PHOTO} 
                   alt={pet.name || 'Pet image'} 
                   className="is-rounded pet-photo" 
                 />
@@ -76,11 +97,11 @@ export function PetTable({ pets, onDelete, onPhotoUpload }) {
             </td>
             <td>{pet.name}</td>
             <td>{pet.petType.name}</td>
-            <td>{pet.age} years</td>
-            <td>3kg</td>
+            <td>{pet.age} 4 years</td>
+            <td>6 kg</td>
             <td>
               <button onClick={() => onDelete(pet.id)} className="px-3">
-                Delete
+              <FaTrash className="mr-2" /> Delete
               </button>
             </td>
           </tr>

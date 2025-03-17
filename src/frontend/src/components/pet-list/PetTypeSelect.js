@@ -1,4 +1,3 @@
-// PetTypeSelect.js
 import React from 'react';
 
 function PetTypeSelect({ value, onChange, petTypes }) {
