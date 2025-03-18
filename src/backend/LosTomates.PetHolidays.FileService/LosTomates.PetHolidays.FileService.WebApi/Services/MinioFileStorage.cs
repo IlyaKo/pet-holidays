@@ -14,7 +14,7 @@ public class MinioFileStorage : IFileStorage
     public MinioFileStorage(IOptions<MinioSettings> options, IMinioClient minioClient)
     {
         _minioClient = minioClient ?? throw new ArgumentNullException(nameof(minioClient));
-        _baseUrl = options.Value.BaseUrl ?? throw new ArgumentException("BaseUrl must not be null", nameof(options));
+        _baseUrl = options.Value.Endpoint ?? throw new ArgumentException("BaseUrl must not be null", nameof(options));
     }
 
     public async Task<string> UploadFileAsync(string objectName, Stream stream, string bucketName)
@@ -60,6 +60,16 @@ public class MinioFileStorage : IFileStorage
         await _minioClient.StatObjectAsync(statArgs);
 
         return $"{_baseUrl}/{bucketName}/{objectName}";
+
+        //var statArgs = new StatObjectArgs()
+        //.WithBucket(bucketName)
+        //.WithObject(objectName);
+        //await _minioClient.StatObjectAsync(statArgs);
+
+        //return await _minioClient.PresignedGetObjectAsync(new PresignedGetObjectArgs()
+        //    .WithBucket(bucketName)
+        //    .WithObject(objectName)
+        //    .WithExpiry(3600)); // 1 час
     }
 
     public async Task DeleteFilesAsync(List<string> objectNames, string bucketName)
