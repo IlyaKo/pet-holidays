@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import PetTable from "../../pet-list/PetTable";
+import PetList from "../../pet-list/PetList"; 
 import AddPetForm from "../../pet-list/AddPetForm"; 
 import api from "../../shared/api";
 
@@ -35,16 +35,13 @@ export default function PetsPage() {
   
       if (uploadResponse.status === 200) {
         console.log("Photo uploaded successfully.");
-  
-          const updatedUrl = uploadResponse.data.url;
-          console.log("Updated photo URL:", updatedUrl);
-  
-          setPets((prevPets) =>
-            prevPets.map((pet) =>
-              pet.id === petId ? { ...pet, photo: updatedUrl } : pet
-            )
-          );
-       
+        const updatedUrl = uploadResponse.data.url;
+        console.log("Updated photo URL:", updatedUrl);
+        setPets((prevPets) =>
+          prevPets.map((pet) =>
+            pet.id === petId ? { ...pet, photo: updatedUrl } : pet
+          )
+        );
       } else {
         console.error("Photo upload failed", uploadResponse);
       }
@@ -100,28 +97,24 @@ export default function PetsPage() {
       <h2 className="title m-4">My Pets</h2>
       <hr />
       <div className="max-w-2xl mx-auto p-6">
+        {error && (
+          <div className="alert alert-error mb-4">
+            <p>{error}</p>
+          </div>
+        )}
 
-      {error && (
-        <div className="alert alert-error mb-4">
-          <p>{error}</p>
-        </div>
-      )}
- 
+        <PetList 
+          pets={pets} 
+          onDelete={handleDelete} 
+          onPhotoUpload={handlePhotoUpload} 
+        />
 
- {pets && pets.length > 0 ? (
-  <PetTable pets={pets} onDelete={handleDelete} onPhotoUpload={handlePhotoUpload}/>
-) : (
-  <p>Loading pets...</p>
-)}
-
-
-<button
-  onClick={() => setIsFormVisible(!isFormVisible)}
-  className="button is-primary my-4"
->
-  Add New Pet
-</button>
-
+        <button
+          onClick={() => setIsFormVisible(!isFormVisible)}
+          className="button is-primary my-4"
+        >
+          Add New Pet
+        </button>
 
         {isFormVisible && (
           <AddPetForm
