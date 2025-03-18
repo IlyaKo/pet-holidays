@@ -45,7 +45,7 @@ public static class PetEndpoints
         {
             var userId = currentUserProvider.GetUserId(); 
             await service.Update(petId, userId, dto);
-            return Results.NoContent();
+            return Results.Ok();
         })
         .WithSummary("Update pet")
         .RequireAuthorization();
@@ -54,21 +54,24 @@ public static class PetEndpoints
         {
             var userId = currentUserProvider.GetUserId(); 
             await service.Delete(petId, userId);
-            return Results.NoContent();
+            return Results.Ok();
         })
         .WithSummary("Delete pet")
         .RequireAuthorization();
 
-        mapGroup.MapPost("{petId}/photo", async (int petId, IFormFile photo, IFileServiceClient fileServiceClient, IPetService service, ICurrentUserProvider currentUserProvider) => 
+        mapGroup.MapPost("{petId}/photo", async (int petId, HttpContext httpContext, IFileServiceClient fileServiceClient, IPetService service, ICurrentUserProvider currentUserProvider) => 
         {
             var userId = currentUserProvider.GetUserId();
             await service.GetById(petId, userId);
 
-            if (photo == null || photo.Length == 0)
+            var form = await httpContext.Request.ReadFormAsync();
+            var file = form.Files.FirstOrDefault();
+
+            if (file == null || file.Length == 0)
                 return Results.BadRequest("No photo uploaded");
 
-            var url = await fileServiceClient.UploadFileAsync(photo, petId.ToString(), "pets");
-
+            var url = await fileServiceClient.UploadFileAsync(file, petId.ToString(), "pets");
+        
             return Results.Ok(new { Url = url });
         })
         .Accepts<IFormFile>("multipart/form-data")
@@ -82,8 +85,8 @@ public static class PetEndpoints
             await service.GetById(petId, userId);
 
             var photoUrl = await fileServiceClient.GetFileUrlAsync(petId.ToString(), "pets");
-
-            return Results.Ok(new { PhotoUrl = photoUrl });
+           
+            return Results.Ok(new { Url = photoUrl });
         })
         .WithSummary("Get pet photo url")
         .RequireAuthorization();
