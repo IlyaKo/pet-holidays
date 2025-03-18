@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { FaCamera, FaTrash } from 'react-icons/fa';
 import api from "../shared/api";
 
-const DEFAULT_PET_PHOTO = "https://img.freepik.com/premium-vector/no-photo-available-vector-icon-default-image-symbol-picture-coming-soon-web-site-mobile-app_87543-14040.jpg?w=826";
+const DEFAULT_PET_PHOTO = '/no-photo.jpg';
 
 export default function PetList({ pets, onDelete, onPhotoUpload }) {
   const [hoveredPet, setHoveredPet] = useState(null);
@@ -41,7 +41,7 @@ export default function PetList({ pets, onDelete, onPhotoUpload }) {
         <table className="table is-fullwidth is-striped">
           <thead>
             <tr>
-              <th style={{ width: "300px" }}>Photo</th>
+              <th className="photo-column">Photo</th>
               <th>Name</th>
               <th>Type</th>
               <th>Age</th>
@@ -57,7 +57,6 @@ export default function PetList({ pets, onDelete, onPhotoUpload }) {
                     className="image pet-photo-container" 
                     onMouseEnter={() => setHoveredPet(pet.id)}
                     onMouseLeave={() => setHoveredPet(null)}
-                    style={{ position: 'relative', display: 'inline-block' }}
                   >
                     <img 
                       src={petPhotos[pet.id] || DEFAULT_PET_PHOTO} 
@@ -68,20 +67,6 @@ export default function PetList({ pets, onDelete, onPhotoUpload }) {
                       <label 
                         className="upload-overlay" 
                         htmlFor={`upload-photo-${pet.id}`}
-                        style={{
-                          position: 'absolute', 
-                          top: 0, 
-                          left: 0, 
-                          width: '100%', 
-                          height: '100%', 
-                          backgroundColor: 'rgba(0, 0, 0, 0.5)', 
-                          display: 'flex', 
-                          alignItems: 'center', 
-                          justifyContent: 'center', 
-                          color: 'white', 
-                          cursor: 'pointer',
-                          borderRadius: '50%'
-                        }}
                       >
                         <FaCamera size={24} />
                       </label>
@@ -89,7 +74,7 @@ export default function PetList({ pets, onDelete, onPhotoUpload }) {
                     <input
                       type="file"
                       id={`upload-photo-${pet.id}`}
-                      style={{ display: 'none' }}
+                      className="photo-input"
                       onChange={(e) => handlePhotoChange(e, pet.id)}
                       accept="image/*"
                     />
