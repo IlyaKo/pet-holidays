@@ -3,7 +3,7 @@ namespace LosTomates.PetHolidays.Core.Application.Hotels;
 
 public interface IHotelService
 {
-    Task<IReadOnlyList<HotelView>> GetAll();
+    Task<IReadOnlyList<HotelShortView>> GetAll();
 
     Task<HotelView> GetById(int hotelId);
 

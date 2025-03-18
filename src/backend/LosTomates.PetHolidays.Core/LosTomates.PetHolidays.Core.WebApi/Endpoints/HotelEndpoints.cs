@@ -14,7 +14,7 @@ public static class HotelEndpoints
         mapGroup.MapGet(string.Empty, async (IHotelService service) => await service.GetAll())
                 .WithSummary("Get list of hotels")
                 .WithDescription("Return a list with all active hotels")
-                .Produces<List<HotelView>>(StatusCodes.Status200OK);
+                .Produces<List<HotelShortView>>(StatusCodes.Status200OK);
 
         mapGroup.MapGet("{hotelId:int}", async (IHotelService service, int hotelId) =>
         {
@@ -23,7 +23,7 @@ public static class HotelEndpoints
         })
         .WithSummary("Get a hotel by its Id")
         .WithDescription("Return a hotel including not active ones")
-        .Produces<int>(StatusCodes.Status200OK)
+        .Produces<HotelView>(StatusCodes.Status200OK)
         .Produces(StatusCodes.Status404NotFound);
 
         mapGroup.MapPost(string.Empty, async (IHotelService service, HotelEditDto dto) =>
@@ -32,7 +32,7 @@ public static class HotelEndpoints
         })
         .WithSummary("Create a new hotel")
         .WithDescription("Return an id of a created hotel")
-        .Produces<HotelView>(StatusCodes.Status200OK);
+        .Produces<HotelShortView>(StatusCodes.Status200OK);
 
         mapGroup.MapPut("{hotelId:int}", async (IHotelService service, int hotelId, HotelEditDto dto) =>
         {

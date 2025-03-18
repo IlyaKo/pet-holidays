@@ -9,8 +9,7 @@ export default function Layout() {
   const { authenticated } = useSelector((state) => state.auth);
   const [isDark, setIsDark] = useState(() => {
     let savedTheme = localStorage.getItem("theme");
-    if (!savedTheme) 
-      {
+    if (!savedTheme) {
       localStorage.setItem("theme", "light");
       savedTheme = "light";
     }
@@ -22,13 +21,10 @@ export default function Layout() {
   };
 
   useEffect(() => {
-    if (isDark) 
-      {
+    if (isDark) {
       document.documentElement.classList.add("dark-mode");
       localStorage.setItem("theme", "dark");
-    } 
-    else 
-    {
+    } else {
       document.documentElement.classList.remove("dark-mode");
       localStorage.setItem("theme", "light");
     }
@@ -65,6 +61,18 @@ export default function Layout() {
               My pets
             </NavLink>
           )}
+          <NavLink
+            className={({ isActive }) =>
+              isActive ? "navbar-item is-active" : "navbar-item"
+            }
+          <NavLink
+            className={({ isActive }) =>
+              isActive ? "navbar-item is-active" : "navbar-item"
+            }
+            to="/bookings"
+          >
+            Bookings
+          </NavLink>
           <NavLink
             className={({ isActive }) =>
               isActive ? "navbar-item is-active" : "navbar-item"
@@ -106,7 +114,9 @@ export default function Layout() {
         </div>
       </nav>
       <hr />
-      <Outlet />
+      <div className="mx-4">
+        <Outlet />
+      </div>
     </>
   );
 }
