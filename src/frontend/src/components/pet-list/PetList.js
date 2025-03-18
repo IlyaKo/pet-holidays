@@ -44,8 +44,8 @@ export default function PetList({ pets, onDelete, onPhotoUpload }) {
               <th className="photo-column">Photo</th>
               <th>Name</th>
               <th>Type</th>
-              <th>Age</th>
-              <th>Weight</th>
+              <th>Description</th>
+              <th>Next Booking</th>
               <th></th>
             </tr>
           </thead>
@@ -82,8 +82,8 @@ export default function PetList({ pets, onDelete, onPhotoUpload }) {
                 </td>
                 <td>{pet.name}</td>
                 <td>{pet.petType.name}</td>
-                <td>{pet.age} years</td>
-                <td>{pet.weight} kg</td>
+                <td> </td>
+                <td> No Booking </td>
                 <td>
                   <button onClick={() => onDelete(pet.id)} className="px-3">
                     <FaTrash className="mr-2" /> Delete
