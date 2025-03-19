@@ -48,7 +48,7 @@ public sealed class UserService : IUserService
         return entity.Adapt<UserView>();
     }
 
-    public async Task<LoginResponse> Create(UserEditDto dto)
+    public async Task<CreateResponse> Create(UserEditDto dto)
     {
         validateService.ValidateAndThrow(dto);
 
@@ -70,8 +70,8 @@ public sealed class UserService : IUserService
             throw new ValidationException(string.Join(", ", errors));
         }
         
-        var loginDto = new LoginDto { Email = user.Email!, Password = dto.Password };
-        return await Login(loginDto);
+        var createResponse = new CreateResponse { Username = user.UserName };
+        return createResponse;
     }
 
     public async Task Update(string entityId, UserEditDto dto)
@@ -83,37 +83,6 @@ public sealed class UserService : IUserService
         dto.Adapt(entity);
 
         await dbContext.SaveChangesAsync();
-    }
-
-    public async Task<LoginResponse> Login(LoginDto dto)
-    {
-        var user = await _userManager.FindByEmailAsync(dto.Email)
-            ?? throw new UnauthorizedAccessException("Invalid credentials");
-
-        var result = await _userManager.CheckPasswordAsync(user, dto.Password);
-        if (!result)
-            throw new UnauthorizedAccessException("Invalid credentials");
-
-        var tokenHandler = new JwtSecurityTokenHandler();
-        var key = Encoding.ASCII.GetBytes(_secretKey);
-        var tokenDescriptor = new SecurityTokenDescriptor
-        {
-            Subject = new ClaimsIdentity(
-            [
-                new Claim(ClaimTypes.NameIdentifier, user.Id),
-                new Claim(ClaimTypes.Name, user.UserName!)
-            ]),
-            Expires = DateTime.UtcNow.AddDays(7),
-            SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
-        };
-        var securityToken = tokenHandler.CreateToken(tokenDescriptor);
-        var token = tokenHandler.WriteToken(securityToken);
-
-        return new()
-        {
-            Token = token,
-            Username = user.UserName!
-        };
     }
 
     public (string UserId, string UserName) GetUserFromToken(string token)

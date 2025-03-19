@@ -1,7 +1,6 @@
 ﻿namespace LosTomates.PetHolidays.Core.Application.Users;
 
-public sealed record LoginResponse
+public sealed record CreateResponse
 {
-    public required string Token { get; set; }
     public required string Username { get; set; }
 }
