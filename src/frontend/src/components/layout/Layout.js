@@ -51,6 +51,16 @@ export default function Layout() {
           >
             Hotels
           </NavLink>
+          {authenticated && (
+            <NavLink
+              className={({ isActive }) =>
+                isActive ? "navbar-item is-active" : "navbar-item"
+              }
+              to="/my-pets"
+            >
+              My pets
+            </NavLink>
+          )}
           <NavLink
             className={({ isActive }) =>
               isActive ? "navbar-item is-active" : "navbar-item"
@@ -87,24 +97,13 @@ export default function Layout() {
               </NavLink>
             </>
           ) : (
-            <NavLink
-              className={({ isActive }) =>
-                isActive ? "navbar-item is-active" : "navbar-item"
-              }
-              onClick={onLogoutClick}
-              to="/"
-            >
+            <button className="navbar-item" onClick={onLogoutClick}>
               Logout
-            </NavLink>
+            </button>
           )}
         </div>
-        <div className="navbar-end">
-          <button
-            onClick={toggleTheme}
-            className={`button m-2 is-flex is-align-items-center ${
-              isDark ? "is-light" : "is-dark"
-            }`}
-          >
+        <div className="navbar-end is-flex is-align-items-center">
+          <button onClick={toggleTheme} className="button is-dark m-2">
             {isDark ? <FaSun /> : <FaMoon />}
           </button>
         </div>

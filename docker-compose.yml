@@ -50,9 +50,6 @@ services:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://+:5002
       - Minio__Endpoint=http://minio:9000
-      - Minio__AccessKey=adminminio
-      - Minio__SecretKey=adminminio
-      - Minio__UseSSL=false
     depends_on:
       - minio
       - mongodb
