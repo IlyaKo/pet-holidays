@@ -19,7 +19,7 @@ builder.Services.AddSingleton(sp =>
 {
     var options = sp.GetRequiredService<IOptions<MinioSettings>>().Value;
 
-    var endpointUri = new Uri(options.BaseUrl);
+    var endpointUri = new Uri(options.Endpoint);
     var host = endpointUri.Host;
     var port = endpointUri.Port;
 
