@@ -1,4 +1,5 @@
-﻿using LosTomates.PetHolidays.FileService.WebApi.Services;
+﻿using LosTomates.PetHolidays.FileService.WebApi.BackgroundServices;
+using LosTomates.PetHolidays.FileService.WebApi.Services;
 using LosTomates.PetHolidays.FileService.WebApi.Services.Abstractions;
 using Microsoft.AspNetCore.Connections;
 using RabbitMQ.Client;
@@ -23,6 +24,7 @@ public static class ServiceCollectionExtensions
             throw new ApplicationException("An environment variable named ConnectionStrings__RabbitMQ is not set");
 
         services.AddSingleton(new ConnectionFactory { HostName = connectionString });
+        services.AddHostedService<RabbitEventsReceiver>();
 
         return services;
     }

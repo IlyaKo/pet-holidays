@@ -20,8 +20,10 @@ services:
       - ASPNETCORE_URLS=http://+:5001
       - ConnectionStrings__CoreDb=Host=postgres;Port=5432;Database=PetHolidaysCore;User id=postgres;Password=password
       - FileService__Endpoint=http://petholidays-file-service-webapi:5002/api/files
+      - ConnectionStrings__RabbitMq=rabbitmq
     depends_on:
       - postgres
+      - rabbitmq
     networks:
       - pet-holidays-network 
 
@@ -50,9 +52,11 @@ services:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://+:5002
       - Minio__Endpoint=http://minio:9000
+      - ConnectionStrings__RabbitMq=rabbitmq      
     depends_on:
       - minio
       - mongodb
+      - rabbitmq
     networks:
       - pet-holidays-network 
   
@@ -85,6 +89,20 @@ services:
     networks:
       - pet-holidays-network
 
+  rabbitmq:
+    image: rabbitmq:4-management
+    restart: always
+    environment:
+      RABBITMQ_DEFAULT_USER: guest
+      RABBITMQ_DEFAULT_PASS: guest
+    volumes:
+      - rabbit-data:/var/lib/rabbitmq
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    networks:
+      - pet-holidays-network
+
 networks:
   pet-holidays-network:
     driver: bridge
@@ -92,4 +110,5 @@ networks:
 volumes:
   pet-holidays-core-volume:
   minio-data:
-  mongodb-data:  
+  mongodb-data:
+  rabbit-data:
