@@ -17,7 +17,6 @@ services:
       - "5001:8080"
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - ASPNETCORE_URLS=http://+:5001
       - ConnectionStrings__CoreDb=Host=postgres;Port=5432;Database=PetHolidaysCore;User id=postgres;Password=password
     depends_on:
       - postgres
@@ -30,15 +29,14 @@ services:
       context: ./src/backend/LosTomates.PetHolidays.Auth
       dockerfile: LosTomates.PetHolidays.Auth.WebApi/Dockerfile 
     ports:
-      - "5002:8082"
+      - "5003:8080"
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - ASPNETCORE_URLS=http://+:5002
-      - ConnectionStrings__AuthDb=Host=postgres;Port=5434;Database=PetHolidaysAuth;User id=postgres;Password=password
+      - ConnectionStrings__AuthDb=Host=postgres-auth;Port=5432;Database=PetHolidaysAuth;User id=postgres;Password=password
     depends_on:
       - postgres
     networks:
-      - pet-holidays-network 
+      - pet-holidays-network
 
   postgres:
     image: postgres:latest
@@ -62,8 +60,7 @@ services:
       POSTGRES_PASSWORD: password
       POSTGRES_DB: PetHolidaysAuth
     ports:
-      - "5434:5434"
-    command: ["postgres", "-c", "port=5434"] 
+      - "5434:5432"
     volumes:
       - pet-holidays-auth-volume:/var/lib/postgresql/data
     networks:
