@@ -12,9 +12,10 @@ public sealed class FixtureWithInMemoryDatabase : IDisposable
     public FixtureWithInMemoryDatabase()
     {
         var configurationBuilder = new ConfigurationBuilder();
-        var inMemorySettings = new Dictionary<string, string?> 
+        var inMemorySettings = new Dictionary<string, string?>
         {
             {"ConnectionStrings:CoreDb", "Empty connection string"},
+            {"ConnectionStrings:RabbitMq", "Empty connection string"},
             {"JwtSettings:SecretKey", "Secret key"}
         };
         configurationBuilder.AddInMemoryCollection(inMemorySettings);
