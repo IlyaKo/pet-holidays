@@ -45,7 +45,8 @@ internal static class ServiceCollectionExtensions
     internal static IServiceCollection AddApplicationServices(this IServiceCollection services)
     {
         services.AddScoped<IUserService, UserService>();
-
+        services.AddHttpClient<UserClient>();
+        
         return services;
     }
 

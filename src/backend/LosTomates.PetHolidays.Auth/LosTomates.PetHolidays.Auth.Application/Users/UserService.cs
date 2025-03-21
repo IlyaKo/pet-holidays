@@ -64,17 +64,6 @@ public sealed class UserService : IUserService
         return await Login(loginDto);
     }
 
-    public async Task Update(string entityId, UserEditDto dto)
-    {
-        validateService.ValidateAndThrow(dto);
-        var entity = await FindEntityById(entityId)
-                  ?? throw new NotFoundException(nameof(User), entityId.ToString());
-
-        dto.Adapt(entity);
-
-        await dbContext.SaveChangesAsync();
-    }
-
     public async Task<LoginResponse> Login(LoginDto dto)
     {
         var user = await _userManager.FindByEmailAsync(dto.Email)
@@ -104,34 +93,6 @@ public sealed class UserService : IUserService
             Token = token,
             Username = user.UserName!
         };
-    }
-
-    public (string UserId, string UserName) GetUserFromToken(string token)
-    {
-        var tokenHandler = new JwtSecurityTokenHandler();
-        var key = Encoding.ASCII.GetBytes(_secretKey);
-
-        try
-        {
-            tokenHandler.ValidateToken(token, new TokenValidationParameters
-            {
-                ValidateIssuerSigningKey = true,
-                IssuerSigningKey = new SymmetricSecurityKey(key),
-                ValidateIssuer = false,
-                ValidateAudience = false,
-                ClockSkew = TimeSpan.Zero
-            }, out SecurityToken validatedToken);
-
-            var jwtToken = (JwtSecurityToken)validatedToken;
-            var userId = jwtToken.Claims.First(x => x.Type == "nameid").Value;
-            var userName = jwtToken.Claims.First(x => x.Type == "unique_name").Value;
-
-            return (userId, userName);
-        }
-        catch
-        {
-            throw new SecurityTokenException("Invalid token");
-        }
     }
 
     public async Task<(string UserId, string UserName)> CurrentUser(ClaimsPrincipal userClaims)

@@ -18,22 +18,19 @@ public sealed class UserService : IUserService
     private readonly ApplicationDbContext dbContext;
     private readonly IValidator<UserEditDto> validateService;
     private readonly UserManager<User> _userManager;
-    private readonly ICurrentUserProvider _userProvider;
-    private readonly UserClient _userClient;     
+    private readonly ICurrentUserProvider _userProvider; 
     private readonly string _secretKey;
 
     public UserService(ApplicationDbContext dbContext, 
         IValidator<UserEditDto> validateService,
         UserManager<User> userManager,
         ICurrentUserProvider userProvider,
-        UserClient userClient,
         IConfiguration configuration)
     {
         this.dbContext = dbContext;
         this.validateService = validateService;
         _userManager = userManager;
         _userProvider = userProvider;
-        _userClient = userClient;
         var configuredKey = configuration["JwtSettings:SecretKey"];
         if (string.IsNullOrEmpty(configuredKey))
             throw new ApplicationException("You need to set up the JWT secret key");
@@ -48,7 +45,7 @@ public sealed class UserService : IUserService
         return entity.Adapt<UserView>();
     }
 
-    public async Task<CreateResponse> Create(UserEditDto dto)
+    public async Task Create(UserEditDto dto)
     {
         validateService.ValidateAndThrow(dto);
 
@@ -62,16 +59,6 @@ public sealed class UserService : IUserService
             var errors = result.Errors.Select(e => e.Description).ToList();
             throw new ValidationException(string.Join(", ", errors));
         }
-
-        var authResult = await _userClient.CreateAsync(dto);
-        if (!authResult.Succeeded)
-        {
-            var errors = result.Errors.Select(e => e.Description).ToList();
-            throw new ValidationException(string.Join(", ", errors));
-        }
-        
-        var createResponse = new CreateResponse { Username = user.UserName };
-        return createResponse;
     }
 
     public async Task Update(string entityId, UserEditDto dto)

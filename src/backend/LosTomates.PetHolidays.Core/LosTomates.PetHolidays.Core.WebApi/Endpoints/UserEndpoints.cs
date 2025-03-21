@@ -22,12 +22,12 @@ public static class UserEndpoints
 
         mapGroup.MapPost(string.Empty, async (IUserService service, UserEditDto dto) =>
         {
-            var result = await service.Create(dto);
-            return Results.Ok(result);
+            await service.Create(dto);
+            return Results.Ok();
         })
         .WithSummary("Create a new user")
         .WithDescription("Return an id of a created user")
-        .Produces<CreateResponse>(StatusCodes.Status200OK)
+        .Produces(StatusCodes.Status200OK)
         .Produces(StatusCodes.Status400BadRequest);
 
         mapGroup.MapGet("profile", async (IUserService service, ClaimsPrincipal user) =>
