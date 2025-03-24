@@ -15,6 +15,7 @@ import RegisterPage from "../pages/register-page/RegisterPage";
 import BookingsPage from "../pages/bookings-page/BookingsPage";
 import NewReservationForm from "../new-reservation-form/NewReservationForm";
 import PetsPage from "../pages/pets-page/PetsPage"; 
+import ProfilePage from "../pages/profile-page/ProfilePage"; 
 
 const router = createBrowserRouter([
   {
@@ -58,6 +59,10 @@ const router = createBrowserRouter([
         path: "/sign-up",
         element: <RegisterPage />,
       },
+      {
+        path: "/profile",
+        element: <ProfilePage />
+      }
     ],
   },
 ]);
