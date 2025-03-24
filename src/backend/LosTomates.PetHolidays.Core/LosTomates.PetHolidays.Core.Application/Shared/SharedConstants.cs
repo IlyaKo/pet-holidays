@@ -2,5 +2,5 @@
 
 public static class SharedConstants
 {
-    public const string HotelEntityType = "Hotels";
+    public const string HotelEntityType = "hotels";
 }
