@@ -1,4 +1,5 @@
 ﻿using LosTomates.PetHolidays.Core.Application.Users;
+using Microsoft.AspNetCore.SignalR;
 using System.Security.Claims;
 
 namespace LosTomates.PetHolidays.Core.WebApi.Endpoints;
@@ -20,9 +21,10 @@ public static class UserEndpoints
         .Produces<int>(StatusCodes.Status200OK)
         .Produces(StatusCodes.Status404NotFound);
 
-        mapGroup.MapPost(string.Empty, async (IUserService service, UserEditDto dto) =>
+        mapGroup.MapPost(string.Empty, async (IUserService service, ICurrentUserProvider provider, UserEditDto dto) =>
         {
-            await service.Create(dto);
+            var userId = provider.GetUserId();
+            await service.Create(userId, dto);
             return Results.Ok();
         })
         .WithSummary("Create a new user")

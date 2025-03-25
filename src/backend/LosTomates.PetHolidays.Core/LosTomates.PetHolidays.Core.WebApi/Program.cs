@@ -41,13 +41,7 @@ public class Program
         services.AddExceptionHandler<BusinessLogicExceptionHandler>();
         services.AddExceptionHandler<ValidationExceptionHandler>();
 
-        services.AddIdentity<User, IdentityRole>()
-                .AddEntityFrameworkStores<ApplicationDbContext>()
-                .AddDefaultTokenProviders();
-
         services.AddJwtAuthentication(configuration);
-
-        services.AddScoped<SignInManager<User>>();
     }
 
     // Configure the HTTP request pipeline.

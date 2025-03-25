@@ -3,7 +3,6 @@ using LosTomates.PetHolidays.Core.Core.Domain.Users;
 using LosTomates.PetHolidays.Core.Core.Exceptions;
 using LosTomates.PetHolidays.Core.DataAccess;
 using Mapster;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
@@ -17,19 +16,16 @@ public sealed class UserService : IUserService
 {
     private readonly ApplicationDbContext dbContext;
     private readonly IValidator<UserEditDto> validateService;
-    private readonly UserManager<User> _userManager;
     private readonly ICurrentUserProvider _userProvider; 
     private readonly string _secretKey;
 
     public UserService(ApplicationDbContext dbContext, 
         IValidator<UserEditDto> validateService,
-        UserManager<User> userManager,
         ICurrentUserProvider userProvider,
         IConfiguration configuration)
     {
         this.dbContext = dbContext;
         this.validateService = validateService;
-        _userManager = userManager;
         _userProvider = userProvider;
         var configuredKey = configuration["JwtSettings:SecretKey"];
         if (string.IsNullOrEmpty(configuredKey))
@@ -45,20 +41,14 @@ public sealed class UserService : IUserService
         return entity.Adapt<UserView>();
     }
 
-    public async Task Create(UserEditDto dto)
+    public async Task Create(string userId, UserEditDto dto)
     {
         validateService.ValidateAndThrow(dto);
 
-        _userManager.Options.Password.RequireNonAlphanumeric = false;
-        _userManager.Options.User.RequireUniqueEmail = true;
-        
         var user = dto.Adapt<User>();
-        var result = await _userManager.CreateAsync(user, dto.Password);
-        if (!result.Succeeded)
-        {
-            var errors = result.Errors.Select(e => e.Description).ToList();
-            throw new ValidationException(string.Join(", ", errors));
-        }
+        user.Id = userId;
+        await dbContext.Users.AddAsync(user);
+        dbContext.SaveChanges();
     }
 
     public async Task Update(string entityId, UserEditDto dto)
