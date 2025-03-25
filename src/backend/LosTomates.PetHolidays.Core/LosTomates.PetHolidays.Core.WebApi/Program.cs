@@ -35,6 +35,7 @@ public class Program
         services.AddFluentValidation();
         services.AddCors();
         services.AddSwagger();
+        services.AddRabbitMQ(configuration);
 
         services.AddProblemDetails();
 

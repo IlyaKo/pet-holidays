@@ -1,5 +1,6 @@
 ﻿using LosTomates.PetHolidays.Core.Application.Hotels;
 using LosTomates.PetHolidays.Core.Core.FileService;
+using LosTomates.PetHolidays.Core.Core.Shared;
 
 namespace LosTomates.PetHolidays.Core.WebApi.Endpoints;
 
@@ -60,7 +61,7 @@ public static class HotelEndpoints
             if (photo == null || photo.Length == 0)
                 return Results.BadRequest("No photo uploaded");
 
-            var url = await fileServiceClient.UploadFileAsync(photo, hotelId.ToString(), "hotels");
+            var url = await fileServiceClient.UploadFileAsync(photo, hotelId.ToString(), SharedConstants.HotelEntityType);
 
             return Results.Ok(new { Url = url });
         })
@@ -73,7 +74,7 @@ public static class HotelEndpoints
             IFileServiceClient fileServiceClient,
             IHotelService service) =>
         {
-            var photoUrl = await fileServiceClient.GetFileUrlAsync(hotelId.ToString(), "hotels");
+            var photoUrl = await fileServiceClient.GetFileUrlAsync(hotelId.ToString(), SharedConstants.HotelEntityType);
 
             return Results.Ok(new { PhotoUrl = photoUrl }); 
         })
@@ -83,7 +84,7 @@ public static class HotelEndpoints
             int id,
                 IFileServiceClient fileServiceClient) =>
         {
-            await fileServiceClient.DeleteFileAsync(id.ToString(), "hotels");
+            await fileServiceClient.DeleteFileAsync(id.ToString(), SharedConstants.HotelEntityType);
             return Results.Ok();
 
         })
