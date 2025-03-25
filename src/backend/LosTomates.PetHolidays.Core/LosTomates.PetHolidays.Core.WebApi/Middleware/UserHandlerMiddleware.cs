@@ -1,7 +1,7 @@
-﻿using LosTomates.PetHolidays.Auth.Application.Users;
+﻿using LosTomates.PetHolidays.Core.Application.Users;
 using System.Security.Claims;
 
-namespace LosTomates.PetHolidays.Auth.WebApi.Middleware;
+namespace LosTomates.PetHolidays.Core.WebApi.Middleware;
 
 public sealed class UserHandlerMiddleware(RequestDelegate next)
 {

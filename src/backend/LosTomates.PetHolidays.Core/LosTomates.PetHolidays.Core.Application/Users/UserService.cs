@@ -47,6 +47,7 @@ public sealed class UserService : IUserService
 
         var user = dto.Adapt<User>();
         user.Id = userId;
+        user.Name = dto.UserName;
         await dbContext.Users.AddAsync(user);
         dbContext.SaveChanges();
     }
