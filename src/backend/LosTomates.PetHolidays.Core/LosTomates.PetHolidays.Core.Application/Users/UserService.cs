@@ -41,13 +41,9 @@ public sealed class UserService : IUserService
         return entity.Adapt<UserView>();
     }
 
-    public async Task Create(string userId, UserEditDto dto)
+    public async Task Create(UserCreateDto dto)
     {
-        validateService.ValidateAndThrow(dto);
-
         var user = dto.Adapt<User>();
-        user.Id = userId;
-        user.Name = dto.UserName;
         await dbContext.Users.AddAsync(user);
         dbContext.SaveChanges();
     }

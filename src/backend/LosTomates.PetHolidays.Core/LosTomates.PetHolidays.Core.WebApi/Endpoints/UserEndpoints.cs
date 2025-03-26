@@ -24,7 +24,7 @@ public static class UserEndpoints
         mapGroup.MapPost(string.Empty, async (IUserService service, ICurrentUserProvider provider, UserEditDto dto) =>
         {
             var userId = provider.GetUserId();
-            await service.Create(userId, dto);
+            await service.Create(new UserCreateDto { Id = userId, Name = dto.UserName });
             return Results.Ok();
         })
         .WithSummary("Create a new user")

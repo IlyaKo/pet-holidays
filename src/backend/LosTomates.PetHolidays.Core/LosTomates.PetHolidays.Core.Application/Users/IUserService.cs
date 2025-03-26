@@ -6,7 +6,7 @@ public interface IUserService
 {
     Task<UserView> GetById(string userId);
 
-    Task Create(string userId, UserEditDto dto);
+    Task Create(UserCreateDto dto);
 
     Task Update(string entityId, UserEditDto dto);
 
