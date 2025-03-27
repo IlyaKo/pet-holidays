@@ -18,8 +18,11 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ConnectionStrings__CoreDb=Host=postgres;Port=5432;Database=PetHolidaysCore;User id=postgres;Password=password
+      - FileService__Endpoint=http://petholidays-file-service-webapi:5002/api/files
+      - ConnectionStrings__RabbitMq=rabbitmq
     depends_on:
       - postgres
+      - rabbitmq
     networks:
       - pet-holidays-network 
 
@@ -51,6 +54,70 @@ services:
       - pet-holidays-core-volume:/var/lib/postgresql/data
     networks:
       - pet-holidays-network
+      
+  petholidays-file-service-webapi:
+    container_name: petholidays-file-service-webapi
+    build:
+      context: ./src/backend/LosTomates.PetHolidays.FileService
+      dockerfile: LosTomates.PetHolidays.FileService.WebApi/Dockerfile 
+    ports:
+      - "5002:5002"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:5002
+      - Minio__Endpoint=http://minio:9000
+      - ConnectionStrings__RabbitMq=rabbitmq      
+    depends_on:
+      - minio
+      - mongodb
+      - rabbitmq
+    networks:
+      - pet-holidays-network 
+  
+  minio:
+    image: minio/minio:latest
+    container_name: minio
+    ports:
+      - "9000:9000"  
+      - "9001:9001"  
+    environment:
+      MINIO_ROOT_USER: adminminio
+      MINIO_ROOT_PASSWORD: adminminio
+    volumes:
+      - minio-data:/data
+    command: server /data --console-address ":9001"
+    networks:
+      - pet-holidays-network
+
+  mongodb:
+    container_name: mongodb
+    image: mongo:latest
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: mongoadmin
+      MONGO_INITDB_ROOT_PASSWORD: mongoadmin
+    ports:
+      - "27017:27017"  
+    volumes:
+      - mongodb-data:/data/db
+    networks:
+      - pet-holidays-network
+
+  rabbitmq:
+    image: rabbitmq:4-management
+    restart: always
+    environment:
+      RABBITMQ_DEFAULT_USER: guest
+      RABBITMQ_DEFAULT_PASS: guest
+    volumes:
+      - rabbit-data:/var/lib/rabbitmq
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    networks:
+      - pet-holidays-network
+
+networks:
 
   postgres-auth:
     image: postgres:latest
@@ -72,4 +139,7 @@ networks:
 
 volumes:
   pet-holidays-core-volume:
+  minio-data:
+  mongodb-data:
+  rabbit-data:
   pet-holidays-auth-volume:

@@ -1,6 +1,8 @@
 ﻿using FluentValidation;
 using LosTomates.PetHolidays.Core.Core.Domain.Hotels;
 using LosTomates.PetHolidays.Core.Core.Exceptions;
+using LosTomates.PetHolidays.Core.Core.Exchange;
+using LosTomates.PetHolidays.Core.Core.Shared;
 using LosTomates.PetHolidays.Core.DataAccess;
 using Mapster;
 using Microsoft.EntityFrameworkCore;
@@ -9,24 +11,27 @@ namespace LosTomates.PetHolidays.Core.Application.Hotels;
 
 public sealed class HotelService(
     ApplicationDbContext dbContext,
-    IValidator<HotelEditDto> validateService) : IHotelService
+    IValidator<HotelEditDto> validateService,
+    IRabbitService rabbitService) : IHotelService
 {
     private readonly ApplicationDbContext _dbContext = dbContext;
-
     private readonly IValidator<HotelEditDto> _validateService = validateService;
+    private readonly IRabbitService rabbitService = rabbitService;
 
-    public async Task<IReadOnlyList<HotelView>> GetAll()
+    public async Task<IReadOnlyList<HotelShortView>> GetAll()
     {
         return await _dbContext.Hotels
                               .Where(x => x.IsActive)
-                              .ProjectToType<HotelView>()
+                              .ProjectToType<HotelShortView>()
                               .ToListAsync();
     }
 
     public async Task<HotelView> GetById(int entityId)
     {
-        var entity = await FindEntityById(entityId)
-                  ?? throw new NotFoundException(nameof(Hotel), entityId.ToString());
+        var entity = await _dbContext.Hotels
+                                     .Include(x => x.Rooms)
+                                     .FirstOrDefaultAsync(x => x.Id == entityId)
+                   ?? throw new NotFoundException(nameof(Hotel), entityId.ToString());
 
         return entity.Adapt<HotelView>();
     }
@@ -65,6 +70,13 @@ public sealed class HotelService(
 
         _dbContext.Remove(entity);
         await _dbContext.SaveChangesAsync();
+
+        var eventDto = new EntityDeletedEventDto
+        {
+            Type = SharedConstants.HotelEntityType,
+            Id = entityId.ToString()
+        };
+        await rabbitService.SendEntityDeletedEvent(eventDto);
     }
 
     private async Task<Hotel?> FindEntityById(int entityId)

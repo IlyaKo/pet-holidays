@@ -1,5 +1,6 @@
 using LosTomates.PetHolidays.Core.Application.Extensions;
 using LosTomates.PetHolidays.Core.Core.Domain.Users;
+using LosTomates.PetHolidays.Core.Core.FileService;
 using LosTomates.PetHolidays.Core.DataAccess;
 using LosTomates.PetHolidays.Core.DataAccess.DataSeed;
 using LosTomates.PetHolidays.Core.WebApi.Extensions;
@@ -34,6 +35,7 @@ public class Program
         services.AddFluentValidation();
         services.AddCors();
         services.AddSwagger();
+        services.AddRabbitMQ(configuration);
 
         services.AddProblemDetails();
 
@@ -42,6 +44,9 @@ public class Program
         services.AddExceptionHandler<ValidationExceptionHandler>();
 
         services.AddJwtAuthentication(configuration);
+
+       
+        services.AddHttpClient<IFileServiceClient, FileServiceClient>();
     }
 
     // Configure the HTTP request pipeline.

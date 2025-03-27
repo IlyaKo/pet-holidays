@@ -1,12 +1,8 @@
-﻿namespace LosTomates.PetHolidays.Core.Application.Hotels;
+﻿using LosTomates.PetHolidays.Core.Application.Rooms;
 
-public sealed class HotelView
+namespace LosTomates.PetHolidays.Core.Application.Hotels;
+
+public class HotelView : HotelShortView
 {
-    public int Id { get; set; }
-
-    public string Name { get; set; } = string.Empty;
-
-    public string? Description { get; set; }
-
-    public bool IsActive { get; set; }
+    public List<RoomView> Rooms { get; set; } = [];
 }

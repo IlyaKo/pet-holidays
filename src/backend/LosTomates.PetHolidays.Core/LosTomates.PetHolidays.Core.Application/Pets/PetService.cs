@@ -36,21 +36,25 @@ public sealed class PetService(
         return pet.Id;
     }
 
-    public async Task Delete(int petId)
+    public async Task Delete(int petId, string userId)
     {
-        var entity = await FindEntityById(petId);
+        var entity = await FindEntityById(petId)
+                    ?? throw new NotFoundException(nameof(Pet), $"id: {petId}");
 
-        if (entity is null)
-            return;
+        if (entity.PetOwnerId != userId)
+            throw new UnauthorizedAccessException("You are not allowed to delete this pet");
 
         _dbContext.Remove(entity);
         await _dbContext.SaveChangesAsync();
     }
 
-    public async Task<PetView> GetById(int petId)
+    public async Task<PetView> GetById(int petId, string userId)
     {
         var pet = await FindEntityById(petId)
                        ?? throw new NotFoundException(nameof(Pet), $"id: {petId}");
+
+        if (pet.PetOwnerId != userId)
+            throw new UnauthorizedAccessException("You are not allowed to view this pet");
 
         return pet.Adapt<PetView>();
     }
@@ -60,7 +64,7 @@ public sealed class PetService(
                                   .ProjectToType<PetView>()
                                   .ToListAsync();
 
-    public async Task Update(int petId, PetEditDto dto)
+    public async Task Update(int petId, string userId, PetEditDto dto)
     {
         _validator.ValidateAndThrow(dto);
 
@@ -68,6 +72,9 @@ public sealed class PetService(
 
         var entity = await FindEntityById(petId)
                   ?? throw new NotFoundException(nameof(Pet), $"id: {petId}");
+
+        if (entity.PetOwnerId != userId)
+            throw new BusinessLogicException("You are not allowed to update this pet");
 
         dto.Adapt(entity);
 
