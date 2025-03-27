@@ -1,5 +1,4 @@
-﻿using System.Text;
-using System.Text.Json;
+﻿using System.Net.Http.Json;
 using Microsoft.Extensions.Configuration;
 
 namespace LosTomates.PetHolidays.Auth.Application.Users;
@@ -16,12 +15,9 @@ public class UserClient
         _coreUserServiceEndpoint = configuration["CoreUserService:Endpoint"] ?? throw new ArgumentException("CoreUserService:Endpoint is not configured", nameof(configuration));
     }
 
-    public async Task CreateAsync(string token, UserEditDto dto)
+    public async Task CreateAsync(string userId, string userName)
     {
-        string json = JsonSerializer.Serialize(dto);
-        var inputContent = new StringContent(json, Encoding.UTF8, "application/json");
-        _httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
-        var response = await _httpClient.PostAsync(_coreUserServiceEndpoint, inputContent);
+        var response = await _httpClient.PostAsJsonAsync(_coreUserServiceEndpoint, new { UserId = userId, UserName = userName });
         response.EnsureSuccessStatusCode();
     }
 }

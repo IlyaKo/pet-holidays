@@ -18,18 +18,21 @@ public sealed class UserService : IUserService
     private readonly ApplicationDbContext dbContext;
     private readonly IValidator<UserEditDto> validateService;
     private readonly UserManager<User> _userManager;
+    private readonly UserClient userClient;
     private readonly ICurrentUserProvider _userProvider;
     private readonly string _secretKey;
 
     public UserService(ApplicationDbContext dbContext, 
         IValidator<UserEditDto> validateService,
         UserManager<User> userManager,
+        UserClient userClient,
         ICurrentUserProvider userProvider,
         IConfiguration configuration)
     {
         this.dbContext = dbContext;
         this.validateService = validateService;
-        _userManager = userManager;
+        this._userManager = userManager;
+        this.userClient = userClient;
         _userProvider = userProvider;
         var configuredKey = configuration["JwtSettings:SecretKey"];
         if (string.IsNullOrEmpty(configuredKey))
@@ -59,6 +62,8 @@ public sealed class UserService : IUserService
             var errors = result.Errors.Select(e => e.Description).ToList();
             throw new ValidationException(string.Join(", ", errors));
         }
+
+        await userClient.CreateAsync(user.Id, user.UserName); 
 
         var loginDto = new LoginDto { Email = user.Email!, Password = dto.Password };
         return await Login(loginDto);

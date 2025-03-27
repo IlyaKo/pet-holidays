@@ -13,7 +13,6 @@ public static class UserEndpoints
         mapGroup.MapPost(string.Empty, async (IUserService service, UserClient userClient, UserEditDto dto) =>
         {
             var result = await service.Create(dto);
-            await userClient.CreateAsync(result.Token, dto);
             return Results.Ok(result);
         })
         .WithSummary("Sign up a new user")

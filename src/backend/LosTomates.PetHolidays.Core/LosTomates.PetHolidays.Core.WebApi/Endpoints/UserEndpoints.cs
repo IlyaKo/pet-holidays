@@ -21,10 +21,9 @@ public static class UserEndpoints
         .Produces<int>(StatusCodes.Status200OK)
         .Produces(StatusCodes.Status404NotFound);
 
-        mapGroup.MapPost(string.Empty, async (IUserService service, ICurrentUserProvider provider, UserEditDto dto) =>
+        mapGroup.MapPost(string.Empty, async (IUserService service, UserEditDto dto) =>
         {
-            var userId = provider.GetUserId();
-            await service.Create(new UserCreateDto { Id = userId, Name = dto.UserName });
+            await service.Create(new UserCreateDto { Id = dto.UserId, Name = dto.UserName });
             return Results.Ok();
         })
         .WithSummary("Create a new user")
