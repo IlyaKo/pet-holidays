@@ -61,10 +61,9 @@ services:
       context: ./src/backend/LosTomates.PetHolidays.FileService
       dockerfile: LosTomates.PetHolidays.FileService.WebApi/Dockerfile 
     ports:
-      - "5002:5002"
+      - "5002:8080"
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - ASPNETCORE_URLS=http://+:5002
       - Minio__Endpoint=http://minio:9000
       - ConnectionStrings__RabbitMq=rabbitmq      
     depends_on:
@@ -116,9 +115,7 @@ services:
       - "15672:15672"
     networks:
       - pet-holidays-network
-
-networks:
-
+      
   postgres-auth:
     image: postgres:latest
     container_name: postgres-auth
@@ -139,7 +136,8 @@ networks:
 
 volumes:
   pet-holidays-core-volume:
+  pet-holidays-auth-volume:
   minio-data:
   mongodb-data:
   rabbit-data:
-  pet-holidays-auth-volume:
+
