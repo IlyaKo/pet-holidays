@@ -6,11 +6,11 @@ public static class UserEndpoints
 {
     public static void Map(WebApplication app)
     {
-        var mapGroup = app.MapGroup("api/auth-users")
+        var mapGroup = app.MapGroup("api/auth")
                           .WithTags("User management")
                           .WithOpenApi();
 
-        mapGroup.MapPost(string.Empty, async (IUserService service, UserClient userClient, UserEditDto dto) =>
+        mapGroup.MapPost("register", async (IUserService service, UserClient userClient, UserEditDto dto) =>
         {
             var result = await service.Create(dto);
             return Results.Ok(result);

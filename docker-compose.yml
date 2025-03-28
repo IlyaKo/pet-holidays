@@ -36,6 +36,7 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ConnectionStrings__AuthDb=Host=postgres-auth;Port=5432;Database=PetHolidaysAuth;User id=postgres;Password=password
+      - CoreUserService__Endpoint=http://petholidays-core-webapi:8080/api/users
     depends_on:
       - postgres
     networks:
