@@ -8,17 +8,17 @@ using Mapster;
 using Microsoft.EntityFrameworkCore;
 
 namespace LosTomates.PetHolidays.Core.Application.Pets;
+
 public sealed class PetService(
     ApplicationDbContext dbContext,
     IValidator<PetEditDto> validator,
-    IUserService userService,
-    IPetTypeService petTypeService) : IPetService
+    IPetTypeService petTypeService,
+    IUserService userService) : IPetService
 {
     private readonly ApplicationDbContext _dbContext = dbContext;
     private readonly IValidator<PetEditDto> _validator = validator;
-    private readonly IUserService _userService = userService;
     private readonly IPetTypeService _petTypeService = petTypeService;
-
+    private readonly IUserService _userService = userService;
     public async Task<int> Create(string userId, PetEditDto dto)
     {
         _validator.ValidateAndThrow(dto);
@@ -60,10 +60,9 @@ public sealed class PetService(
     }
 
     public async Task<IReadOnlyList<PetView>> GetByUserId(string userId)
-          => await _dbContext.Pets
-                           .Where(x => x.PetOwnerId == userId)
-                           .ProjectToType<PetView>()
-                           .ToListAsync();
+          => await _dbContext.Pets.Where(x => x.PetOwnerId == userId)
+                                  .ProjectToType<PetView>()
+                                  .ToListAsync();
 
     public async Task Update(int petId, string userId, PetEditDto dto)
     {
@@ -83,10 +82,7 @@ public sealed class PetService(
     }
 
     private async Task<Pet?> FindEntityById(int petId)
-       => await _dbContext.Pets
-                       .Include(p=>p.PetType)
-                       .FirstOrDefaultAsync(x => x.Id == petId);
+       => await _dbContext.Pets.Include(p=>p.PetType)
+                               .FirstOrDefaultAsync(x => x.Id == petId);
 
 }
-
-

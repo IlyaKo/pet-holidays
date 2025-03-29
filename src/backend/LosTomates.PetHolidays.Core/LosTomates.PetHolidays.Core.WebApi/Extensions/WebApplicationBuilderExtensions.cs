@@ -1,5 +1,4 @@
-﻿using LosTomates.PetHolidays.Application.Bookings;
-using LosTomates.PetHolidays.Core.WebApi.Endpoints;
+﻿using LosTomates.PetHolidays.Core.WebApi.Endpoints;
 
 namespace LosTomates.PetHolidays.Core.WebApi.Extensions;
 
@@ -7,9 +6,9 @@ internal static class WebApplicationBuilderExtensions
 {
     internal static IApplicationBuilder MapApplicationEndpoints(this WebApplication app)
     {
+        UserEndpoints.Map(app);
         AdminEndpoints.Map(app);
         HotelEndpoints.Map(app);
-        UserEndpoints.Map(app);
         RoomEndpoints.Map(app);
         RoomTypeEndpoints.Map(app);
         BookingEndPoints.Map(app);

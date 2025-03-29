@@ -1,10 +1,8 @@
 ﻿using FluentValidation;
 using LosTomates.PetHolidays.Core.Core.Domain.Users;
 using LosTomates.PetHolidays.Core.Core.Exceptions;
-using LosTomates.PetHolidays.Core.Core.Users;
 using LosTomates.PetHolidays.Core.DataAccess;
 using Mapster;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
@@ -18,19 +16,16 @@ public sealed class UserService : IUserService
 {
     private readonly ApplicationDbContext dbContext;
     private readonly IValidator<UserEditDto> validateService;
-    private readonly UserManager<User> _userManager;
-    private readonly ICurrentUserProvider _userProvider;
+    private readonly ICurrentUserProvider _userProvider; 
     private readonly string _secretKey;
 
     public UserService(ApplicationDbContext dbContext, 
         IValidator<UserEditDto> validateService,
-        UserManager<User> userManager,
         ICurrentUserProvider userProvider,
         IConfiguration configuration)
     {
         this.dbContext = dbContext;
         this.validateService = validateService;
-        _userManager = userManager;
         _userProvider = userProvider;
         var configuredKey = configuration["JwtSettings:SecretKey"];
         if (string.IsNullOrEmpty(configuredKey))
@@ -46,23 +41,15 @@ public sealed class UserService : IUserService
         return entity.Adapt<UserView>();
     }
 
-    public async Task<LoginResponse> Create(UserEditDto dto)
+    public async Task Create(UserCreateDto dto)
     {
-        validateService.ValidateAndThrow(dto);
-
-        _userManager.Options.Password.RequireNonAlphanumeric = false;
-        _userManager.Options.User.RequireUniqueEmail = true;
-        
-        var user = dto.Adapt<User>();
-        var result = await _userManager.CreateAsync(user, dto.Password);
-        if (!result.Succeeded)
+        var user = new User
         {
-            var errors = result.Errors.Select(e => e.Description).ToList();
-            throw new ValidationException(string.Join(", ", errors));
-        }
-
-        var loginDto = new LoginDto { Email = user.Email!, Password = dto.Password };
-        return await Login(loginDto);
+            Id = dto.Id,
+            Name = dto.Name,
+        };
+        await dbContext.Users.AddAsync(user);
+        dbContext.SaveChanges();
     }
 
     public async Task Update(string entityId, UserEditDto dto)
@@ -74,37 +61,6 @@ public sealed class UserService : IUserService
         dto.Adapt(entity);
 
         await dbContext.SaveChangesAsync();
-    }
-
-    public async Task<LoginResponse> Login(LoginDto dto)
-    {
-        var user = await _userManager.FindByEmailAsync(dto.Email)
-            ?? throw new UnauthorizedAccessException("Invalid credentials");
-
-        var result = await _userManager.CheckPasswordAsync(user, dto.Password);
-        if (!result)
-            throw new UnauthorizedAccessException("Invalid credentials");
-
-        var tokenHandler = new JwtSecurityTokenHandler();
-        var key = Encoding.ASCII.GetBytes(_secretKey);
-        var tokenDescriptor = new SecurityTokenDescriptor
-        {
-            Subject = new ClaimsIdentity(
-            [
-                new Claim(ClaimTypes.NameIdentifier, user.Id),
-                new Claim(ClaimTypes.Name, user.UserName!)
-            ]),
-            Expires = DateTime.UtcNow.AddDays(7),
-            SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
-        };
-        var securityToken = tokenHandler.CreateToken(tokenDescriptor);
-        var token = tokenHandler.WriteToken(securityToken);
-
-        return new()
-        {
-            Token = token,
-            Username = user.UserName!
-        };
     }
 
     public (string UserId, string UserName) GetUserFromToken(string token)
@@ -136,22 +92,22 @@ public sealed class UserService : IUserService
     }
 
     public async Task<(string UserId, string UserName)> CurrentUser(ClaimsPrincipal userClaims)
-{
-    if (userClaims == null || !userClaims.Identity.IsAuthenticated)
     {
-        throw new UnauthorizedAccessException("User is not authenticated.");
+        if (userClaims == null || !userClaims.Identity.IsAuthenticated)
+        {
+            throw new UnauthorizedAccessException("User is not authenticated.");
+        }
+
+        var userId = userClaims.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+        var userName = userClaims.FindFirst(ClaimTypes.Name)?.Value;
+
+        if (string.IsNullOrEmpty(userId) || string.IsNullOrEmpty(userName))
+        {
+            throw new UnauthorizedAccessException("User information is missing.");
+        }
+
+        return (userId, userName);
     }
-
-    var userId = userClaims.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-    var userName = userClaims.FindFirst(ClaimTypes.Name)?.Value;
-
-    if (string.IsNullOrEmpty(userId) || string.IsNullOrEmpty(userName))
-    {
-        throw new UnauthorizedAccessException("User information is missing.");
-    }
-
-    return (userId, userName);
-}
 
     private async Task<User?> FindEntityById(string entityId)
     {

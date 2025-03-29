@@ -52,8 +52,8 @@ internal static class ServiceCollectionExtensions
 
     internal static IServiceCollection AddApplicationServices(this IServiceCollection services)
     {
-        services.AddScoped<IHotelService, HotelService>();
         services.AddScoped<IUserService, UserService>();
+        services.AddScoped<IHotelService, HotelService>();
         services.AddScoped<IPetTypeService, PetTypeService>();
         services.AddScoped<IPetService, PetService>();
         services.AddScoped<IRoomService, RoomService>();

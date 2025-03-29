@@ -1,5 +1,5 @@
 ﻿using LosTomates.PetHolidays.Core.Application.Users;
-using LosTomates.PetHolidays.Core.Core.Users;
+using Microsoft.AspNetCore.SignalR;
 using System.Security.Claims;
 
 namespace LosTomates.PetHolidays.Core.WebApi.Endpoints;
@@ -23,23 +23,13 @@ public static class UserEndpoints
 
         mapGroup.MapPost(string.Empty, async (IUserService service, UserEditDto dto) =>
         {
-            var result = await service.Create(dto);
-            return Results.Ok(result);
+            await service.Create(new UserCreateDto { Id = dto.UserId, Name = dto.UserName });
+            return Results.Ok();
         })
         .WithSummary("Create a new user")
         .WithDescription("Return an id of a created user")
-        .Produces<LoginResponse>(StatusCodes.Status200OK)
+        .Produces(StatusCodes.Status200OK)
         .Produces(StatusCodes.Status400BadRequest);
-
-        mapGroup.MapPost("login", async (IUserService service, LoginDto dto) =>
-        {
-            var result = await service.Login(dto);
-            return Results.Ok(result);
-        })
-        .WithSummary("Login")
-        .WithDescription("Return an JWT with UserId, UserName")
-        .Produces<LoginResponse>(StatusCodes.Status200OK)
-        .Produces(StatusCodes.Status401Unauthorized);
 
         mapGroup.MapGet("profile", async (IUserService service, ClaimsPrincipal user) =>
         {

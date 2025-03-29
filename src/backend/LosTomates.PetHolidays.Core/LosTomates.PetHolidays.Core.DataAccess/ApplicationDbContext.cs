@@ -3,13 +3,14 @@ using LosTomates.PetHolidays.Core.Core.Domain.Hotels;
 using LosTomates.PetHolidays.Core.Core.Domain.Pets;
 using LosTomates.PetHolidays.Core.Core.Domain.Rooms;
 using LosTomates.PetHolidays.Core.Core.Domain.Users;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace LosTomates.PetHolidays.Core.DataAccess;
 
-public sealed class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : IdentityDbContext<User>(options)
+public sealed class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : DbContext(options)
 {
+    public DbSet<User> Users => Set<User>();
+    
     public DbSet<Hotel> Hotels => Set<Hotel>();
 
     public DbSet<RoomType> RoomTypes => Set<RoomType>();
@@ -25,6 +26,12 @@ public sealed class ApplicationDbContext(DbContextOptions<ApplicationDbContext> 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
+
+        modelBuilder.Entity<User>(entity =>
+        {
+            entity.Property(x => x.Name)
+                  .HasMaxLength(DatabaseConstrains.NameMaxLength);
+        });
 
         modelBuilder.Entity<Hotel>(entity =>
         {
