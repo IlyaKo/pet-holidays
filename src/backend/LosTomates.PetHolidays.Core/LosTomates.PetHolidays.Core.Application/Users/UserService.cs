@@ -43,7 +43,11 @@ public sealed class UserService : IUserService
 
     public async Task Create(UserCreateDto dto)
     {
-        var user = dto.Adapt<User>();
+        var user = new User
+        {
+            Id = dto.Id,
+            Name = dto.Name,
+        };
         await dbContext.Users.AddAsync(user);
         dbContext.SaveChanges();
     }
