@@ -1,8 +1,8 @@
 ﻿namespace LosTomates.PetHolidays.Reviews.Data.Entities;
 
-public sealed class EntityLink
+public sealed record EntityLink
 {
-    public int Id { get; set; }
+    public required string Id { get; set; }
 
     public required string Type { get; set; }
 }

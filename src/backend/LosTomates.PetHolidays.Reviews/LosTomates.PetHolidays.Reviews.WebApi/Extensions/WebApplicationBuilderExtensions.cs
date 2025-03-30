@@ -7,6 +7,7 @@ internal static class WebApplicationBuilderExtensions
     internal static IEndpointRouteBuilder MapApplicationEndpoints(this IEndpointRouteBuilder builder)
     {
         ReviewEndpoints.Map(builder);
+        RatingEndpoints.Map(builder);
 
         return builder;
     }

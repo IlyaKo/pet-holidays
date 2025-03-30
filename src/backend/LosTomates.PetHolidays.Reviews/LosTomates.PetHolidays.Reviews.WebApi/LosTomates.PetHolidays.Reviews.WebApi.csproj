@@ -13,6 +13,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\LosTomates.PetHolidays.Reviews.Application\LosTomates.PetHolidays.Reviews.Application.csproj" />
+    <ProjectReference Include="..\LosTomates.PetHolidays.Reviews.BackgroundTasks\LosTomates.PetHolidays.Reviews.BackgroundTasks.csproj" />
     <ProjectReference Include="..\LosTomates.PetHolidays.Reviews.Data\LosTomates.PetHolidays.Reviews.Data.csproj" />
   </ItemGroup>
 

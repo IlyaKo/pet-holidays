@@ -1,5 +1,6 @@
 ﻿using LosTomates.PetHolidays.Reviews.Application.Ratings;
 using LosTomates.PetHolidays.Reviews.Application.Reviews;
+using LosTomates.PetHolidays.Reviews.BackgroundTasks;
 using LosTomates.PetHolidays.Reviews.Data.Repositories;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.OpenApi.Models;
@@ -46,6 +47,13 @@ internal static class ServiceCollectionExtensions
         return services;
     }
 
+    internal static IServiceCollection AddBackgroundServices(this IServiceCollection services)
+    {
+        services.AddHostedService<UpdateRatingsBackgroundService>();
+
+        return services;
+    }
+
     internal static IServiceCollection AddDatabaseContext(this IServiceCollection services, IConfiguration configuration)
     {
         var connectionString = configuration.GetConnectionString("PetHolidaysReviewsDb");
@@ -56,6 +64,7 @@ internal static class ServiceCollectionExtensions
 
         services.AddScoped<RatingRepository>();
         services.AddScoped<ReviewRepository>();
+        services.AddScoped<RatingUpdateRepository>();
 
         return services;
     }

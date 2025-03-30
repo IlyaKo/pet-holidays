@@ -30,7 +30,7 @@ public abstract class MongoRepositoryBase<T> where T : MongoEntityBase
         return await Collection.Find(x => ids.Contains(x.Id)).ToListAsync();
     }
 
-    public virtual async Task<T> GetFirstWhere(Expression<Func<T, bool>> predicate)
+    public virtual async Task<T?> GetFirstWhere(Expression<Func<T, bool>> predicate)
     {
         return await Collection.Find(predicate).FirstOrDefaultAsync();
     }

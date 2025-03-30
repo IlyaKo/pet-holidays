@@ -15,6 +15,7 @@ void AddServices(IServiceCollection services, IConfiguration configuration)
     services.AddSwagger();
     services.AddCors();
     services.AddApplicationServices();
+    services.AddBackgroundServices();
     services.AddDatabaseContext(configuration);
 }
 

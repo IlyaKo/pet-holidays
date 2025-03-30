@@ -1,6 +1,6 @@
 ﻿namespace LosTomates.PetHolidays.Reviews.Application.Shared;
 
-public sealed record EntityDto
+public sealed record EntityViewModel
 {
     public required string Id { get; set; }
 
