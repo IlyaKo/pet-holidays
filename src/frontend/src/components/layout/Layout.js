@@ -9,8 +9,7 @@ export default function Layout() {
   const { authenticated } = useSelector((state) => state.auth);
   const [isDark, setIsDark] = useState(() => {
     let savedTheme = localStorage.getItem("theme");
-    if (!savedTheme) 
-    {
+    if (!savedTheme) {
       localStorage.setItem("theme", "light");
       savedTheme = "light";
     }
@@ -22,13 +21,10 @@ export default function Layout() {
   };
 
   useEffect(() => {
-    if (isDark) 
-    {
+    if (isDark) {
       document.documentElement.classList.add("dark-mode");
       localStorage.setItem("theme", "dark");
-    } 
-    else 
-    {
+    } else {
       document.documentElement.classList.remove("dark-mode");
       localStorage.setItem("theme", "light");
     }
@@ -54,6 +50,24 @@ export default function Layout() {
             to="/hotels"
           >
             Hotels
+          </NavLink>
+          {authenticated && (
+            <NavLink
+              className={({ isActive }) =>
+                isActive ? "navbar-item is-active" : "navbar-item"
+              }
+              to="/my-pets"
+            >
+              My pets
+            </NavLink>
+          )}
+          <NavLink
+            className={({ isActive }) =>
+              isActive ? "navbar-item is-active" : "navbar-item"
+            }
+            to="/bookings"
+          >
+            Bookings
           </NavLink>
           <NavLink
             className={({ isActive }) =>
@@ -83,27 +97,21 @@ export default function Layout() {
               </NavLink>
             </>
           ) : (
-            <NavLink
-              className={({ isActive }) =>
-                isActive ? "navbar-item is-active" : "navbar-item"
-              }
-              onClick={onLogoutClick}
-              to="/"
-            >
+            <button className="navbar-item" onClick={onLogoutClick}>
               Logout
-            </NavLink>
+            </button>
           )}
         </div>
-        <div className="navbar-end">
-          <button
-            onClick={toggleTheme}что
-            className={`button m-2 is-flex is-align-items-center ${isDark ? "is-light" : "is-dark"}`}>
+        <div className="navbar-end is-flex is-align-items-center">
+          <button onClick={toggleTheme} className="button is-dark m-2">
             {isDark ? <FaSun /> : <FaMoon />}
           </button>
         </div>
       </nav>
       <hr />
-      <Outlet />
+      <div className="mx-4">
+        <Outlet />
+      </div>
     </>
   );
 }

@@ -1,5 +1,6 @@
 ﻿using LosTomates.PetHolidays.Core.Application.Hotels;
 using LosTomates.PetHolidays.Core.Core.FileService;
+using LosTomates.PetHolidays.Core.Core.Shared;
 
 namespace LosTomates.PetHolidays.Core.WebApi.Endpoints;
 
@@ -14,7 +15,7 @@ public static class HotelEndpoints
         mapGroup.MapGet(string.Empty, async (IHotelService service) => await service.GetAll())
                 .WithSummary("Get list of hotels")
                 .WithDescription("Return a list with all active hotels")
-                .Produces<List<HotelView>>(StatusCodes.Status200OK);
+                .Produces<List<HotelShortView>>(StatusCodes.Status200OK);
 
         mapGroup.MapGet("{hotelId:int}", async (IHotelService service, int hotelId) =>
         {
@@ -23,7 +24,7 @@ public static class HotelEndpoints
         })
         .WithSummary("Get a hotel by its Id")
         .WithDescription("Return a hotel including not active ones")
-        .Produces<int>(StatusCodes.Status200OK)
+        .Produces<HotelView>(StatusCodes.Status200OK)
         .Produces(StatusCodes.Status404NotFound);
 
         mapGroup.MapPost(string.Empty, async (IHotelService service, HotelEditDto dto) =>
@@ -32,7 +33,7 @@ public static class HotelEndpoints
         })
         .WithSummary("Create a new hotel")
         .WithDescription("Return an id of a created hotel")
-        .Produces<HotelView>(StatusCodes.Status200OK);
+        .Produces<HotelShortView>(StatusCodes.Status200OK);
 
         mapGroup.MapPut("{hotelId:int}", async (IHotelService service, int hotelId, HotelEditDto dto) =>
         {
@@ -60,7 +61,7 @@ public static class HotelEndpoints
             if (photo == null || photo.Length == 0)
                 return Results.BadRequest("No photo uploaded");
 
-            var url = await fileServiceClient.UploadFileAsync(photo, hotelId.ToString(), "hotels");
+            var url = await fileServiceClient.UploadFileAsync(photo, hotelId.ToString(), SharedConstants.HotelEntityType);
 
             return Results.Ok(new { Url = url });
         })
@@ -73,7 +74,7 @@ public static class HotelEndpoints
             IFileServiceClient fileServiceClient,
             IHotelService service) =>
         {
-            var photoUrl = await fileServiceClient.GetFileUrlAsync(hotelId.ToString(), "hotels");
+            var photoUrl = await fileServiceClient.GetFileUrlAsync(hotelId.ToString(), SharedConstants.HotelEntityType);
 
             return Results.Ok(new { PhotoUrl = photoUrl }); 
         })
@@ -83,7 +84,7 @@ public static class HotelEndpoints
             int id,
                 IFileServiceClient fileServiceClient) =>
         {
-            await fileServiceClient.DeleteFileAsync(id.ToString(), "hotels");
+            await fileServiceClient.DeleteFileAsync(id.ToString(), SharedConstants.HotelEntityType);
             return Results.Ok();
 
         })

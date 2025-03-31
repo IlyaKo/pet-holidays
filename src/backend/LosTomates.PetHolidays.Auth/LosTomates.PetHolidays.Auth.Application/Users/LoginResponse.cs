@@ -1,4 +1,4 @@
-﻿namespace LosTomates.PetHolidays.Core.Core.Users;
+﻿namespace LosTomates.PetHolidays.Auth.Application.Users;
 
 public sealed record LoginResponse
 {

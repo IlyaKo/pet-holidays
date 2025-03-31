@@ -7,6 +7,8 @@ public class MappingConfig : IRegister
 {
     public void Register(TypeAdapterConfig config)
     {
+        config.NewConfig<Hotel, HotelShortView>();
+
         config.NewConfig<Hotel, HotelView>();
 
         config.NewConfig<HotelEditDto, Hotel>();

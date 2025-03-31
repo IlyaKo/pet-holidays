@@ -1,0 +1,108 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.2.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "backend", "backend", "{1AE8ACA6-933B-BF2A-3671-3E2EAC007D16}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "LosTomates.PetHolidays.Auth", "LosTomates.PetHolidays.Auth", "{8C7DABAE-3A00-7740-9FA1-292A5FAC423E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LosTomates.PetHolidays.Auth.Application", "backend\LosTomates.PetHolidays.Auth\LosTomates.PetHolidays.Auth.Application\LosTomates.PetHolidays.Auth.Application.csproj", "{B18289FF-88FE-AFEE-469B-34DE05F6A6F4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LosTomates.PetHolidays.Auth.Core", "backend\LosTomates.PetHolidays.Auth\LosTomates.PetHolidays.Auth.Core\LosTomates.PetHolidays.Auth.Core.csproj", "{395C44FD-80FC-4701-4181-E8355E4A2FB5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LosTomates.PetHolidays.Auth.DataAccess", "backend\LosTomates.PetHolidays.Auth\LosTomates.PetHolidays.Auth.DataAccess\LosTomates.PetHolidays.Auth.DataAccess.csproj", "{D70B1182-C33B-260F-960F-81249D254B56}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LosTomates.PetHolidays.Auth.Tests", "backend\LosTomates.PetHolidays.Auth\LosTomates.PetHolidays.Auth.Tests\LosTomates.PetHolidays.Auth.Tests.csproj", "{543018BC-9ED0-382E-213F-46DB2F9B6BAE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LosTomates.PetHolidays.Auth.WebApi", "backend\LosTomates.PetHolidays.Auth\LosTomates.PetHolidays.Auth.WebApi\LosTomates.PetHolidays.Auth.WebApi.csproj", "{7EB7BFF6-AED1-DC37-BBCC-39874AFFEBB6}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "LosTomates.PetHolidays.Core", "LosTomates.PetHolidays.Core", "{46F6F0D3-042A-FC4F-6F5D-47921CDFE165}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LosTomates.PetHolidays.Core.Application", "backend\LosTomates.PetHolidays.Core\LosTomates.PetHolidays.Core.Application\LosTomates.PetHolidays.Core.Application.csproj", "{3FC58062-97DF-B451-E032-7CE7BD09F1DA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LosTomates.PetHolidays.Core.Core", "backend\LosTomates.PetHolidays.Core\LosTomates.PetHolidays.Core.Core\LosTomates.PetHolidays.Core.Core.csproj", "{B6DC2A92-9D74-5DF1-114F-B30C68375B39}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LosTomates.PetHolidays.Core.DataAccess", "backend\LosTomates.PetHolidays.Core\LosTomates.PetHolidays.Core.DataAccess\LosTomates.PetHolidays.Core.DataAccess.csproj", "{192E2E8A-18BC-C860-82E5-880278BADA04}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LosTomates.PetHolidays.Core.Tests", "backend\LosTomates.PetHolidays.Core\LosTomates.PetHolidays.Core.Tests\LosTomates.PetHolidays.Core.Tests.csproj", "{1860341E-4B0F-5B84-E3E8-0EC76C26BB45}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LosTomates.PetHolidays.Core.WebApi", "backend\LosTomates.PetHolidays.Core\LosTomates.PetHolidays.Core.WebApi\LosTomates.PetHolidays.Core.WebApi.csproj", "{382BD6B2-B925-7B31-12FB-0403B497ABD4}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "LosTomates.PetHolidays.FileService", "LosTomates.PetHolidays.FileService", "{1FA59791-35E4-FE2E-667F-B79D6DD26FC1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LosTomates.PetHolidays.FileService.WebApi", "backend\LosTomates.PetHolidays.FileService\LosTomates.PetHolidays.FileService.WebApi\LosTomates.PetHolidays.FileService.WebApi.csproj", "{65D3BBB3-45E5-7141-A0AC-0D01874D87E4}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B18289FF-88FE-AFEE-469B-34DE05F6A6F4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B18289FF-88FE-AFEE-469B-34DE05F6A6F4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B18289FF-88FE-AFEE-469B-34DE05F6A6F4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B18289FF-88FE-AFEE-469B-34DE05F6A6F4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{395C44FD-80FC-4701-4181-E8355E4A2FB5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{395C44FD-80FC-4701-4181-E8355E4A2FB5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{395C44FD-80FC-4701-4181-E8355E4A2FB5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{395C44FD-80FC-4701-4181-E8355E4A2FB5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D70B1182-C33B-260F-960F-81249D254B56}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D70B1182-C33B-260F-960F-81249D254B56}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D70B1182-C33B-260F-960F-81249D254B56}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D70B1182-C33B-260F-960F-81249D254B56}.Release|Any CPU.Build.0 = Release|Any CPU
+		{543018BC-9ED0-382E-213F-46DB2F9B6BAE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{543018BC-9ED0-382E-213F-46DB2F9B6BAE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{543018BC-9ED0-382E-213F-46DB2F9B6BAE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{543018BC-9ED0-382E-213F-46DB2F9B6BAE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7EB7BFF6-AED1-DC37-BBCC-39874AFFEBB6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7EB7BFF6-AED1-DC37-BBCC-39874AFFEBB6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7EB7BFF6-AED1-DC37-BBCC-39874AFFEBB6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7EB7BFF6-AED1-DC37-BBCC-39874AFFEBB6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3FC58062-97DF-B451-E032-7CE7BD09F1DA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3FC58062-97DF-B451-E032-7CE7BD09F1DA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3FC58062-97DF-B451-E032-7CE7BD09F1DA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3FC58062-97DF-B451-E032-7CE7BD09F1DA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B6DC2A92-9D74-5DF1-114F-B30C68375B39}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B6DC2A92-9D74-5DF1-114F-B30C68375B39}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B6DC2A92-9D74-5DF1-114F-B30C68375B39}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B6DC2A92-9D74-5DF1-114F-B30C68375B39}.Release|Any CPU.Build.0 = Release|Any CPU
+		{192E2E8A-18BC-C860-82E5-880278BADA04}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{192E2E8A-18BC-C860-82E5-880278BADA04}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{192E2E8A-18BC-C860-82E5-880278BADA04}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{192E2E8A-18BC-C860-82E5-880278BADA04}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1860341E-4B0F-5B84-E3E8-0EC76C26BB45}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1860341E-4B0F-5B84-E3E8-0EC76C26BB45}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1860341E-4B0F-5B84-E3E8-0EC76C26BB45}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1860341E-4B0F-5B84-E3E8-0EC76C26BB45}.Release|Any CPU.Build.0 = Release|Any CPU
+		{382BD6B2-B925-7B31-12FB-0403B497ABD4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{382BD6B2-B925-7B31-12FB-0403B497ABD4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{382BD6B2-B925-7B31-12FB-0403B497ABD4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{382BD6B2-B925-7B31-12FB-0403B497ABD4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{65D3BBB3-45E5-7141-A0AC-0D01874D87E4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{65D3BBB3-45E5-7141-A0AC-0D01874D87E4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{65D3BBB3-45E5-7141-A0AC-0D01874D87E4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{65D3BBB3-45E5-7141-A0AC-0D01874D87E4}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{8C7DABAE-3A00-7740-9FA1-292A5FAC423E} = {1AE8ACA6-933B-BF2A-3671-3E2EAC007D16}
+		{B18289FF-88FE-AFEE-469B-34DE05F6A6F4} = {8C7DABAE-3A00-7740-9FA1-292A5FAC423E}
+		{395C44FD-80FC-4701-4181-E8355E4A2FB5} = {8C7DABAE-3A00-7740-9FA1-292A5FAC423E}
+		{D70B1182-C33B-260F-960F-81249D254B56} = {8C7DABAE-3A00-7740-9FA1-292A5FAC423E}
+		{543018BC-9ED0-382E-213F-46DB2F9B6BAE} = {8C7DABAE-3A00-7740-9FA1-292A5FAC423E}
+		{7EB7BFF6-AED1-DC37-BBCC-39874AFFEBB6} = {8C7DABAE-3A00-7740-9FA1-292A5FAC423E}
+		{46F6F0D3-042A-FC4F-6F5D-47921CDFE165} = {1AE8ACA6-933B-BF2A-3671-3E2EAC007D16}
+		{3FC58062-97DF-B451-E032-7CE7BD09F1DA} = {46F6F0D3-042A-FC4F-6F5D-47921CDFE165}
+		{B6DC2A92-9D74-5DF1-114F-B30C68375B39} = {46F6F0D3-042A-FC4F-6F5D-47921CDFE165}
+		{192E2E8A-18BC-C860-82E5-880278BADA04} = {46F6F0D3-042A-FC4F-6F5D-47921CDFE165}
+		{1860341E-4B0F-5B84-E3E8-0EC76C26BB45} = {46F6F0D3-042A-FC4F-6F5D-47921CDFE165}
+		{382BD6B2-B925-7B31-12FB-0403B497ABD4} = {46F6F0D3-042A-FC4F-6F5D-47921CDFE165}
+		{1FA59791-35E4-FE2E-667F-B79D6DD26FC1} = {1AE8ACA6-933B-BF2A-3671-3E2EAC007D16}
+		{65D3BBB3-45E5-7141-A0AC-0D01874D87E4} = {1FA59791-35E4-FE2E-667F-B79D6DD26FC1}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {D153BDD2-10D2-4B11-883C-5F5B6E8009BA}
+	EndGlobalSection
+EndGlobal

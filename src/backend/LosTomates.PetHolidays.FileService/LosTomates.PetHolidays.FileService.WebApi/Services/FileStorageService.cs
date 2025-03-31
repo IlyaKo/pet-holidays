@@ -66,8 +66,8 @@ public class FileStorageService : IFileStorageService
     public async Task DeleteFileAsync(string entityId, string collectionName)
     {
         var filesMetadata = await _metadataStorage.FindFilesByEntityIdAsync(entityId, collectionName);
-        if (!filesMetadata.Any())
-            throw new FileNotFoundException("File not found");
+        if (filesMetadata.Count == 0)
+            return;
 
         var objectNames = filesMetadata.Select(x => x.ObjectName).ToList();
 

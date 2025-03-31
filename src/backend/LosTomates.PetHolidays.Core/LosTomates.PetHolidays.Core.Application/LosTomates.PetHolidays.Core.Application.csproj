@@ -13,9 +13,7 @@
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.10" />
     <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="8.3.0" />
     <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="8.3.0" />
-  </ItemGroup>
-
-  <ItemGroup>
+    <PackageReference Include="RabbitMQ.Client" Version="7.1.1" />
     <PackageReference Include="FluentValidation" Version="11.10.0" />
   </ItemGroup>
 

@@ -8,17 +8,17 @@ using Mapster;
 using Microsoft.EntityFrameworkCore;
 
 namespace LosTomates.PetHolidays.Core.Application.Pets;
+
 public sealed class PetService(
     ApplicationDbContext dbContext,
     IValidator<PetEditDto> validator,
-    IUserService userService,
-    IPetTypeService petTypeService) : IPetService
+    IPetTypeService petTypeService,
+    IUserService userService) : IPetService
 {
     private readonly ApplicationDbContext _dbContext = dbContext;
     private readonly IValidator<PetEditDto> _validator = validator;
-    private readonly IUserService _userService = userService;
     private readonly IPetTypeService _petTypeService = petTypeService;
-
+    private readonly IUserService _userService = userService;
     public async Task<int> Create(string userId, PetEditDto dto)
     {
         _validator.ValidateAndThrow(dto);
@@ -36,32 +36,35 @@ public sealed class PetService(
         return pet.Id;
     }
 
-    public async Task Delete(int petId)
+    public async Task Delete(int petId, string userId)
     {
-        var entity = await FindEntityById(petId);
+        var entity = await FindEntityById(petId)
+                    ?? throw new NotFoundException(nameof(Pet), $"id: {petId}");
 
-        if (entity is null)
-            return;
+        if (entity.PetOwnerId != userId)
+            throw new UnauthorizedAccessException("You are not allowed to delete this pet");
 
         _dbContext.Remove(entity);
         await _dbContext.SaveChangesAsync();
     }
 
-    public async Task<PetView> GetById(int petId)
+    public async Task<PetView> GetById(int petId, string userId)
     {
         var pet = await FindEntityById(petId)
                        ?? throw new NotFoundException(nameof(Pet), $"id: {petId}");
+
+        if (pet.PetOwnerId != userId)
+            throw new UnauthorizedAccessException("You are not allowed to view this pet");
 
         return pet.Adapt<PetView>();
     }
 
     public async Task<IReadOnlyList<PetView>> GetByUserId(string userId)
-          => await _dbContext.Pets
-                           .Where(x => x.PetOwnerId == userId)
-                           .ProjectToType<PetView>()
-                           .ToListAsync();
+          => await _dbContext.Pets.Where(x => x.PetOwnerId == userId)
+                                  .ProjectToType<PetView>()
+                                  .ToListAsync();
 
-    public async Task Update(int petId, PetEditDto dto)
+    public async Task Update(int petId, string userId, PetEditDto dto)
     {
         _validator.ValidateAndThrow(dto);
 
@@ -70,16 +73,16 @@ public sealed class PetService(
         var entity = await FindEntityById(petId)
                   ?? throw new NotFoundException(nameof(Pet), $"id: {petId}");
 
+        if (entity.PetOwnerId != userId)
+            throw new BusinessLogicException("You are not allowed to update this pet");
+
         dto.Adapt(entity);
 
         await _dbContext.SaveChangesAsync();
     }
 
     private async Task<Pet?> FindEntityById(int petId)
-       => await _dbContext.Pets
-                       .Include(p=>p.PetType)
-                       .FirstOrDefaultAsync(x => x.Id == petId);
+       => await _dbContext.Pets.Include(p=>p.PetType)
+                               .FirstOrDefaultAsync(x => x.Id == petId);
 
 }
-
-
