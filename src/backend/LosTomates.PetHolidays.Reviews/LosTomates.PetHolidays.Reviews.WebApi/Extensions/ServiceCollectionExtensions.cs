@@ -1,4 +1,5 @@
-﻿using LosTomates.PetHolidays.Reviews.Application.Ratings;
+﻿using LosTomates.PetHolidays.Reviews.Application.DataSeed;
+using LosTomates.PetHolidays.Reviews.Application.Ratings;
 using LosTomates.PetHolidays.Reviews.Application.Reviews;
 using LosTomates.PetHolidays.Reviews.BackgroundTasks;
 using LosTomates.PetHolidays.Reviews.Data.Repositories;
@@ -65,6 +66,8 @@ internal static class ServiceCollectionExtensions
         services.AddScoped<RatingRepository>();
         services.AddScoped<ReviewRepository>();
         services.AddScoped<RatingUpdateRepository>();
+
+        services.AddScoped<SeedService>();
 
         return services;
     }

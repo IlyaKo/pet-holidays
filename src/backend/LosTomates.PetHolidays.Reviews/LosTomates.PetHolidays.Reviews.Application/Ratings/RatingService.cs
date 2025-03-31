@@ -66,7 +66,7 @@ public sealed class RatingService
             {
                 Entity = entity,
                 Reviews = reviews.Count(),
-                Average = (float) average
+                Average = (float) Math.Round(average, 1)
             };
 
             var dbEntry = await repository.GetFirstWhere(x => x.Entity.Type == entity.Type

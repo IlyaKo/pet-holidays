@@ -1,3 +1,4 @@
+using LosTomates.PetHolidays.Reviews.Application.DataSeed;
 using LosTomates.PetHolidays.Reviews.WebApi.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -5,6 +6,8 @@ var builder = WebApplication.CreateBuilder(args);
 AddServices(builder.Services, builder.Configuration);
 
 var app = builder.Build();
+
+await SeedData(app.Services);
 
 ConfigurePipeline(app);
 
@@ -32,4 +35,12 @@ void ConfigurePipeline(WebApplication app)
                                   .AllowAnyMethod());
 
     app.MapApplicationEndpoints();
+}
+
+async Task SeedData(IServiceProvider services)
+{
+    var scope = services.CreateScope();
+    var seedService = scope.ServiceProvider.GetRequiredService<SeedService>();
+
+    await seedService.SeedComments();
 }
