@@ -1,17 +1,6 @@
 import React, { useEffect, useState } from "react";
 import api from "../../shared/api";
 
-api.interceptors.request.use(
-  (config) => {
-    const token = localStorage.getItem("token");
-    if (token) {
-      config.headers.Authorization = `Bearer ${token}`;
-    }
-    return config;
-  },
-  (error) => Promise.reject(error)
-);
-
 export default function ProfilePage() {
   const [userProfile, setUserProfile] = useState(null);
   const [userID, setUserID] = useState(null);
