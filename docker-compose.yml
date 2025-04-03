@@ -67,9 +67,11 @@ services:
       - ASPNETCORE_ENVIRONMENT=Development
       - Minio__Endpoint=http://minio:9000
       - ConnectionStrings__RabbitMq=rabbitmq      
+      - MongoDB__ConnectionString=mongodb://mongoadmin:mongoadmin@mongodb-files:27017
+      - MongoDB__DatabaseName=petholidays
     depends_on:
       - minio
-      - mongodb
+      - mongodb-files
       - rabbitmq
     networks:
       - pet-holidays-network 
@@ -89,8 +91,8 @@ services:
     networks:
       - pet-holidays-network
 
-  mongodb:
-    container_name: mongodb
+  mongodb-files:
+    container_name: mongodb-files
     image: mongo:latest
     restart: always
     environment:
@@ -99,7 +101,7 @@ services:
     ports:
       - "27017:27017"  
     volumes:
-      - mongodb-data:/data/db
+      - mongodb-files-data:/data/db
     networks:
       - pet-holidays-network
 
@@ -131,6 +133,34 @@ services:
     networks:
       - pet-holidays-network
 
+  petholidays-reviews-service-webapi:
+    container_name: petholidays-reviews-service-webapi
+    build:
+      context: ./src/backend/LosTomates.PetHolidays.Reviews
+      dockerfile: LosTomates.PetHolidays.Reviews.WebApi/Dockerfile 
+    ports:
+      - "5004:8080"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__PetHolidaysReviewsDb=mongodb://mongoadmin:mongoadmin@mongodb-reviews:27017/      
+    depends_on:
+      - mongodb-reviews
+    networks:
+      - pet-holidays-network
+ 
+  mongodb-reviews:
+    image: mongo:latest
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: mongoadmin
+      MONGO_INITDB_ROOT_PASSWORD: mongoadmin
+    ports:
+      - "27018:27017"  
+    volumes:
+      - mongodb-reviews-data:/data/db
+    networks:
+      - pet-holidays-network
+
 networks:
   pet-holidays-network:
     driver: bridge
@@ -139,6 +169,7 @@ volumes:
   pet-holidays-core-volume:
   pet-holidays-auth-volume:
   minio-data:
-  mongodb-data:
+  mongodb-files-data:
+  mongodb-reviews-data:
   rabbit-data:
 
