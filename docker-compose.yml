@@ -67,6 +67,8 @@ services:
       - ASPNETCORE_ENVIRONMENT=Development
       - Minio__Endpoint=http://minio:9000
       - ConnectionStrings__RabbitMq=rabbitmq      
+      - MongoDB__ConnectionString=mongodb://mongoadmin:mongoadmin@mongodb-files:27017
+      - MongoDB__DatabaseName=petholidays
     depends_on:
       - minio
       - mongodb-files
@@ -132,6 +134,7 @@ services:
       - pet-holidays-network
 
   petholidays-reviews-service-webapi:
+    container_name: petholidays-reviews-service-webapi
     build:
       context: ./src/backend/LosTomates.PetHolidays.Reviews
       dockerfile: LosTomates.PetHolidays.Reviews.WebApi/Dockerfile 
