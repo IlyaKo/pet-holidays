@@ -3,6 +3,7 @@ using Microsoft.Extensions.Configuration;
 using System.Net.Http.Json;
 
 namespace LosTomates.PetHolidays.Core.Core.FileService;
+
 public class FileServiceClient : IFileServiceClient
 {
     private readonly HttpClient _httpClient;

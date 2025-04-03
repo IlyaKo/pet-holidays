@@ -1,6 +1,6 @@
 ﻿using LosTomates.PetHolidays.Core.Application.Bookings;
 
-namespace LosTomates.PetHolidays.Application.Bookings;
+namespace LosTomates.PetHolidays.Core.WebApi.Endpoints;
 
 public class BookingEndPoints
 {

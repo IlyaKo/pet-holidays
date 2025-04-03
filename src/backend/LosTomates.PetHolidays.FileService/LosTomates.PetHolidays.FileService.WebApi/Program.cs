@@ -36,6 +36,7 @@ builder.Services.AddSingleton<IMongoClient>(sp =>
     return new MongoClient(settings.ConnectionString);
 });
 
+builder.Services.AddRabbitMQ(builder.Configuration);
 
 var app = builder.Build();
 
