@@ -3,6 +3,8 @@ using LosTomates.PetHolidays.Core.Application.PetTypes;
 using LosTomates.PetHolidays.Core.Application.Users;
 using LosTomates.PetHolidays.Core.Core.Domain.Pets;
 using LosTomates.PetHolidays.Core.Core.Exceptions;
+using LosTomates.PetHolidays.Core.Core.Exchange;
+using LosTomates.PetHolidays.Core.Core.Shared;
 using LosTomates.PetHolidays.Core.DataAccess;
 using Mapster;
 using Microsoft.EntityFrameworkCore;
@@ -13,12 +15,15 @@ public sealed class PetService(
     ApplicationDbContext dbContext,
     IValidator<PetEditDto> validator,
     IPetTypeService petTypeService,
-    IUserService userService) : IPetService
+    IUserService userService,
+    IRabbitService rabbitService) : IPetService
 {
     private readonly ApplicationDbContext _dbContext = dbContext;
     private readonly IValidator<PetEditDto> _validator = validator;
     private readonly IPetTypeService _petTypeService = petTypeService;
     private readonly IUserService _userService = userService;
+    private readonly IRabbitService _rabbitService = rabbitService;
+
     public async Task<int> Create(string userId, PetEditDto dto)
     {
         _validator.ValidateAndThrow(dto);
@@ -46,6 +51,15 @@ public sealed class PetService(
 
         _dbContext.Remove(entity);
         await _dbContext.SaveChangesAsync();
+
+        var eventDto = new EntityDeletedEventDto
+        {
+            Type = SharedConstants.PetsEntityType,
+            Id = petId.ToString()
+        };
+        await rabbitService.SendEntityDeletedEvent(eventDto);
+
+
     }
 
     public async Task<PetView> GetById(int petId, string userId)
