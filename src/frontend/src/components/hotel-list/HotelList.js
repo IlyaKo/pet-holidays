@@ -13,22 +13,24 @@ function HotelList() {
   const [error, setError] = useState(null);
   const [hotelPhotos, setHotelPhotos] = useState({});
   const navigate = useNavigate();
+  const [hotelRatings, setHotelRatings] = useState({});
 
   useEffect(() => {
     axios
       .get(API_URL + "hotels")
       .then((response) => {
         setHotels(response.data);
+        response.data.forEach((hotel) => {
+          fetchHotelPhoto(hotel.id);
+          fetchHotelRating(hotel.id); 
+        });
       })
       .catch((error) => {
         setError(error);
       });
   }, []);
 
-  useEffect(() => {
-    hotels.forEach((hotel) => fetchHotelPhoto(hotel.id));
-  }, [hotels]);
-
+ 
   const fetchHotelPhoto = async (hotelId) => {
     try {
       const response = await axios.get(`${API_URL}hotels/${hotelId}/photo`);
@@ -40,21 +42,32 @@ function HotelList() {
     }
   };
 
+  const fetchHotelRating = async (hotelId) => {
+    try {
+      const response = await axios.get(`http://localhost:5004/api/ratings/hotels/${hotelId}`);
+      if (response.status === 200) {
+        setHotelRatings((prev) => ({
+          ...prev,
+          [hotelId]: response.data,
+        }));
+      }
+    } catch (error) {
+      console.error(`Error fetching rating for hotel ${hotelId}:`, error);
+    }
+  };
+
   const handleMakeReservation = (hotelId) => {
     navigate("/bookings/new?hotelId=" + hotelId);
   };
 
   const getReviewWord = (count) => {
-    if (count % 10 === 1 && count % 100 !== 11) return 'review';
-    if ([2, 3, 4].includes(count % 10) && ![12, 13, 14].includes(count % 100)) return 'reviews';
-    return 'reviews';
+    return count === 1 ? 'review' : 'reviews';
   };
-
   return (
     <>
-      {error && <div>Error: {error.message}</div>}
+     {error && <div>Error: {error.message}</div>}
 
-      <div className="hotel-list">
+<div className="hotel-list">
   {hotels.map((hotel) => (
     <div className="hotel-card" key={hotel.id}>
       <div className="hotel-image">
@@ -70,44 +83,39 @@ function HotelList() {
         </div>
 
         <p className="hotel-location">
-  <FaMapMarkerAlt className="location-icon" />
-  &nbsp;City center
-</p>
+          <FaMapMarkerAlt className="location-icon" />
+          &nbsp;City center
+        </p>
 
         <p className="hotel-description">{hotel.description}</p>
 
         <div className="hotel-bottom">
-            <div className="hotel-rating">
+          <div className="hotel-rating">
+            {hotelRatings[hotel.id] ? (
+              <>
                 <span className="rating-label">
-                     {hotel.reviewsCount
-                ? `${hotel.reviewsCount} ${getReviewWord(hotel.reviewsCount)}`
-        : 'No reviews'}
-    </span>
-    {hotel.rating && (
-      <span className="rating-score">
-        {hotel.rating.toFixed(1)}
-      </span>
-    )}
-  </div>
+                  {hotelRatings[hotel.id].reviews} {getReviewWord(hotelRatings[hotel.id].reviews)}
+                </span>
+                <span className="rating-score">
+                  {hotelRatings[hotel.id].average.toFixed(1)}
+                </span>
+              </>
+            ) : (
+              <span className="rating-label">No reviews</span>
+            )}
+          </div>
 
-  <button
-    className="show-prices"
-    onClick={() => navigate("/hotels/" + hotel.id)}
-  >
-    Show prices
-  </button>
-</div>
-
-
-
+          <button
+            className="show-prices"
+            onClick={() => navigate("/hotels/" + hotel.id)}
+          >
+            Show prices
+          </button>
+        </div>
       </div>
     </div>
   ))}
 </div>
-
-
-
-
     </>
   );
 }

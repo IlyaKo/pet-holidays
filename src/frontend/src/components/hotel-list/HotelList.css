@@ -83,8 +83,8 @@
   }
   
   .rating-score {
-    background-color: #003580;
-    color: white;
+    background-color: #fbbf24; 
+    color: #000000;            
     padding: 0.3rem 0.6rem;
     border-radius: 5px;
     font-weight: bold;
