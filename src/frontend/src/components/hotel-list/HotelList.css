@@ -1,1 +1,107 @@
-
+.hotel-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    max-width: 1400px;       
+    margin: 0 auto;           
+    padding: 1rem;
+  }
+  
+  .hotel-card {
+    display: flex;
+    border: 1px solid #2c2c2c;
+    border-radius: 10px;
+    overflow: hidden;
+    background-color: #1e1e1e; 
+    box-shadow: 0 0 6px rgba(0, 0, 0, 0.05);
+    min-height: 300px;      
+  }
+  
+  .hotel-image img {
+    width: 300px;
+    height: 300px;            
+    object-fit: cover;
+  }
+  
+  .hotel-info {
+    flex: 1;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    color: #e0e0e0; 
+  }
+  
+  .hotel-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .hotel-name {
+    font-size: 1.5rem;        
+    font-weight: 700;        
+    color: #00d1b2;           
+    margin-bottom: 0.3rem;
+     text-shadow: 0 1px 3px rgba(0,0,0,0.4);
+  }
+  
+  .hotel-location {
+    color: #ccc;
+    margin-top: 0.3rem;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+  .location-icon {
+    color: #f87171;
+  }
+  
+  .hotel-description {
+    margin: 0.5rem 0;
+    font-size: 0.95rem;
+    color: #ddd;
+  }
+  
+  .hotel-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 0.5rem;
+  }
+  
+  .hotel-rating {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+  
+  .rating-label {
+    font-size: 0.9rem;
+    color: #a3c4f3;
+  }
+  
+  .rating-score {
+    background-color: #003580;
+    color: white;
+    padding: 0.3rem 0.6rem;
+    border-radius: 5px;
+    font-weight: bold;
+    font-size: 1rem;
+  }
+  
+  .show-prices {
+    background-color: #0071c2;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+  }
+  
+  .show-prices:hover {
+    background-color: #005999;
+  }
+  

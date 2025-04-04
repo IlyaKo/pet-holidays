@@ -38,6 +38,34 @@ public static class FakeData
             IsActive = true,
             Description = "A luxurious getaway for your furry friends, offering spacious suites, gourmet meals, and plenty of playtime. Our dedicated staff ensures every guest feels right at home."
         },
+        new()
+        {
+            Id = 5,
+            Name = "Paws Elegant Resorts 7 Luxe",
+            IsActive = true,
+            Description = "A premium pet resort offering exceptional facilities, round-the-clock care, and an atmosphere of refined comfort."
+        },
+                new()
+        {
+            Id = 6,
+            Name = "Animal Hotel Marijke",
+            IsActive = true,
+            Description = "A cozy and trusted haven for pets, where every guest is treated like family with loving attention and professional care."
+        },
+        new()
+        {
+            Id = 7,
+            Name = "The Paw House",
+            IsActive = true,
+            Description = "Modern and stylish pet accommodation in the heart of city, combining comfort, play, and attentive service for your beloved companions."
+        },
+        new()
+        {
+            Id = 8,
+            Name = "Cats Hotel Lorenzo",
+            IsActive = true,
+            Description = "An exclusive boutique hotel for cats, designed with feline comfort in mind—quiet, clean, and full of cozy nooks to nap and play."
+        },
 
     ];
 
