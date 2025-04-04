@@ -97,9 +97,18 @@ export default function Layout() {
               </NavLink>
             </>
           ) : (
-            <button className="navbar-item" onClick={onLogoutClick}>
-              Logout
-            </button>
+            <>
+              <NavLink
+                className="navbar-item"
+                to="/profile"
+              >
+                Profile
+              </NavLink>
+              <button className="navbar-item" onClick={onLogoutClick}>
+                Logout
+              </button>
+            </>
+            
           )}
         </div>
         <div className="navbar-end is-flex is-align-items-center">
